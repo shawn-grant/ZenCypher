@@ -16,13 +16,13 @@
 #define SYMBOL_SPECIFIER "<[@]>"
 #define INCREMENT 5
 
-char lettersUpr[26] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
+const char lettersUpr[26] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
                         'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
 
-char lettersLwr[26] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
+const char lettersLwr[26] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
                         'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
 
-char codes[26] =      {'x', '+', '-', '_', 'V', ';', '/', '[', ']', '{', '}', ':', '?',
+const char codes[26] =      {'x', '+', '-', '_', 'V', ';', '/', '[', ']', '{', '}', ':', '?',
                         '!', '@', '#', '%', '6', '^', '&', '*', '(', ')', '<', '>', 'z'};
 
 void Encode(TextCypher cypher)

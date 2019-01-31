@@ -13,6 +13,26 @@ void strReplace(char text[] ,char oldTxt[], char newTxt[])
 
 }
 
+int strEndsWith(char str[], char ending[])
+{
+    int i, j, result;
+    j = strlen(str);
+
+    for (i = strlen(ending); i >= 0; i--)
+    {
+        if(str[j] == ending[i] && result != 0)
+        {
+            result = 1;
+        }else
+        {
+            result = 0;
+        }
+        j--;
+    }
+
+    return result;//return 1 if str does end with ending
+}
+
 void strRemove(char text[] ,char oldTxt[], int at)
 {
 

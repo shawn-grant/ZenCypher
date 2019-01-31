@@ -33,6 +33,7 @@ void strReplace(char [], char [], char []);
 void strRemove(char text[] ,char oldTxt[], int);
 void strInsert(char [] ,char [], int);
 int strIndexOf(char, char[]);
+int strEndsWith(char[], char[]);
 //history
 void AddToHistory(TextCypher);
 void ShowHistory();

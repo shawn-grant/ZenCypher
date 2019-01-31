@@ -118,6 +118,7 @@ char MainMenu()
     system("cls");
 
     printf ("A) ENCODE TEXT\n");
+    CreateButton("ENCODE");
     printf ("B) DECODE TEXT\n");
     printf ("C) NEW FROM FILE\n");
     printf ("D) SHOW HISTORY\n");

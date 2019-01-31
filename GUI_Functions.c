@@ -7,6 +7,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <conio.h>
 #include <windows.h>
 
 ///custom function to create a textbox for input (inspired by scanf)
@@ -69,19 +70,46 @@ void CreateLargeTextBox(char specifier[], void *var)
 ///custom function to create a button
 void CreateButton(char label[])
 {
-    COORD coord;//where to put the cursor
+    COORD pos1, pos2;//where to put the cursor
     CONSOLE_SCREEN_BUFFER_INFO cursor;//the cursor
 
     GetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &cursor);
+    pos1.X = cursor.dwCursorPosition.X;
+    pos1.Y = cursor.dwCursorPosition.Y;
 
-    printf(" ________________________\n");
-    printf("|    %15s|\n", label);
-    printf("|________________________|\n");
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_GREEN);
+    printf(" _________________\n");
+    printf("|   %-12s  |\n", label);
+    printf("|_________________|\n");
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 
-    coord.X = cursor.dwCursorPosition.X + 1;
-    coord.Y = cursor.dwCursorPosition.Y + 2;
+    GetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &cursor);
+    pos2.X = cursor.dwCursorPosition.X;
+    pos2.Y = cursor.dwCursorPosition.Y;
 
-    coord.Y += 2;
-    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+    cursor.dwCursorPosition.Y += 2;
+    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), cursor.dwCursorPosition);
+
+    ClickCheck(pos1, pos2);
 }
 
+//listen for click events by buttons
+void ClickCheck (COORD pos1, COORD pos2) //void (*f)())
+{
+    CONSOLE_SCREEN_BUFFER_INFO cursor;//the cursor
+
+    while(1)
+    {
+        GetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &cursor);
+
+        if(cursor.dwCursorPosition.X > pos1.X && cursor.dwCursorPosition.X < pos2.X)
+        {
+            if(cursor.dwCursorPosition.Y > pos1.Y && cursor.dwCursorPosition.Y < pos2.Y)
+            {
+                ///click registered
+                printf("\nSomething was clicked\n");
+                //(*f)();
+            }
+        }
+    }
+}
