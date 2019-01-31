@@ -1,0 +1,41 @@
+# depslib dependency file v1.0
+1548509264 source:f:\school\com_sci\zencypher\cypherhistory.c
+	<stdio.h>
+	"CYPHER.H"
+
+1548641312 source:f:\school\com_sci\zencypher\encoderdecoder.c
+	<string.h>
+	<ctype.h>
+	<stdio.h>
+	"CYPHER.H"
+
+1548631010 source:f:\school\com_sci\zencypher\stringmanipulator.c
+	<string.h>
+	<stdio.h>
+
+1548630936 f:\school\com_sci\zencypher\cypher.h
+
+1548641394 source:f:\school\com_sci\zencypher\main.c
+	<stdio.h>
+	<stdlib.h>
+	<windows.h>
+	<string.h>
+	<conio.h>
+	"CYPHER.H"
+
+1548677922 source:e:\school\com_sci\zencypher\cypherhistory.c
+	<stdio.h>
+	"CYPHER.H"
+
+1548677982 e:\school\com_sci\zencypher\cypher.h
+
+1548677906 source:e:\school\com_sci\zencypher\encoderdecoder.c
+	<string.h>
+	<ctype.h>
+	<stdio.h>
+	"CYPHER.H"
+
+1548677772 source:e:\school\com_sci\zencypher\stringmanipulator.c
+	<string.h>
+	<stdio.h>
+
