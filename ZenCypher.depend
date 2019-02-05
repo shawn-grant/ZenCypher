@@ -3,19 +3,19 @@
 	<stdio.h>
 	"CYPHER.H"
 
-1548905140 source:f:\school\com_sci\zencypher\encoderdecoder.c
+1548947640 source:f:\school\com_sci\zencypher\encoderdecoder.c
 	<string.h>
 	<ctype.h>
 	<stdio.h>
 	"CYPHER.H"
 
-1548905806 source:f:\school\com_sci\zencypher\stringmanipulator.c
+1549162076 source:f:\school\com_sci\zencypher\stringmanipulator.c
 	<string.h>
 	<stdio.h>
 
-1548905316 f:\school\com_sci\zencypher\cypher.h
+1549029952 f:\school\com_sci\zencypher\cypher.h
 
-1548905718 source:f:\school\com_sci\zencypher\main.c
+1549242398 source:f:\school\com_sci\zencypher\main.c
 	<stdio.h>
 	<stdlib.h>
 	<windows.h>
@@ -27,19 +27,63 @@
 	<stdio.h>
 	"CYPHER.H"
 
-1548677982 e:\school\com_sci\zencypher\cypher.h
+1549029952 e:\school\com_sci\zencypher\cypher.h
 
-1548677906 source:e:\school\com_sci\zencypher\encoderdecoder.c
+1548947640 source:e:\school\com_sci\zencypher\encoderdecoder.c
 	<string.h>
 	<ctype.h>
 	<stdio.h>
 	"CYPHER.H"
 
-1548677772 source:e:\school\com_sci\zencypher\stringmanipulator.c
+1549162076 source:e:\school\com_sci\zencypher\stringmanipulator.c
 	<string.h>
 	<stdio.h>
 
-1548904912 source:f:\school\com_sci\zencypher\gui_functions.c
+1549226608 source:f:\school\com_sci\zencypher\gui_functions.c
+	<stdio.h>
+	<stdlib.h>
+	<conio.h>
+	<windows.h>
+
+1549307564 source:e:\school\com_sci\zencypher\main.c
+	<stdio.h>
+	<stdlib.h>
+	<windows.h>
+	<string.h>
+	<conio.h>
+	"CYPHER.H"
+
+1548677922 source:d:\school\com_sci\zencypher\cypherhistory.c
+	<stdio.h>
+	"CYPHER.H"
+
+1549029952 d:\school\com_sci\zencypher\cypher.h
+
+1548947640 source:d:\school\com_sci\zencypher\encoderdecoder.c
+	<string.h>
+	<ctype.h>
+	<stdio.h>
+	"CYPHER.H"
+
+1549307676 source:d:\school\com_sci\zencypher\gui_functions.c
+	<stdio.h>
+	<stdlib.h>
+	<conio.h>
+	<windows.h>
+
+1549307564 source:d:\school\com_sci\zencypher\main.c
+	<stdio.h>
+	<stdlib.h>
+	<windows.h>
+	<string.h>
+	<conio.h>
+	"CYPHER.H"
+
+1549162076 source:d:\school\com_sci\zencypher\stringmanipulator.c
+	<string.h>
+	<stdio.h>
+
+1549309872 source:e:\school\com_sci\zencypher\gui_functions.c
 	<stdio.h>
 	<stdlib.h>
 	<conio.h>

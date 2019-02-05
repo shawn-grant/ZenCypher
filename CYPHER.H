@@ -23,10 +23,17 @@ typedef struct
     char reciever[30];
 }TextCypher;
 
+///data type to hold the user
+typedef struct
+{
+    char username[25];
+    char password[25];
+}User;
+
 //encoding
 void Encode(TextCypher);
 void Decode(TextCypher);
-void SaveToFile(char []);
+void SaveToFile(TextCypher);
 void OpenFromFile();
 //string
 void strReplace(char [], char [], char []);
@@ -39,5 +46,7 @@ void AddToHistory(TextCypher);
 void ShowHistory();
 void RemoveItem(int);
 void Clear();
+
+void ShowLoading();
 
 #endif // CYPHER_H_INCLUDED

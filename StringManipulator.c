@@ -13,6 +13,7 @@ void strReplace(char text[] ,char oldTxt[], char newTxt[])
 
 }
 
+///Function to determine if a string ends with the specified ending
 int strEndsWith(char str[], char ending[])
 {
     int i, j, result;
@@ -38,11 +39,11 @@ void strRemove(char text[] ,char oldTxt[], int at)
 
 }
 
+///this function inserts a string 'strVal' into 'text' at index 'at'
 void strInsert(char text[] ,char strVal[], int at)
 {
     char insertedTxt[500];
 
-    ///this function inserts a string 'strVal' into 'text' at index 'at'
     strncpy(insertedTxt, text, at);
     insertedTxt[at] = '\0';
     strcat(insertedTxt, strVal);
@@ -53,6 +54,7 @@ void strInsert(char text[] ,char strVal[], int at)
     strcpy(text, insertedTxt);
 }
 
+///Find the index of a character in a string
 int strIndexOf(char of, char in[])
 {
     int index = 0;

@@ -13,18 +13,18 @@
 #include "CYPHER.H"
 
 void SplashScreen();
-void Login(char []);
+void LoginSignUp(User);
 char MainMenu();
 void GoodBye();
 
 int main()
 {
     TextCypher userInput;
-    char username[30];
+    User user;
     char choice;
 
     SplashScreen();
-    Login(username);
+    LoginSignUp(user);
 
     choice = MainMenu();
 
@@ -100,16 +100,57 @@ void SplashScreen()
     system("cls");
 }
 
-void Login(char uName[])
+void LoginSignUp(User user)
 {
     SetConsoleTitleA("LOGIN");
 
-    printf("ENTER USERNAME: \n");
-    CreateTextBox("%s", uName);
-    fflush(stdin);
+    char nameOnFile[25], passwordOnFile[25];
+    FILE *fp;
 
-    printf("Username: %s", uName);
-    getch();
+    if((fp = fopen("userData.dat", "w+")) != NULL)
+    {
+        fscanf(fp, "%s", nameOnFile);
+        fscanf(fp, "%s", passwordOnFile);
+
+        //check if to sign up or login
+        if(strcmp(nameOnFile, "") !=0)
+        {
+            //login
+            do
+            {
+                printf("LOGIN \n\n");
+                printf("ENTER USERNAME: \n");
+                CreateTextBox("%s", user.username, 0);
+                printf("ENTER PASSWORD: \n");
+                CreateTextBox("%s", user.password, 1);
+                system("cls");
+            }
+            while(strcmp(user.username, "") != 0 && strcmp(user.password, "") != 0);
+
+            //save to file
+            //fwrite(,,fp);
+        }
+        else
+        {
+            //sign up
+            do
+            {
+                printf("SIGN UP \n\n");
+                printf("ENTER USERNAME: \n");
+                CreateTextBox("%s", user.username, 0);
+                printf("ENTER PASSWORD: \n");
+                CreateTextBox("%s", user.password, 1);
+                system("cls");
+            }
+            while(strcmp(user.username, "") != 0 && strcmp(user.password, "") != 0 &&
+                   strcmp(user.username, nameOnFile) == 0 && strcmp(user.password, passwordOnFile) == 0);
+        }
+
+        fclose(fp);
+    }else
+    {
+        printf("\nCANNOT LOAD USER DATA... RESTART THE PROGRAM");
+    }
 }
 
 char MainMenu()
@@ -118,7 +159,6 @@ char MainMenu()
     system("cls");
 
     printf ("A) ENCODE TEXT\n");
-    CreateButton("ENCODE");
     printf ("B) DECODE TEXT\n");
     printf ("C) NEW FROM FILE\n");
     printf ("D) SHOW HISTORY\n");
@@ -133,4 +173,25 @@ char MainMenu()
 void GoodBye()
 {
     system("cls");
+    int i;
+    for (i = 0; i > 3; i++)
+    {
+        printf("\t     @@@@@@@@@@     \n");
+        printf("\t     @@@    @@@     \n");
+        printf("\t     @@@    @@@     \n");
+        printf("\t     @@@    @@@     \n");
+
+        printf("\t     @@@            \n");
+        printf("\t     @@@            \n");
+        printf("\t     @@@            \n");
+
+        printf("\t  @@@@@@@@@@@@@@@@  \n");
+        printf("\t  @@@@@@@@@@@@@@@@  \n");
+        printf("\t  @@@@@@  O  @@@@@  \n");
+        printf("\t  @@@@@@@@ @@@@@@@  \n");
+        printf("\t  @@@@@@@@ @@@@@@@  \n");
+        printf("\t  @@@@@@@@ @@@@@@@  \n");
+        printf("\t  @@@@@@@@@@@@@@@@  \n");
+    }
+    Sleep(1000);
 }

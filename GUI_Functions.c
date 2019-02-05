@@ -10,31 +10,68 @@
 #include <conio.h>
 #include <windows.h>
 
-///custom function to create a textbox for input (inspired by scanf)
-void CreateTextBox(char specifier[], void *var)
+void CreateTextBox(char [], void *, int);
+void CreateLargeTextBox(char [], void *);
+
+///custom function to create a textbox for input; includes password hiding (inspired by scanf)
+void CreateTextBox(char specifier[], void *var, int isProtected)
 {
     COORD coord;//where to put the cursor
     CONSOLE_SCREEN_BUFFER_INFO cursor;//the cursor
+    char c, password[25];
+    int i = 0;
 
-    GetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &cursor);
+    GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &cursor);
 
     printf(" ________________________\n");
     printf("|                        |\n");
     printf("|________________________|\n");
 
+    ///positioning the cursor inside the box
     coord.X = cursor.dwCursorPosition.X + 1;
-    coord.Y = cursor.dwCursorPosition.Y + 2;
+    coord.Y = cursor.dwCursorPosition.Y + 1;
 
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 
-    if(strcmp(specifier, "%s") == 0)
+    ///reading the variable
+    if(strcmp(specifier, "%s") != 0)//not a string
     {
         scanf(specifier, var);
-    }else
+    }
+    else//is a string
     {
-        gets(var);
+        if(isProtected == 1)///if isProtected = 1, display asterisks to hide the text
+        {
+            //print asterisks
+            while((c = getch()) != '\r')
+            {
+                if(c == '\b')//backspace pressed
+                {
+                    if(strlen(password) > 0)//if the string is empty
+                    {
+                        password[strlen(password)-1] = '\0';
+                        printf("\b");
+                    }
+                }
+                else
+                {
+                   if(isalpha(c) != 0 || isdigit(c) == 1)
+                    {
+                       password[i] = c;
+                        printf("*");
+                        i++;
+                    }
+                }
+            }
+            strcpy(var, password);
+        }
+        else//regular string
+        {
+            gets(var);
+        }
     }
 
+    ///re-place the cursor outside the box
     coord.Y += 2;
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 }
@@ -45,17 +82,20 @@ void CreateLargeTextBox(char specifier[], void *var)
     COORD coord;//where to put the cursor
     CONSOLE_SCREEN_BUFFER_INFO cursor;//the cursor
 
-    GetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &cursor);
+    GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &cursor);
 
     printf(" ___________________________________________________________\n");
     printf("|                                                           |\n");
     printf("|___________________________________________________________|\n");
 
+    ///positioning the cursor inside the box
     coord.X = cursor.dwCursorPosition.X + 1;
-    coord.Y = cursor.dwCursorPosition.Y + 2;
+    coord.Y = cursor.dwCursorPosition.Y + 1;
 
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
-    if(strcmp(specifier, "%s") == 0)
+
+    ///reading the variable
+    if(strcmp(specifier, "%s") != 0)
     {
         scanf(specifier, var);
     }else
@@ -63,53 +103,46 @@ void CreateLargeTextBox(char specifier[], void *var)
         gets(var);
     }
 
+    ///re-place the cursor outside the box
     coord.Y += 2;
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 }
 
-///custom function to create a button
-void CreateButton(char label[])
+void ShowLoading()
 {
-    COORD pos1, pos2;//where to put the cursor
-    CONSOLE_SCREEN_BUFFER_INFO cursor;//the cursor
+    int i, j = 0;
+    char space[10] = "";
 
-    GetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &cursor);
-    pos1.X = cursor.dwCursorPosition.X;
-    pos1.Y = cursor.dwCursorPosition.Y;
-
-    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_GREEN);
-    printf(" _________________\n");
-    printf("|   %-12s  |\n", label);
-    printf("|_________________|\n");
-    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
-
-    GetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &cursor);
-    pos2.X = cursor.dwCursorPosition.X;
-    pos2.Y = cursor.dwCursorPosition.Y;
-
-    cursor.dwCursorPosition.Y += 2;
-    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), cursor.dwCursorPosition);
-
-    ClickCheck(pos1, pos2);
-}
-
-//listen for click events by buttons
-void ClickCheck (COORD pos1, COORD pos2) //void (*f)())
-{
-    CONSOLE_SCREEN_BUFFER_INFO cursor;//the cursor
-
-    while(1)
+    for (i = 0; i < 20; i++)
     {
-        GetConsoleCursorInfo(GetStdHandle(STD_OUTPUT_HANDLE), &cursor);
+        system("cls");
 
-        if(cursor.dwCursorPosition.X > pos1.X && cursor.dwCursorPosition.X < pos2.X)
+        printf("     ENCODING ....\n");
+        printf("\t   ####  %s  ###### \n", space);
+        printf("\t   #  #  %s ###--###\n", space);
+        printf("\t   #  #  %s  ###### \n", space);
+        printf("\t ########%s    ##   \n", space);
+        printf("\t ########%s    ##   \n", space);
+        printf("\t ########%s    ##   \n", space);
+        printf("\t ########\n", space);
+
+        if(j <= 5)
         {
-            if(cursor.dwCursorPosition.Y > pos1.Y && cursor.dwCursorPosition.Y < pos2.Y)
-            {
-                ///click registered
-                printf("\nSomething was clicked\n");
-                //(*f)();
-            }
+            strcat(space, " ");
+            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
         }
+        else
+        {
+            space[strlen(space) - 1] = '\0';
+            if(j == 10)
+            {
+                j = 0;
+            }
+            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 2);
+        }
+        j++;
+        Sleep(50);
     }
+
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
 }

@@ -39,6 +39,7 @@ void Encode(TextCypher cypher)
     newStringLength = strlen(cypher.original);
     strcpy(newTxt, cypher.original);
 
+    ShowLoading();
     //encoding process
     for (i = 0; i < newStringLength; i++)
     {
@@ -84,12 +85,44 @@ void Encode(TextCypher cypher)
 
 void Decode(TextCypher cypher)
 {
+    char newTxt[700];
+    int i, index, newStringLength;
 
+    system("cls");
+    fflush(stdin);
+
+    printf("ENTER TEXT (ENCCODE):\n");
+    CreateLargeTextBox("%s", cypher.original);
+
+    newStringLength = strlen(cypher.original);
+    strcpy(newTxt, cypher.original);
+
+    ShowLoading();
 }
 
-void SaveToFile(char encodedTxt[])
+void SaveToFile(TextCypher cypher)
 {
+    char fName[25];
+    FILE *fp;
 
+    printf("ENTER A FILENAME: \n");
+    CreateTextBox("%s", fName, 0);
+
+    while(strcmp(fName, "") == 0)
+    {
+        printf("ENTER A VALID FILENAME: \n");
+        CreateTextBox("%s", fName, 0);
+    }
+
+    strcat(fName, ".cyph");
+
+    if((fp = fopen(fName, "w")) != NULL)
+    {
+        fwrite(cypher, sizeof(TextCypher), 1, fp);
+    }else
+    {
+        printf("=( File cannot be saved...");
+    }
 }
 
 void OpenFromFile()
