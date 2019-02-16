@@ -8,13 +8,6 @@
 #ifndef CYPHER_H_INCLUDED
 #define CYPHER_H_INCLUDED
 
-typedef struct
-{
-    int day;
-    int month;
-    int year;
-}Date;
-
 ///data type to hold the before and after text of an encryption
 typedef struct
 {

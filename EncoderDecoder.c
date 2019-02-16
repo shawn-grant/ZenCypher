@@ -33,6 +33,8 @@ void Encode(TextCypher cypher)
     system("cls");
     fflush(stdin);
 
+    printf("ENTER RECIPIENT USERNAME:\n");
+    CreateTextBox("%s", cypher.reciever, 0);
     printf("ENTER TEXT (ENGLISH):\n");
     CreateLargeTextBox("%s", cypher.original);
 
@@ -77,6 +79,8 @@ void Encode(TextCypher cypher)
         }
     }
 
+    ///add recipient name to the code
+
     printf("\nENCODED TEXT: \n %s", newTxt);
     strcpy (cypher.encoded, newTxt);
 
@@ -110,7 +114,7 @@ void SaveToFile(TextCypher cypher)
 
     while(strcmp(fName, "") == 0)
     {
-        printf("ENTER A VALID FILENAME: \n");
+        printf("**ENTER A VALID FILENAME: \n");
         CreateTextBox("%s", fName, 0);
     }
 
@@ -118,7 +122,7 @@ void SaveToFile(TextCypher cypher)
 
     if((fp = fopen(fName, "w")) != NULL)
     {
-        fwrite(cypher, sizeof(TextCypher), 1, fp);
+        fwrite(&cypher, sizeof(TextCypher), 1, fp);
     }else
     {
         printf("=( File cannot be saved...");

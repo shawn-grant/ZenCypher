@@ -113,34 +113,19 @@ void ShowLoading()
     int i, j = 0;
     char space[10] = "";
 
-    for (i = 0; i < 20; i++)
+    for (i = 0; i < 13; i++)
     {
         system("cls");
 
         printf("     ENCODING ....\n");
-        printf("\t   ####  %s  ###### \n", space);
-        printf("\t   #  #  %s ###--###\n", space);
-        printf("\t   #  #  %s  ###### \n", space);
-        printf("\t ########%s    ##   \n", space);
-        printf("\t ########%s    ##   \n", space);
-        printf("\t ########%s    ##   \n", space);
-        printf("\t ########\n", space);
 
-        if(j <= 5)
-        {
-            strcat(space, " ");
-            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
-        }
-        else
-        {
-            space[strlen(space) - 1] = '\0';
-            if(j == 10)
-            {
-                j = 0;
-            }
-            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 2);
-        }
-        j++;
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 2);
+
+        printf("\t _____________\n");
+        printf("\t|%-13s|\n", space);
+        printf("\t|_____________|\n");
+
+        strcat(space, "@");
         Sleep(50);
     }
 

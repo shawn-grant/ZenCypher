@@ -109,11 +109,11 @@ void LoginSignUp(User user)
 
     if((fp = fopen("userData.dat", "w+")) != NULL)
     {
-        fscanf(fp, "%s", nameOnFile);
-        fscanf(fp, "%s", passwordOnFile);
+        fscanf(fp, "%s %s", nameOnFile, passwordOnFile);
+        printf("pwd = %s, uname = %s", passwordOnFile, nameOnFile);
 
         //check if to sign up or login
-        if(strcmp(nameOnFile, "") !=0)
+        if(strcmp(nameOnFile, "") != 0)//not equal, something is on file
         {
             //login
             do
@@ -125,10 +125,7 @@ void LoginSignUp(User user)
                 CreateTextBox("%s", user.password, 1);
                 system("cls");
             }
-            while(strcmp(user.username, "") != 0 && strcmp(user.password, "") != 0);
-
-            //save to file
-            //fwrite(,,fp);
+            while(strcmp(user.username, nameOnFile) != 0 || strcmp(user.password, passwordOnFile) != 0);
         }
         else
         {
@@ -142,8 +139,9 @@ void LoginSignUp(User user)
                 CreateTextBox("%s", user.password, 1);
                 system("cls");
             }
-            while(strcmp(user.username, "") != 0 && strcmp(user.password, "") != 0 &&
-                   strcmp(user.username, nameOnFile) == 0 && strcmp(user.password, passwordOnFile) == 0);
+            while(strcmp(user.username, "") == 0 || strcmp(user.password, "") == 0);
+
+            fprintf(fp, "%s %s", user.username, user.password);
         }
 
         fclose(fp);
@@ -158,8 +156,8 @@ char MainMenu()
     char c;
     system("cls");
 
-    printf ("A) ENCODE TEXT\n");
-    printf ("B) DECODE TEXT\n");
+    printf ("A) ENCODE A MESSAGE\n");
+    printf ("B) DECODE A MESSAGE\n");
     printf ("C) NEW FROM FILE\n");
     printf ("D) SHOW HISTORY\n");
     printf ("E) EXIT\n\n");
@@ -193,5 +191,5 @@ void GoodBye()
         printf("\t  @@@@@@@@ @@@@@@@  \n");
         printf("\t  @@@@@@@@@@@@@@@@  \n");
     }
-    Sleep(1000);
+
 }
