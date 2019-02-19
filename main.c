@@ -13,7 +13,7 @@
 #include "CYPHER.H"
 
 void SplashScreen();
-void LoginSignUp(User);
+void LoginSignUp(User *, int *);
 char MainMenu();
 void GoodBye();
 
@@ -22,49 +22,52 @@ int main()
     TextCypher userInput;
     User user;
     char choice;
+    int loggedIn;
 
     SplashScreen();
-    LoginSignUp(user);
+    LoginSignUp(&user, &loggedIn);
 
-    choice = MainMenu();
-
-    while(choice != 'E' && choice != 'e')
+    ///If user successfully logged in
+    if(loggedIn == 1)
     {
-        switch(choice)
-        {
-        case 'A':
-        case 'a':
-            Encode(userInput);
-            break;
-
-        case 'B':
-        case 'b':
-            Decode(userInput);
-            break;
-
-        case 'C':
-        case 'c':
-            OpenFromFile();
-            break;
-
-        case 'D':
-        case 'd':
-            ShowHistory();
-            break;
-
-        default:
-            printf("\nINVALID OPTION!\n");
-            printf("Press any key to continue...");
-            getch();
-            break;
-        }
-
         choice = MainMenu();
-        SetConsoleTitleA("ZEN CYPHER");
+
+        while(choice != 'E' && choice != 'e')
+        {
+            switch(choice)
+            {
+            case 'A':
+            case 'a':
+                Encode(userInput);
+                break;
+
+            case 'B':
+            case 'b':
+                Decode(userInput);
+                break;
+
+            case 'C':
+            case 'c':
+                OpenFromFile();
+                break;
+
+            case 'D':
+            case 'd':
+                ShowHistory();
+                break;
+
+            default:
+                printf("\nINVALID OPTION!\n");
+                printf("Press any key to continue...");
+                getch();
+                break;
+            }
+
+            choice = MainMenu();
+        }
     }
 
-    GoodBye();
-
+    GoodBye();///leave the program
     return 0;
 }
 
@@ -100,17 +103,17 @@ void SplashScreen()
     system("cls");
 }
 
-void LoginSignUp(User user)
+void LoginSignUp(User *user, int *loggedIn)
 {
-    SetConsoleTitleA("LOGIN");
+    SetConsoleTitleA("LOGIN / SIGN-UP");
 
     char nameOnFile[25], passwordOnFile[25];
-    FILE *fp;
+    FILE *fpRead, *fpWrite;
 
-    if((fp = fopen("userData.dat", "w+")) != NULL)
+    if((fpRead = fopen("userData.dat", "a+")) != NULL)
     {
-        fscanf(fp, "%s %s", nameOnFile, passwordOnFile);
-        printf("pwd = %s, uname = %s", passwordOnFile, nameOnFile);
+        fscanf(fpRead, "%s %s", nameOnFile, passwordOnFile);
+        printf("pwd = %s, uname = %s \n", passwordOnFile, nameOnFile);
 
         //check if to sign up or login
         if(strcmp(nameOnFile, "") != 0)//not equal, something is on file
@@ -120,12 +123,14 @@ void LoginSignUp(User user)
             {
                 printf("LOGIN \n\n");
                 printf("ENTER USERNAME: \n");
-                CreateTextBox("%s", user.username, 0);
+                CreateTextBox("%s", user->username, 0);
                 printf("ENTER PASSWORD: \n");
-                CreateTextBox("%s", user.password, 1);
+                CreateTextBox("%s", user->password, 1);
                 system("cls");
             }
-            while(strcmp(user.username, nameOnFile) != 0 || strcmp(user.password, passwordOnFile) != 0);
+            while(strcmp(user->username, nameOnFile) != 0 || strcmp(user->password, passwordOnFile) != 0);
+
+            *loggedIn = 1;
         }
         else
         {
@@ -134,20 +139,33 @@ void LoginSignUp(User user)
             {
                 printf("SIGN UP \n\n");
                 printf("ENTER USERNAME: \n");
-                CreateTextBox("%s", user.username, 0);
+                CreateTextBox("%s", user->username, 0);
                 printf("ENTER PASSWORD: \n");
-                CreateTextBox("%s", user.password, 1);
+                CreateTextBox("%s", user->password, 1);
                 system("cls");
             }
-            while(strcmp(user.username, "") == 0 || strcmp(user.password, "") == 0);
+            while(strcmp(user->username, "") == 0 || strcmp(user->password, "") == 0);
 
-            fprintf(fp, "%s %s", user.username, user.password);
+            ///write the new user to file
+            if((fpWrite = fopen("userData.dat", "w")) != NULL)
+            {
+                fprintf(fpWrite, "%s %s", user->username, user->password);
+                *loggedIn = 1;//user logged in
+                fclose(fpWrite);
+            }else
+            {
+                printf("\nCANNOT SAVE USER DATA... RESTART THE PROGRAM");
+                *loggedIn = 0;//user not logged in
+                getch();
+            }
         }
-
-        fclose(fp);
-    }else
+        fclose(fpRead);
+    }
+    else
     {
         printf("\nCANNOT LOAD USER DATA... RESTART THE PROGRAM");
+        *loggedIn = 0;//user not logged in
+        getch();
     }
 }
 
@@ -155,6 +173,8 @@ char MainMenu()
 {
     char c;
     system("cls");
+
+    SetConsoleTitleA("Main Menu | ZEN CYPHER");
 
     printf ("A) ENCODE A MESSAGE\n");
     printf ("B) DECODE A MESSAGE\n");
@@ -171,25 +191,15 @@ char MainMenu()
 void GoodBye()
 {
     system("cls");
-    int i;
-    for (i = 0; i > 3; i++)
-    {
-        printf("\t     @@@@@@@@@@     \n");
-        printf("\t     @@@    @@@     \n");
-        printf("\t     @@@    @@@     \n");
-        printf("\t     @@@    @@@     \n");
-
-        printf("\t     @@@            \n");
-        printf("\t     @@@            \n");
-        printf("\t     @@@            \n");
-
-        printf("\t  @@@@@@@@@@@@@@@@  \n");
-        printf("\t  @@@@@@@@@@@@@@@@  \n");
-        printf("\t  @@@@@@  O  @@@@@  \n");
-        printf("\t  @@@@@@@@ @@@@@@@  \n");
-        printf("\t  @@@@@@@@ @@@@@@@  \n");
-        printf("\t  @@@@@@@@ @@@@@@@  \n");
-        printf("\t  @@@@@@@@@@@@@@@@  \n");
-    }
-
+    printf("\t     @@@@@@@@@@     \n");
+    printf("\t     @@@    @@@     \n");
+    printf("\t     @@@    @@@     \n");
+    printf("\t     @@@    @@@     \n");
+    printf("\t  @@@@@@@@@@@@@@@@  \n");
+    printf("\t  @@@@@@@@@@@@@@@@  \n");
+    printf("\t  @@@@@@  O  @@@@@  \n");
+    printf("\t  @@@@@@@@ @@@@@@@  \n");
+    printf("\t  @@@@@@@@ @@@@@@@  \n");
+    printf("\t  @@@@@@@@ @@@@@@@  \n");
+    printf("\t  @@@@@@@@@@@@@@@@  \n");
 }

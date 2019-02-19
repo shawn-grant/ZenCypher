@@ -43,21 +43,25 @@ void CreateTextBox(char specifier[], void *var, int isProtected)
         if(isProtected == 1)///if isProtected = 1, display asterisks to hide the text
         {
             //print asterisks
-            while((c = getch()) != '\r')
+            while((c = getch()) != '\r')//return or enter key
             {
                 if(c == '\b')//backspace pressed
                 {
-                    if(strlen(password) > 0)//if the string is empty
+                    ///manually remove perform backspace action
+                    if(strlen(password) > 0)
                     {
-                        password[strlen(password)-1] = '\0';
-                        printf("\b");
+                        password[strlen(password)-1] = '\0';//remove last character
+                        printf("\b \b");
+                        i--;
                     }
                 }
                 else
                 {
-                   if(isalpha(c) != 0 || isdigit(c) == 1)
+                    ///check to ensure its a letter or number
+                    ///because getch seems to accept EVERYTHING on the keyboard as a char
+                    if(isalpha(c) != 0 || isdigit(c) == 1)
                     {
-                       password[i] = c;
+                        password[i] = c;
                         printf("*");
                         i++;
                     }
