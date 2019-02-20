@@ -15,7 +15,7 @@
 
 1549503972 f:\school\com_sci\zencypher\cypher.h
 
-1550435392 source:f:\school\com_sci\zencypher\main.c
+1550637510 source:f:\school\com_sci\zencypher\main.c
 	<stdio.h>
 	<stdlib.h>
 	<windows.h>
@@ -39,7 +39,7 @@
 	<string.h>
 	<stdio.h>
 
-1550236830 source:f:\school\com_sci\zencypher\gui_functions.c
+1550635654 source:f:\school\com_sci\zencypher\gui_functions.c
 	<stdio.h>
 	<stdlib.h>
 	<conio.h>
@@ -112,4 +112,8 @@
 1549162076 source:i:\school\com_sci\zencypher\stringmanipulator.c
 	<string.h>
 	<stdio.h>
+
+1550637276 source:f:\school\com_sci\zencypher\login.c
+	<stdio.h>
+	<conio.h>
 

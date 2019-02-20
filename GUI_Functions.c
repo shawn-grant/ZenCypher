@@ -67,6 +67,8 @@ void CreateTextBox(char specifier[], void *var, int isProtected)
                     }
                 }
             }
+
+            password[i] = '\0';//end the string
             strcpy(var, password);
         }
         else//regular string

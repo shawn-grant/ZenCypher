@@ -13,7 +13,7 @@
 #include "CYPHER.H"
 
 void SplashScreen();
-void LoginSignUp(User *, int *);
+int LoginSignUp(User *);
 char MainMenu();
 void GoodBye();
 
@@ -22,13 +22,11 @@ int main()
     TextCypher userInput;
     User user;
     char choice;
-    int loggedIn;
 
     SplashScreen();
-    LoginSignUp(&user, &loggedIn);
 
     ///If user successfully logged in
-    if(loggedIn == 1)
+    if(LoginSignUp(&user) == 1)
     {
         choice = MainMenu();
 
@@ -103,7 +101,7 @@ void SplashScreen()
     system("cls");
 }
 
-void LoginSignUp(User *user, int *loggedIn)
+int LoginSignUp(User *user)
 {
     SetConsoleTitleA("LOGIN / SIGN-UP");
 
@@ -112,8 +110,9 @@ void LoginSignUp(User *user, int *loggedIn)
 
     if((fpRead = fopen("userData.dat", "a+")) != NULL)
     {
+        fseek(fpRead, 0, SEEK_SET);//goto start of file
+
         fscanf(fpRead, "%s %s", nameOnFile, passwordOnFile);
-        printf("pwd = %s, uname = %s \n", passwordOnFile, nameOnFile);
 
         //check if to sign up or login
         if(strcmp(nameOnFile, "") != 0)//not equal, something is on file
@@ -122,15 +121,15 @@ void LoginSignUp(User *user, int *loggedIn)
             do
             {
                 printf("LOGIN \n\n");
-                printf("ENTER USERNAME: \n");
+                printf("ENTER YOUR USERNAME: \n");
                 CreateTextBox("%s", user->username, 0);
-                printf("ENTER PASSWORD: \n");
+                printf("ENTER YOUR PASSWORD: \n");
                 CreateTextBox("%s", user->password, 1);
                 system("cls");
             }
             while(strcmp(user->username, nameOnFile) != 0 || strcmp(user->password, passwordOnFile) != 0);
 
-            *loggedIn = 1;
+            return 1;
         }
         else
         {
@@ -138,9 +137,9 @@ void LoginSignUp(User *user, int *loggedIn)
             do
             {
                 printf("SIGN UP \n\n");
-                printf("ENTER USERNAME: \n");
+                printf("ENTER A USERNAME: \n");
                 CreateTextBox("%s", user->username, 0);
-                printf("ENTER PASSWORD: \n");
+                printf("ENTER A PASSWORD: \n");
                 CreateTextBox("%s", user->password, 1);
                 system("cls");
             }
@@ -150,12 +149,12 @@ void LoginSignUp(User *user, int *loggedIn)
             if((fpWrite = fopen("userData.dat", "w")) != NULL)
             {
                 fprintf(fpWrite, "%s %s", user->username, user->password);
-                *loggedIn = 1;//user logged in
+                return 1;//user logged in
                 fclose(fpWrite);
             }else
             {
                 printf("\nCANNOT SAVE USER DATA... RESTART THE PROGRAM");
-                *loggedIn = 0;//user not logged in
+                return 0;//user not logged in
                 getch();
             }
         }
@@ -164,7 +163,7 @@ void LoginSignUp(User *user, int *loggedIn)
     else
     {
         printf("\nCANNOT LOAD USER DATA... RESTART THE PROGRAM");
-        *loggedIn = 0;//user not logged in
+        return 0;//user not logged in
         getch();
     }
 }
