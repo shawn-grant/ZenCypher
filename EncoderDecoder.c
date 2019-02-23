@@ -8,6 +8,7 @@
 #include <string.h>
 #include <ctype.h>
 #include <stdio.h>
+#include <time.h>
 #include "CYPHER.H"
 
 #define CAPS_SPECIFIER "<[C]>"
@@ -29,9 +30,13 @@ void Encode(TextCypher cypher)
 {
     char newTxt[700];
     int i, index, newStringLength;
+    time_t t = time(NULL);
+    struct tm tm = *localtime(&t);
 
     system("cls");
     fflush(stdin);
+
+    /// ///////// GET USER DATA ////////////
 
     printf("ENTER RECIPIENT USERNAME:\n");
     CreateTextBox("%s", cypher.reciever, 0);
@@ -39,10 +44,9 @@ void Encode(TextCypher cypher)
     CreateLargeTextBox("%s", cypher.original);
 
     newStringLength = strlen(cypher.original);
-    strcpy(newTxt, cypher.original);
+    strcpy(newTxt, cypher.original); //move string from the structure to another var for easy referencing
 
-    ShowLoading();
-    //encoding process
+    /// //////////encoding process ///////////////
     for (i = 0; i < newStringLength; i++)
     {
         if(isdigit(newTxt[i]) == 1)//if the character is a number
@@ -79,10 +83,18 @@ void Encode(TextCypher cypher)
         }
     }
 
-    ///add recipient name to the code
+    strcpy (cypher.encoded, newTxt);//copy encoded text to the structure
 
-    printf("\nENCODED TEXT: \n %s", newTxt);
-    strcpy (cypher.encoded, newTxt);
+    /// Add time/date to the cypher
+    sprintf(cypher.dateTime, "%i/%i/%i @ %i:%i", tm.tm_mday, tm.tm_mon+1, tm.tm_year+1900, tm.tm_hour-12, tm.tm_min);
+
+    ///add recipient name to the coded string
+
+
+    printf("\nENCODED TEXT: \n %s", cypher.encoded);
+
+    AddToHistory(cypher);
+    //SaveToFile(cypher);
 
     getch();
 }
@@ -118,9 +130,9 @@ void SaveToFile(TextCypher cypher)
         CreateTextBox("%s", fName, 0);
     }
 
-    strcat(fName, ".cyph");
+    strcat(fName, ".cyph");///add extension
 
-    if((fp = fopen(fName, "w")) != NULL)
+    if((fp = fopen(fName, "w+")) != NULL)
     {
         fwrite(&cypher, sizeof(TextCypher), 1, fp);
     }else
@@ -134,12 +146,12 @@ void OpenFromFile()
 
 }
 
-void LetterToCode(char str[], int at, char letter, int lCase)
+void LetterToCode(char str[], int at, char letter, int uCase)
 {
     int index;
 
-    ///lCase is wether or not the char is upper(1) or lower case(0)
-    if(lCase == 1)
+    ///uCase is wether or not the char is upper(1) or lower case(0)
+    if(uCase == 1)
     {
         index = strIndexOf(letter, lettersUpr);
         str[at] = codes[index];
@@ -150,12 +162,12 @@ void LetterToCode(char str[], int at, char letter, int lCase)
 
 }
 
-void CodeToLetter(char str[], int at, char code, int lCase)
+void CodeToLetter(char str[], int at, char code, int uCase)
 {
     int index;
 
-    ///lCase is wether or not the char is upper(1) or lower case(0)
-    if(lCase == 1)
+    ///uCase is wether or not the char is upper(1) or lower case(0)
+    if(uCase == 1)
     {
         index = strIndexOf(code, codes);
         str[at] = lettersUpr[index];

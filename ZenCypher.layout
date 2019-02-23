@@ -3,34 +3,44 @@
 	<ActiveTarget name="Debug" />
 	<File name="CYPHER.H" open="0" top="0" tabpos="2" split="0" active="1" splitpos="0" zoom_1="-1" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="213" topLine="6" />
+			<Cursor1 position="332" topLine="0" />
 		</Cursor>
 	</File>
-	<File name="EncoderDecoder.c" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="EncoderDecoder.c" open="1" top="1" tabpos="2" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="1486" topLine="51" />
+			<Cursor1 position="4250" topLine="117" />
 		</Cursor>
 		<Folding>
-			<Collapse line="18" />
-			<Collapse line="21" />
-			<Collapse line="24" />
+			<Collapse line="19" />
+			<Collapse line="22" />
+			<Collapse line="25" />
+			<Collapse line="102" />
+			<Collapse line="149" />
+			<Collapse line="165" />
 		</Folding>
 	</File>
-	<File name="main.c" open="1" top="1" tabpos="2" split="0" active="1" splitpos="0" zoom_1="1" zoom_2="0">
+	<File name="main.c" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="1" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="3745" topLine="35" />
+			<Cursor1 position="246" topLine="6" />
 		</Cursor>
 		<Folding>
-			<Collapse line="20" />
-			<Collapse line="72" />
-			<Collapse line="171" />
-			<Collapse line="190" />
+			<Collapse line="78" />
+			<Collapse line="229" />
 		</Folding>
 	</File>
-	<File name="CypherHistory.c" open="0" top="0" tabpos="5" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
+	<File name="CypherHistory.c" open="1" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="0" zoom_2="0">
 		<Cursor>
-			<Cursor1 position="149" topLine="0" />
+			<Cursor1 position="2077" topLine="79" />
 		</Cursor>
+	</File>
+	<File name="GUI_Functions.c" open="0" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="1" zoom_2="0">
+		<Cursor>
+			<Cursor1 position="1303" topLine="49" />
+		</Cursor>
+		<Folding>
+			<Collapse line="86" />
+			<Collapse line="117" />
+		</Folding>
 	</File>
 	<File name="StringManipulator.c" open="0" top="0" tabpos="3" split="0" active="1" splitpos="0" zoom_1="1" zoom_2="0">
 		<Cursor>
@@ -40,10 +50,5 @@
 			<Collapse line="11" />
 			<Collapse line="17" />
 		</Folding>
-	</File>
-	<File name="GUI_Functions.c" open="1" top="0" tabpos="1" split="0" active="1" splitpos="0" zoom_1="1" zoom_2="0">
-		<Cursor>
-			<Cursor1 position="2321" topLine="56" />
-		</Cursor>
 	</File>
 </CodeBlocks_layout_file>

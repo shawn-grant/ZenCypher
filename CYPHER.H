@@ -2,11 +2,19 @@
   Programmer    : Shawn Grant
   Date		    : 28,1, 2019
   Purpose	    : Contains structs used in the program and pprototypes
-  Filename	    : CYPHER>H
+  Filename	    : CYPHER.H
 */
 
 #ifndef CYPHER_H_INCLUDED
 #define CYPHER_H_INCLUDED
+
+#define RED 12
+#define GREEN 10
+#define YELLOW 14
+#define BLUE 9
+#define WHITE 15
+#define CYAN 3
+#define GRAY 7
 
 ///data type to hold the before and after text of an encryption
 typedef struct
@@ -14,6 +22,7 @@ typedef struct
     char original[500];
     char encoded[700];
     char reciever[30];
+    char dateTime[25];
 }TextCypher;
 
 ///data type to hold the user

@@ -40,9 +40,9 @@ void CreateTextBox(char specifier[], void *var, int isProtected)
     }
     else//is a string
     {
-        if(isProtected == 1)///if isProtected = 1, display asterisks to hide the text
+        if(isProtected == 1)///if isProtected = 1, use password protection
         {
-            //print asterisks
+            //print asterisks for chars
             while((c = getch()) != '\r')//return or enter key
             {
                 if(c == '\b')//backspace pressed

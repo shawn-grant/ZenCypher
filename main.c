@@ -30,7 +30,7 @@ int main()
     {
         choice = MainMenu();
 
-        while(choice != 'E' && choice != 'e')
+        while(choice != 'F' && choice != 'f')
         {
             switch(choice)
             {
@@ -54,9 +54,15 @@ int main()
                 ShowHistory();
                 break;
 
+            case 'E':
+            case 'e':
+                UpdateLogin();
+                break;
+
             default:
-                printf("\nINVALID OPTION!\n");
-                printf("Press any key to continue...");
+                SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), RED);
+                printf("\n  INVALID OPTION!\n");
+                printf("     Press any key to continue...");
                 getch();
                 break;
             }
@@ -111,7 +117,6 @@ int LoginSignUp(User *user)
     if((fpRead = fopen("userData.dat", "a+")) != NULL)
     {
         fseek(fpRead, 0, SEEK_SET);//goto start of file
-
         fscanf(fpRead, "%s %s", nameOnFile, passwordOnFile);
 
         //check if to sign up or login
@@ -149,42 +154,76 @@ int LoginSignUp(User *user)
             if((fpWrite = fopen("userData.dat", "w")) != NULL)
             {
                 fprintf(fpWrite, "%s %s", user->username, user->password);
-                return 1;//user logged in
                 fclose(fpWrite);
-            }else
+                return 1;//user logged in
+            }
+            else
             {
+                SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), RED);
                 printf("\nCANNOT SAVE USER DATA... RESTART THE PROGRAM");
-                return 0;//user not logged in
                 getch();
+                return 0;//user not logged in
             }
         }
         fclose(fpRead);
     }
     else
     {
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), RED);
         printf("\nCANNOT LOAD USER DATA... RESTART THE PROGRAM");
+        getch();
         return 0;//user not logged in
+    }
+}
+
+void UpdateLogin()
+{
+    char uname[25], pwd[25];
+    FILE *fp;
+
+    system("cls");
+
+    do
+    {
+        printf("CHANGE USERNAME AND PASSWORD\n");
+
+        printf("ENTER NEW USERNAME: \n");
+        CreateTextBox("%s", uname, 0);
+        printf("ENTER NEW PASSWORD: \n");
+        CreateTextBox("%s", pwd, 1);
+        system("cls");
+    }
+    while(strcmp(uname, "") == 0 || strcmp(pwd, "") == 0);
+
+    if((fp = fopen("userData.dat", "w")) != NULL)
+    {
+        fprintf(fp, "%s %s", uname, pwd);
+        fclose(fp);
+    }else
+    {
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), RED);
+        printf("\n CANNOT UPDATE AT THIS TIME...");
         getch();
     }
 }
 
 char MainMenu()
 {
-    char c;
     system("cls");
 
     SetConsoleTitleA("Main Menu | ZEN CYPHER");
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), WHITE);
 
     printf ("A) ENCODE A MESSAGE\n");
     printf ("B) DECODE A MESSAGE\n");
     printf ("C) NEW FROM FILE\n");
     printf ("D) SHOW HISTORY\n");
-    printf ("E) EXIT\n\n");
+    printf ("E) UPDATE LOGIN INFO\n");
+    printf ("F) EXIT\n\n");
 
-    printf("CHOOSE AN OPTION ABOVE: ");
-    c = getch();
+    printf("CHOOSE A LETTER OPTION ABOVE: ");
 
-    return c;
+    return getch();
 }
 
 void GoodBye()
