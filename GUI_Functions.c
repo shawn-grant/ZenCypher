@@ -51,7 +51,7 @@ void CreateTextBox(char specifier[], void *var, int isProtected)
                     if(strlen(password) > 0)
                     {
                         password[strlen(password)-1] = '\0';//remove last character
-                        printf("\b \b");
+                        printf("\b \b");//visual backspace
                         i--;
                     }
                 }

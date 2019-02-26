@@ -39,10 +39,11 @@ void SaveToFile(TextCypher);
 void OpenFromFile();
 //string
 void strReplace(char [], char [], char []);
-void strRemove(char text[] ,char oldTxt[], int);
+void strRemove(char text[] ,int, int);
 void strInsert(char [] ,char [], int);
 int strIndexOf(char, char[]);
 int strEndsWith(char[], char[]);
+int isSymbol(char);
 //history
 void AddToHistory(TextCypher);
 void ShowHistory();

@@ -1,7 +1,7 @@
 /*
   Programmer    : Shawn Grant
-  Date		    : 28,1, 2019
-  Purpose	    : Main driver module
+  Created       : 28,1, 2019
+  Purpose	    : Driver and helping functions
   Filename	    : main.c
 */
 
@@ -22,6 +22,8 @@ int main()
     TextCypher userInput;
     User user;
     char choice;
+
+    srand(time(0));
 
     SplashScreen();
 
@@ -221,7 +223,7 @@ char MainMenu()
     printf ("E) UPDATE LOGIN INFO\n");
     printf ("F) EXIT\n\n");
 
-    printf("CHOOSE A LETTER OPTION ABOVE: ");
+    printf("CHOOSE A LETTER OPTION ABOVE:");
 
     return getch();
 }
