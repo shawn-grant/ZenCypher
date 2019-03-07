@@ -84,7 +84,7 @@ void SplashScreen()
     coord.X = 0;
     coord.Y = 0;
 
-    ///Create color wave animation by printing text line by line
+    /// Create color wave animation by printing text line by line
     /// incrementing the color and resetting the cursor position(0,0) at the end of the loop
     /// to print over the previous text in the next iteration of the loop
     for (i = 5; i < 10; i++)
@@ -201,7 +201,8 @@ void UpdateLogin()
     {
         fprintf(fp, "%s %s", uname, pwd);
         fclose(fp);
-    }else
+    }
+    else
     {
         SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), RED);
         printf("\n CANNOT UPDATE AT THIS TIME...");

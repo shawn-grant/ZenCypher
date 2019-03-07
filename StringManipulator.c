@@ -49,6 +49,7 @@ void strRemove(char text[], int numChars, int at)
     //strcpy(text, newText);
 }
 
+/// Is substring present in text at an index
 int strPresentAtIndex(char text[], char subString[], int at)
 {
     int i, j;

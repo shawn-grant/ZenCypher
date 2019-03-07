@@ -1,5 +1,5 @@
 # depslib dependency file v1.0
-1550898224 source:f:\school\com_sci\zencypher\cypherhistory.c
+1551456150 source:f:\school\com_sci\zencypher\cypherhistory.c
 	<stdio.h>
 	<windows.h>
 	"CYPHER.H"
@@ -11,7 +11,7 @@
 	<time.h>
 	"CYPHER.H"
 
-1551152296 source:f:\school\com_sci\zencypher\stringmanipulator.c
+1551289088 source:f:\school\com_sci\zencypher\stringmanipulator.c
 	<string.h>
 	<stdio.h>
 
@@ -25,29 +25,31 @@
 	<conio.h>
 	"CYPHER.H"
 
-1548677922 source:e:\school\com_sci\zencypher\cypherhistory.c
+1551456150 source:e:\school\com_sci\zencypher\cypherhistory.c
 	<stdio.h>
+	<windows.h>
 	"CYPHER.H"
 
-1549503972 e:\school\com_sci\zencypher\cypher.h
+1551151346 e:\school\com_sci\zencypher\cypher.h
 
-1549503814 source:e:\school\com_sci\zencypher\encoderdecoder.c
+1551151926 source:e:\school\com_sci\zencypher\encoderdecoder.c
 	<string.h>
 	<ctype.h>
 	<stdio.h>
+	<time.h>
 	"CYPHER.H"
 
-1549162076 source:e:\school\com_sci\zencypher\stringmanipulator.c
+1551289088 source:e:\school\com_sci\zencypher\stringmanipulator.c
 	<string.h>
 	<stdio.h>
 
-1550985182 source:f:\school\com_sci\zencypher\gui_functions.c
+1551292856 source:f:\school\com_sci\zencypher\gui_functions.c
 	<stdio.h>
 	<stdlib.h>
 	<conio.h>
 	<windows.h>
 
-1550638132 source:e:\school\com_sci\zencypher\main.c
+1551457044 source:e:\school\com_sci\zencypher\main.c
 	<stdio.h>
 	<stdlib.h>
 	<windows.h>
@@ -85,7 +87,7 @@
 	<string.h>
 	<stdio.h>
 
-1550635654 source:e:\school\com_sci\zencypher\gui_functions.c
+1551292856 source:e:\school\com_sci\zencypher\gui_functions.c
 	<stdio.h>
 	<stdlib.h>
 	<conio.h>

@@ -14,6 +14,7 @@ Record User
     password: String
 EndUser
 
+----------------------[main.c]----------------------------
 Driver ()
     userInput: TextCypher
     user: User
@@ -113,6 +114,64 @@ MainMenu(): Character
 EndMainMenu
 
 -------------------[EncoderDecoder.c]-----------------------
+CAPS_SPECIFIER = "<[C]>": Constant String
+SPACE_SPECIFIER = "<[S]>": Constant String
+NUMBER_SPECIFIER = "<[N]>": Constant String
+SYMBOL_SPECIFIER = "<[@]>": Constant String
+
+INCREMENT = 5: Constant Integer
+UPPER = 10: Constant Integer
+LOWER = 2: Constant Integer
+
+Array lettersUpr[26] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
+                        'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'}: Constant Character
+Array lettersLwr[26] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
+                        'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'}: Constant Character
+Array codes[26] =      {'x', '+', '-', '_', 'V', ';', '/', '[', ']', '{', '}', ':', '?',
+                        '!', '@', '#', '%', '6', '^', '&', '*', '(', ')', '<', '>', 'z'}: Constant Character
+
+Encode()
+
+EndEncode
+
+Decode()
+
+EndDecode
+
+SaveToFile(cypher: TextCypher)
+    fName: String
+    fp: File
+
+    Print "ENTER A FILENAME: "
+    Read fName
+
+    While(fName = "")
+        Print "**ENTER A VALID FILENAME: "
+        Read fName
+    EndWhile
+
+    fName = fName + ".cyph" 'add extension
+
+    If((fp = Open File, fName, for writing) <> NULL)
+        Write cypher, To File, fp
+    Else
+        Print "=( File cannot be saved..."
+    EndIf
+EndSaveToFile
+
+LetterToCode(str: String, at: Integer, letter: Character, uCase: Integer)
+    index: Integer
+
+    'uCase is wether or not the char is upper(1) or lower case(0)
+    If(uCase == 1)
+        index = strIndexOf(letter, lettersUpr);
+        str[at] = codes[index];
+    Else
+        index = strIndexOf(letter, lettersLwr);
+        str[at] = codes[index];
+    EndIf
+}
+
 
 -------------------[CypherHistory.c]-----------------------
 AddToHistory (newCypher: TextCypher)
@@ -133,9 +192,9 @@ ShowHistory ()
 
     Print "_________HISTORY_______"
 
-    If((fp = Open File "HISTORY.CYPH" for reading) <> NULL) Then
+    If ((fp = Open File "HISTORY.CYPH" for reading) <> NULL) Then
 
-        While(Not End Of File fp) Do
+        While (NOT EOF fp) Do
             Read list[i], From File fp
             i = i + 1
         EndWhile
@@ -158,6 +217,7 @@ ShowHistory ()
             Print "1) DELETE ITEM"
             Print "2) CLEAR HISTORY"
             
+            Print "Choose an option: "
             Read opt
 
             CASE OF opt
@@ -173,4 +233,59 @@ ShowHistory ()
     EndIf
 EndShowHistory
 
+RemoveItem(item: Integer)
+
+EndRemoveItem
+
+Clear()
+    Delete File "HISTORY.CYPH"
+EndClear
+
 -------------------[StringManipulator.c]-----------------------
+
+'Function to determine if a string ends with the specified ending
+'Returns 1 if the ending matches, else 0
+strEndsWith(str: String, ending: String): Integer
+    i, j, result: Integer
+    j = Length of str
+
+    For (i = Length of ending To 0) Do
+        If(str[j] = ending[i] AND result <> 0) Then
+            result = 1
+        Else
+            result = 0
+        EndIf
+        j = j - 1
+    EndFor
+
+    return result
+EndstrEndsWith
+
+strPresentAtIndex(text: String, subString: String, at: Integer): Integer
+    i, j: Integer
+    len = Length of subString: Integer
+    result: Integer
+
+    For(i = 0 To len-1) Do
+        If(text[at + i] = subString[j] AND result <> 0)
+            result = 1
+        Else
+            result = 0
+        EndIf
+
+        j = j + 1
+    EndFor
+
+    return result
+EndstrPresentAtIndex
+
+'Find the index of a character in a string
+strIndexOf(of: Character, in: String): Integer
+    index = 0: Integer
+
+    While (in[index] <> of)
+        index = index + 1
+    EndWhile
+
+    return index
+EndstrIndexOf

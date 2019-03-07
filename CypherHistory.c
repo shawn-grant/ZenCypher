@@ -48,13 +48,13 @@ void ShowHistory()
 
         fclose(fp);
 
-        /////////DISPLAY
+        /// //////// DISPLAY /////////
         int length = i-1;
         printf("%d ITEM(s)\n", length);
 
         if(length > 0)
         {
-            for (i = 0; i < length; i++)
+            for (i = 0; i <= length; i++)
             {
                 printf(" _______________________________________\n");
                 printf("|\tDATE: %-26s|\n", list[i].dateTime);
