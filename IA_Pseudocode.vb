@@ -114,7 +114,6 @@ MainMenu(): Character
 EndMainMenu
 
 -------------------[EncoderDecoder.c]-----------------------
-CAPS_SPECIFIER = "<[C]>": Constant String
 SPACE_SPECIFIER = "<[S]>": Constant String
 NUMBER_SPECIFIER = "<[N]>": Constant String
 SYMBOL_SPECIFIER = "<[@]>": Constant String
@@ -122,13 +121,6 @@ SYMBOL_SPECIFIER = "<[@]>": Constant String
 INCREMENT = 5: Constant Integer
 UPPER = 10: Constant Integer
 LOWER = 2: Constant Integer
-
-Array lettersUpr[26] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
-                        'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'}: Constant Character
-Array lettersLwr[26] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
-                        'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'}: Constant Character
-Array codes[26] =      {'x', '+', '-', '_', 'V', ';', '/', '[', ']', '{', '}', ':', '?',
-                        '!', '@', '#', '%', '6', '^', '&', '*', '(', ')', '<', '>', 'z'}: Constant Character
 
 Encode()
 
@@ -158,20 +150,6 @@ SaveToFile(cypher: TextCypher)
         Print "=( File cannot be saved..."
     EndIf
 EndSaveToFile
-
-LetterToCode(str: String, at: Integer, letter: Character, uCase: Integer)
-    index: Integer
-
-    'uCase is wether or not the char is upper(1) or lower case(0)
-    If(uCase == 1)
-        index = strIndexOf(letter, lettersUpr);
-        str[at] = codes[index];
-    Else
-        index = strIndexOf(letter, lettersLwr);
-        str[at] = codes[index];
-    EndIf
-}
-
 
 -------------------[CypherHistory.c]-----------------------
 AddToHistory (newCypher: TextCypher)
@@ -234,7 +212,7 @@ ShowHistory ()
 EndShowHistory
 
 RemoveItem(item: Integer)
-
+    'remove item
 EndRemoveItem
 
 Clear()

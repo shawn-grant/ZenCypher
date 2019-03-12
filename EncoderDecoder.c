@@ -7,131 +7,118 @@
 
 #include <string.h>
 #include <ctype.h>
+#include <conio.h>
 #include <stdio.h>
 #include <time.h>
 #include "CYPHER.H"
 
-#define CAPS_SPECIFIER "<[C]>"
 #define SPACE_SPECIFIER "<[S]>"
 #define NUMBER_SPECIFIER "<[N]>"
 #define SYMBOL_SPECIFIER "<[@]>"
 
 #define INCREMENT 5
-#define UPPER 10
-#define LOWER 2
-
-const char lettersUpr[26] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M',
-                        'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
-
-const char lettersLwr[26] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
-                        'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z'};
-
-const char codes[26] =      {'x', '+', '-', '_', 'V', ';', '/', '[', ']', '{', '}', ':', '?',
-                        '!', '@', '#', '%', '6', '^', '&', '*', '(', ')', '<', '>', 'z'};
+#define UPPER 9
+#define LOWER 0
 
 void Encode(TextCypher cypher)
 {
-    char newTxt[700], amPm[3];
-    int i, index, newStringLength;
+    char inputStr[700], newTxt[700] = "", amPm[3], asciiValTxt[4];
+    int i, asciiVal;
     time_t t = time(NULL);
     struct tm tm = *localtime(&t);
-    int key;
+    int key, calculatedKey;
 
     key = (rand() % (UPPER - LOWER + 1)) + LOWER;
+    calculatedKey = ((key * 5) ) - key;
+
+    printf("key = %i\n", key);//debugging statement
+    printf("New key = %i\n", calculatedKey);//debugging statement
 
     system("cls");
     fflush(stdin);
 
-    /// ///////// GET USER DATA ////////////
+    /// //////////// GET USER DATA ////////////////
 
     printf("ENTER RECIPIENT USERNAME:\n");
     CreateTextBox("%s", cypher.reciever, 0);
-    printf("ENTER TEXT (ENGLISH):\n");
-    CreateLargeTextBox("%s", cypher.original);
 
-    newStringLength = strlen(cypher.original);
-    strcpy(newTxt, cypher.original); //move string from the structure to another var for easy referencing
+    printf("ENTER TEXT (ENGLISH):\n");
+    CreateLargeTextBox("%s", inputStr);
+
+    strcpy(cypher.original, inputStr);
 
     /// ////////// encoding process ///////////////
-    for (i = 0; i < newStringLength; i++)
+    for (i = 0; i < strlen(inputStr); i++)
     {
-        if(isdigit(newTxt[i]) == 1)//if the character is a number
+        if(isdigit(inputStr[i]) == 1)//if the character is a number
         {
-            //add the number specifier before then
-            strInsert(newTxt, NUMBER_SPECIFIER, i);
-            ///update the loop run length to the new string size
-            newStringLength = strlen(newTxt);
-            i += strlen(NUMBER_SPECIFIER);//jump to after what was added
-            newTxt[i] += INCREMENT;
+            //add the number specifier before the num
+            strcat(newTxt, NUMBER_SPECIFIER);
+            strcat(newTxt, &inputStr[i]);
+            //newTxt[i] += INCREMENT;
         }
-        else if(isspace(newTxt[i]) != 0)//if the character is a space
+        else if(isspace(inputStr[i]) != 0)//if the character is a space
         {
             //add the uppercase specifier before
-            strInsert(newTxt, SPACE_SPECIFIER, i);
-            ///update the loop run length
-            newStringLength = strlen(newTxt);
-            i += strlen(SPACE_SPECIFIER);
+            strcat(newTxt, SPACE_SPECIFIER);
         }
-        else if(isSymbol(newTxt[i]) != 0)//if the character is a symbol
+        else if(isSymbol(inputStr[i]) != 0)//if the character is a symbol
         {
             //add the uppercase specifier before
-            strInsert(newTxt, SYMBOL_SPECIFIER, i);
-            ///update the loop run length
-            newStringLength = strlen(newTxt);
-            i += strlen(SYMBOL_SPECIFIER);
+            strcat(newTxt, SYMBOL_SPECIFIER);
+            strcat(newTxt, &inputStr[i]);
         }
         else//not a number, space or symbol
         {
-            if(isupper(newTxt[i]) == 1)//for upper case letters
+            asciiVal = inputStr[i];
+
+            printf("\n%c is %i\n", inputStr[i], asciiVal);//debugging statement
+            itoa(asciiVal, asciiValTxt, 10);
+
+            if(asciiVal < 100)//add 0 before to ensure groups of 3s
             {
-                //add the uppercase specifier before
-                strInsert(newTxt, CAPS_SPECIFIER, i);
-                ///update the loop run length
-                newStringLength = strlen(newTxt);
-                i += strlen(CAPS_SPECIFIER);
-                //swap
-                LetterToCode(newTxt, i, newTxt[i], 1);
-            }else
-            {
-                LetterToCode(newTxt, i, newTxt[i], 0);
+                strInsert(asciiValTxt, "0", 0);
             }
+            strcat(newTxt, asciiValTxt);
         }
     }
 
+    //add the new key
+    //newTxt[i] = calculatedKey;
     strcpy (cypher.encoded, newTxt);//copy encoded text to the structure
 
     /// Add time/date to the cypher
     tm.tm_hour >= 12? strcpy(amPm, "PM"):strcpy(amPm, "AM");
+
     if(tm.tm_hour > 12) tm.tm_hour -= 12;
 
     sprintf(cypher.dateTime, "%i/%i/%i @ %i:%i %s",
             tm.tm_mday, tm.tm_mon+1, tm.tm_year+1900, tm.tm_hour, tm.tm_min, amPm);
 
-    ///add recipient name to the coded string
+    ///add recipient name to the coded string here
 
 
     printf("\nENCODED TEXT: \n %s", cypher.encoded);
 
     AddToHistory(cypher);
-    //SaveToFile(cypher);
 
     getch();
 }
 
 void Decode(TextCypher cypher)
 {
-    char newTxt[700];
+    /*char newTxt[700];
     int i, index, newStringLength;
 
     system("cls");
     fflush(stdin);
 
-    printf("ENTER TEXT (ENCCODE):\n");
-    CreateLargeTextBox("%s", cypher.original);
+    printf("ENTER THE CODE:\n");
+    CreateLargeTextBox("%s", cypher.encoded);
 
     newStringLength = strlen(cypher.original);
     strcpy(newTxt, cypher.original);
-
+    */
     ShowLoading();
 
     /*
@@ -178,7 +165,8 @@ void SaveToFile(TextCypher cypher)
     if((fp = fopen(fName, "w+")) != NULL)
     {
         fwrite(&cypher, sizeof(TextCypher), 1, fp);
-    }else
+    }
+    else
     {
         printf("=( File cannot be saved...");
     }
@@ -187,39 +175,4 @@ void SaveToFile(TextCypher cypher)
 void OpenFromFile()
 {
 
-}
-
-void LetterToCode(char str[], int at, char letter, int uCase)
-{
-    int index;
-
-    ///uCase is wether or not the char is upper(1) or lower case(0)
-    if(uCase == 1)
-    {
-        index = strIndexOf(letter, lettersUpr);
-        str[at] = codes[index];
-    }
-    else
-    {
-        index = strIndexOf(letter, lettersLwr);
-        str[at] = codes[index];
-    }
-
-}
-
-void CodeToLetter(char str[], int at, char code, int uCase)
-{
-    int index;
-
-    ///uCase is wether or not the char is upper(1) or lower case(0)
-    if(uCase == 1)
-    {
-        index = strIndexOf(code, codes);
-        str[at] = lettersUpr[index];
-    }
-    else
-    {
-        index = strIndexOf(code, codes);
-        str[at] = lettersLwr[index];
-    }
 }

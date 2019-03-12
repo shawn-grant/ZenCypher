@@ -90,18 +90,18 @@ void SplashScreen()
     for (i = 5; i < 10; i++)
     {
         SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), i);
-        printf("\t     @@@@@@@@@@     ##########  ##########  ###########\n");Sleep(60);
-        printf("\t     @@@    @@@     ##########  ##########  ###########\n");Sleep(60);
-        printf("\t     @@@    @@@           ###               ###     ###\n");Sleep(60);
-        printf("\t     @@@    @@@          ###                ###     ###\n");Sleep(60);
-        printf("\t     @@@    @@@         ###     ##########  ###     ###\n");Sleep(60);
-        printf("\t  @@@@@@@@@@@@@@@@     ###      ##########  ###     ###\n");Sleep(60);
-        printf("\t  @@@@@@@@@@@@@@@@    ###                   ###     ###\n");Sleep(60);
-        printf("\t  @@@@@@  O  @@@@@   ###                    ###     ###\n");Sleep(60);
-        printf("\t  @@@@@@@@ @@@@@@@  #########   ##########  ###     ###\n");Sleep(60);
-        printf("\t  @@@@@@@@ @@@@@@@  #########   ##########  ###     ###\n");Sleep(60);
-        printf("\t  @@@@@@@@ @@@@@@@               CYPHER\n");Sleep(80);
-        printf("\t  @@@@@@@@@@@@@@@@\n");Sleep(80);
+        printf("\t     @@@@@@@@@@     ##########  ##########  ###########\n"); Sleep(60);
+        printf("\t     @@@    @@@     ##########  ##########  ###########\n"); Sleep(60);
+        printf("\t     @@@    @@@           ###               ###     ###\n"); Sleep(60);
+        printf("\t     @@@    @@@          ###                ###     ###\n"); Sleep(60);
+        printf("\t     @@@    @@@         ###     ##########  ###     ###\n"); Sleep(60);
+        printf("\t  @@@@@@@@@@@@@@@@     ###      ##########  ###     ###\n"); Sleep(60);
+        printf("\t  @@@@@@@@@@@@@@@@    ###                   ###     ###\n"); Sleep(60);
+        printf("\t  @@@@@@  O  @@@@@   ###                    ###     ###\n"); Sleep(60);
+        printf("\t  @@@@@@@@ @@@@@@@  #########   ##########  ###     ###\n"); Sleep(60);
+        printf("\t  @@@@@@@@ @@@@@@@  #########   ##########  ###     ###\n"); Sleep(60);
+        printf("\t  @@@@@@@@ @@@@@@@               CYPHER\n"); Sleep(80);
+        printf("\t  @@@@@@@@@@@@@@@@\n"); Sleep(80);
         SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
     }
 
@@ -157,6 +157,8 @@ int LoginSignUp(User *user)
             {
                 fprintf(fpWrite, "%s %s", user->username, user->password);
                 fclose(fpWrite);
+
+                StartTutorial();
                 return 1;//user logged in
             }
             else

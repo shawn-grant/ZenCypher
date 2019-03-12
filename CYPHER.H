@@ -49,7 +49,12 @@ void AddToHistory(TextCypher);
 void ShowHistory();
 void RemoveItem(int);
 void Clear();
-
+//gui
 void ShowLoading();
+void CreateTextBox(char [], void *, int);
+void CreateLargeTextBox(char [], void *);
+//tutorial
+void StartTutorial();
+
 
 #endif // CYPHER_H_INCLUDED
