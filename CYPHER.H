@@ -39,11 +39,13 @@ void SaveToFile(TextCypher);
 void OpenFromFile();
 //string
 void strReplace(char [], char [], char []);
+void strAppend(char [], char);
 void strRemove(char text[] ,int, int);
 void strInsert(char [] ,char [], int);
 int strIndexOf(char, char[]);
 int strEndsWith(char[], char[]);
 int isSymbol(char);
+int strPresentAtIndex(char[], char[], int);
 //history
 void AddToHistory(TextCypher);
 void ShowHistory();
@@ -55,6 +57,7 @@ void CreateTextBox(char [], void *, int);
 void CreateLargeTextBox(char [], void *);
 //tutorial
 void StartTutorial();
+void ShowTitle();
 
 
 #endif // CYPHER_H_INCLUDED

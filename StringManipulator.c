@@ -6,11 +6,19 @@
 */
 
 #include <string.h>
+#include <stdlib.h>
 #include <stdio.h>
 
 void strReplace(char text[] ,char oldTxt[], char newTxt[])
 {
 
+}
+
+/// Appends a character to a string
+void strAppend(char str[], char c)
+{
+    str[strlen(str)] = c;
+    str[strlen(str)+1] = '\0';
 }
 
 /// Function to determine if a string ends with the specified ending
@@ -52,21 +60,23 @@ void strRemove(char text[], int numChars, int at)
 /// Is substring present in text at an index
 int strPresentAtIndex(char text[], char subString[], int at)
 {
-    int i, j;
+    int i;
     int len = strlen(subString);
     int result;
 
-    for(i = 0; i < len-1; i++)
+    for(i = 0; i < len; i++)
     {
-        if(text[at + i] == subString[j] && result != 0)
+        if(text[at + i] == subString[i] && result != 0)
         {
-            result = 1;
+            if(text[at + i] != '\0')
+                result = 1;
+            else
+                result = 0;
         }
         else
         {
             result = 0;
         }
-        j++;
     }
 
     return result;
@@ -82,7 +92,8 @@ void strInsert(char text[] ,char strVal[], int at)
     strcat(insertedTxt, strVal);
     strcat(insertedTxt, text + at);
 
-    printf("\n Inserted: %s", insertedTxt);
+    printf("\n Inserted: %s", insertedTxt);//debugging statement
+
     //copy insertedtext back to the original variable to reflect change in calling function
     strcpy(text, insertedTxt);
 }

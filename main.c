@@ -8,11 +8,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <windows.h>
+#include <time.h>
 #include <string.h>
 #include <conio.h>
 #include "CYPHER.H"
 
 void SplashScreen();
+void UpdateLogin();
 int LoginSignUp(User *);
 char MainMenu();
 void GoodBye();
@@ -158,7 +160,7 @@ int LoginSignUp(User *user)
                 fprintf(fpWrite, "%s %s", user->username, user->password);
                 fclose(fpWrite);
 
-                StartTutorial();
+                //ShowTitle();
                 return 1;//user logged in
             }
             else
