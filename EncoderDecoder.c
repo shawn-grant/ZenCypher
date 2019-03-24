@@ -13,7 +13,7 @@
 #include <time.h>
 #include "CYPHER.H"
 
-#define SPACE_SPECIFIER "|"
+#define SPACE_SPECIFIER "//"
 #define NUMBER_SPECIFIER "[N]"
 #define SYMBOL_SPECIFIER "[@]"
 
@@ -21,7 +21,7 @@
 #define UPPER 9
 #define LOWER 2
 
-///WORKING
+/// WORKING
 void Encode (TextCypher cypher)
 {
     char inputStr[700], newTxt[700] = "", amPm[3], asciiValTxt[4];
@@ -35,9 +35,6 @@ void Encode (TextCypher cypher)
 
     system("cls");
     fflush(stdin);
-
-    printf("public key = %i\n", publicKey);//debugging statement
-    printf("private key = %i\n", privateKey);//debugging statement
 
     /// Add the public key to the text
     newTxt[0] = publicKey + '0';
@@ -74,7 +71,7 @@ void Encode (TextCypher cypher)
         }
         else//not a number, space or symbol
         {
-            asciiVal = inputStr[i];///effectively converts the char to its ascii value
+            asciiVal = inputStr[i]; ///effectively converts the char to its ascii value
             asciiVal += privateKey; /// increment by key
 
             itoa(asciiVal, asciiValTxt, 10);//convert the ascii number to string
@@ -105,6 +102,7 @@ void Encode (TextCypher cypher)
     getch();
 }
 
+/// WORKING
 void Decode(TextCypher cypher)
 {
     char inputStr[700], newTxt[700] = "", amPm[3], asciiValTxt[4] = "";
@@ -126,12 +124,8 @@ void Decode(TextCypher cypher)
     publicKey = inputStr[0] - '0';
     privateKey = (publicKey * 5) - publicKey; // key used to decrypt
 
-    printf("public key = %i\n", publicKey);//debugging statement
-    printf("private key = %i\n", privateKey);//debugging statement
-
     for (i = 1; i < strlen(inputStr); i++)
     {
-        printf("\n I = %i", i);
 
         if (strPresentAtIndex (inputStr, NUMBER_SPECIFIER, i) == 1)
         {
@@ -145,7 +139,7 @@ void Decode(TextCypher cypher)
             i += strlen(SPACE_SPECIFIER);
             printf("\nSpace: %s\n", newTxt);
         }
-        else if (strPresentAtIndex(inputStr, SYMBOL_SPECIFIER, i) == 1)
+        else if (strPresentAtIndex (inputStr, SYMBOL_SPECIFIER, i) == 1)
         {
             strAppend(newTxt, inputStr[i + strlen(SYMBOL_SPECIFIER)]);
             i += strlen(SYMBOL_SPECIFIER);
@@ -155,21 +149,18 @@ void Decode(TextCypher cypher)
         {
             if(isdigit (inputStr[i]) == 1)
             {
+                /// get 3 digit ascii code
                 strAppend(asciiValTxt, inputStr[i]);
                 strAppend(asciiValTxt, inputStr[i + 1]);
                 strAppend(asciiValTxt, inputStr[i + 2]);
 
-                printf("\n %s", asciiValTxt);
-
                 asciiVal = atoi(asciiValTxt);
                 asciiVal -= privateKey;
-
-                printf("\nOld AsciiTxt: %s, AsciiVal: %i , Char: %c\n", asciiValTxt, asciiVal, asciiVal);
 
                 strAppend(newTxt, asciiVal);
                 memset(asciiValTxt, 0, sizeof(asciiValTxt)); //clear the text for next entry
 
-                i += 2;
+                i += 2;/// skip to next ascii set
             }
         }
     }

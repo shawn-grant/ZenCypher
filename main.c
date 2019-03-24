@@ -221,6 +221,13 @@ char MainMenu()
     SetConsoleTitleA("Main Menu | ZEN CYPHER");
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), WHITE);
 
+    printf(" ___   __  __       \n");
+    printf("| | | |   |  | |  | \n");
+    printf("|   | |-- |  | |  | \n");
+    printf("|   | |__ |  | |__| \n\n");
+
+    printf("________________________\n");
+
     printf ("A) ENCODE A MESSAGE\n");
     printf ("B) DECODE A MESSAGE\n");
     printf ("C) NEW FROM FILE\n");

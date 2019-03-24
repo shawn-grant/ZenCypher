@@ -97,6 +97,27 @@ LoginSignUp (user: User): Integer
     EndIf
 EndLoginSignUp
 
+UpdateLogin()
+    uname, pwd: String
+    fp: File
+
+    Repeat
+        Print "CHANGE USERNAME AND PASSWORD"
+
+        Print "ENTER NEW USERNAME: "
+        Read uname
+        Print "ENTER NEW PASSWORD: "
+        Read pwd
+    Until (uname <> "" AND pwd <> "")
+
+    If((fp = Open File "userData.dat", for writing) <> NULL) Then
+        Write uname, pwd To File, fp
+        Close File, fp
+    Else
+        Print "CANNOT UPDATE AT THIS TIME..."
+    EndIf
+EndUpdateLogin
+
 MainMenu(): Character
     c: Character
 
@@ -126,10 +147,9 @@ LOWER = 2: Constant Integer
 Encode(cypher: TextCypher)
     inputStr, newTxt = "", amPm, asciiValTxt: String
     i, asciiVal: Integer
-    ' [C specific code] Get the time and date from the system
-    tm = Get system time: Time
-
     publicKey, privateKey: Integer 'equivalent to public and private key in cryptography
+    ' Get the time and date from the system
+    tm: Time
 
     publicKey = Random between UPPER AND LOWER 
     privateKey = (publicKey * 5) - publicKey ' key used to encrypt
@@ -168,7 +188,7 @@ Encode(cypher: TextCypher)
             asciiVal = inputStr[i] 'character's ascii value
             asciiVal = asciiVal + privateKey ' increment by key
 
-            If(asciiVal < 100) 'add 0 before to ensure groups of 3 digits 
+            If (asciiVal < 100) 'add 0 before to ensure groups of 3 digits 
                 newTxt = newTxt + "0"
             EndIf
 
@@ -197,24 +217,70 @@ Encode(cypher: TextCypher)
 EndEncode
 
 Decode(cypher: TextCypher)
-    inputStr, newTxt = "", amPm, asciiValTxt: String
+    inputStr, newTxt = "", amPm, asciiValTxt = "": String
     i, asciiVal: Integer
     publicKey, privateKey: Integer 'equivalent to public and private key in cryptography
+    ' Get the time and date from the system
+    tm: Time
 
-    publicKey = Random between UPPER AND LOWER 
-    privateKey = (publicKey * 5) - publicKey ' key used to encrypt
-
-    ' '''' GET USER DATA '''''/
-
+    ' '''' GET USER DATA '''''
     Print "ENTER CODE : "
     Read inputStr
 
-    cypher.encoded = inputStr
+    cypher.encoded = inputStr    
 
     publicKey = inputStr[0]
     privateKey = privateKey = (publicKey * 5) - publicKey ' key used to decrypt
 
+    For (i = 1 To Length of(inputStr))
 
+        If (strPresentAtIndex(inputStr, NUMBER_SPECIFIER, i) == 1)
+            newTxt = newTxt + inputStr[i + Length of(NUMBER_SPECIFIER)]
+            i = i + Length of(NUMBER_SPECIFIER)
+        
+        Else If (strPresentAtIndex (inputStr, SPACE_SPECIFIER, i) == 1)
+            newTxt = newTxt + " "
+            i = i + Length of(SPACE_SPECIFIER)
+        
+        Else If (strPresentAtIndex(inputStr, SYMBOL_SPECIFIER, i) == 1)
+            newTxt = newTxt + inputStr[i + Length of(SYMBOL_SPECIFIER)]
+            i = i + Length of(SYMBOL_SPECIFIER)
+
+        Else
+            If(inputStr[i] is Digit) 'ensure its a number
+                ' get 3 digit ascii code
+                asciiValTxt = asciiValTxt + inputStr[i]
+                asciiValTxt = asciiValTxt + inputStr[i + 1]
+                asciiValTxt = asciiValTxt + inputStr[i + 2]
+
+                asciiVal = asciiValTxt As Integer 'change the ascii string to an int
+                asciiVal = asciiVal - privateKey
+
+                newTxt = newTxt + (asciiVal As Character)
+                asciiValTxt = "" 'clear the text for next entry
+
+                i = i + 2 ' skip to next ascii set
+            EndIf
+        EndIf
+    EndFor
+
+    cypher.original = newTxt 'save encoded text to the structure
+
+    ' Add time/date to the cypher
+    If (tm.hour >= 12) Then
+        amPm = "PM"
+    Else
+        amPm = "AM"
+    EndIf
+
+    'Format: dd/ mm/ yyyy @ hrs : min
+    cypher.dateTime = tm.day + "/" + tm.month + "/" + tm.year + " @ " + tm.hour + ":" + tm.minutes
+
+    'add recipient name to the coded string here
+
+    Print "DECODED TEXT: ", cypher.original
+
+    AddToHistory(cypher)
 EndDecode
 
 SaveToFile(cypher: TextCypher)
@@ -338,18 +404,16 @@ strEndsWith(str: String, ending: String): Integer
 EndstrEndsWith
 
 strPresentAtIndex(text: String, subString: String, at: Integer): Integer
-    i, j: Integer
+    i: Integer
     len = Length of(subString): Integer
     result: Integer
 
     For(i = 0 To len-1) Do
-        If(text[at + i] = subString[j] AND result <> 0)
-            result = 1
+        If(text[at + i] = subString[i]  AND result <> 0)
+            result = 1;
         Else
             result = 0
         EndIf
-
-        j = j + 1
     EndFor
 
     return result

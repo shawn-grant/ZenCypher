@@ -70,6 +70,12 @@ void ShowHistory()
             printf("2) CLEAR HISTORY\n");
             getch();
         }
+        else
+        {
+            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), RED);
+            printf("NO ITEMS\n");
+            getch();
+        }
     }
     else
     {
