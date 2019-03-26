@@ -13,17 +13,18 @@
 #include <conio.h>
 #include "CYPHER.H"
 
-void SplashScreen();
 void UpdateLogin();
 int LoginSignUp(User *);
 char MainMenu();
-void GoodBye();
 
 int main()
 {
     TextCypher userInput;
     User user;
     char choice;
+
+    SMALL_RECT windowSize = {0 , 0 , 77 , 47}; //change the values
+    SetConsoleWindowInfo(GetStdHandle(STD_OUTPUT_HANDLE), TRUE, &windowSize);
 
     srand(time(0));
 
@@ -79,41 +80,11 @@ int main()
     return 0;
 }
 
-void SplashScreen()
-{
-    int i;
-    COORD coord;
-    coord.X = 0;
-    coord.Y = 0;
-
-    /// Create color wave animation by printing text line by line
-    /// incrementing the color and resetting the cursor position(0,0) at the end of the loop
-    /// to print over the previous text in the next iteration of the loop
-    for (i = 5; i < 10; i++)
-    {
-        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), i);
-        printf("\t     @@@@@@@@@@     ##########  ##########  ###########\n"); Sleep(60);
-        printf("\t     @@@    @@@     ##########  ##########  ###########\n"); Sleep(60);
-        printf("\t     @@@    @@@           ###               ###     ###\n"); Sleep(60);
-        printf("\t     @@@    @@@          ###                ###     ###\n"); Sleep(60);
-        printf("\t     @@@    @@@         ###     ##########  ###     ###\n"); Sleep(60);
-        printf("\t  @@@@@@@@@@@@@@@@     ###      ##########  ###     ###\n"); Sleep(60);
-        printf("\t  @@@@@@@@@@@@@@@@    ###                   ###     ###\n"); Sleep(60);
-        printf("\t  @@@@@@  O  @@@@@   ###                    ###     ###\n"); Sleep(60);
-        printf("\t  @@@@@@@@ @@@@@@@  #########   ##########  ###     ###\n"); Sleep(60);
-        printf("\t  @@@@@@@@ @@@@@@@  #########   ##########  ###     ###\n"); Sleep(60);
-        printf("\t  @@@@@@@@ @@@@@@@               CYPHER\n"); Sleep(80);
-        printf("\t  @@@@@@@@@@@@@@@@\n"); Sleep(80);
-        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
-    }
-
-    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15); //reset the text collor to white
-    system("cls");
-}
-
 int LoginSignUp(User *user)
 {
     SetConsoleTitleA("LOGIN / SIGN-UP");
+
+    system("cls");
 
     char nameOnFile[25], passwordOnFile[25];
     FILE *fpRead, *fpWrite;
@@ -238,20 +209,4 @@ char MainMenu()
     printf("CHOOSE A LETTER OPTION ABOVE:");
 
     return getch();
-}
-
-void GoodBye()
-{
-    system("cls");
-    printf("\t     @@@@@@@@@@     \n");
-    printf("\t     @@@    @@@     \n");
-    printf("\t     @@@    @@@     \n");
-    printf("\t     @@@    @@@     \n");
-    printf("\t  @@@@@@@@@@@@@@@@  \n");
-    printf("\t  @@@@@@@@@@@@@@@@  \n");
-    printf("\t  @@@@@@  O  @@@@@  \n");
-    printf("\t  @@@@@@@@ @@@@@@@  \n");
-    printf("\t  @@@@@@@@ @@@@@@@  \n");
-    printf("\t  @@@@@@@@ @@@@@@@  \n");
-    printf("\t  @@@@@@@@@@@@@@@@  \n");
 }

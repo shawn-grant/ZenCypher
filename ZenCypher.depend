@@ -81,3 +81,90 @@
 	<time.h>
 	"CYPHER.H"
 
+1553271726 source:g:\school\com_sci\zencypher\cypherhistory.c
+	<stdio.h>
+	<conio.h>
+	<windows.h>
+	"CYPHER.H"
+
+1553561030 g:\school\com_sci\zencypher\cypher.h
+
+1553567884 source:g:\school\com_sci\zencypher\gui_functions.c
+	<stdio.h>
+	<stdlib.h>
+	<conio.h>
+	<windows.h>
+	"CYPHER.H"
+
+1553563030 source:g:\school\com_sci\zencypher\main.c
+	<stdio.h>
+	<stdlib.h>
+	<windows.h>
+	<time.h>
+	<string.h>
+	<conio.h>
+	"CYPHER.H"
+
+1552790526 source:g:\school\com_sci\zencypher\stringmanipulator.c
+	<string.h>
+	<stdlib.h>
+	<stdio.h>
+
+1552790736 source:g:\school\com_sci\zencypher\tutorial.c
+	<stdio.h>
+	<conio.h>
+
+1553456360 source:g:\school\com_sci\zencypher\encoderdecoder.c
+	<string.h>
+	<ctype.h>
+	<conio.h>
+	<stdlib.h>
+	<stdio.h>
+	<time.h>
+	"CYPHER.H"
+
+1553486118 source:g:\school\com_sci\zencypher\icon.rc
+
+1553271726 source:d:\school\com_sci\zencypher\cypherhistory.c
+	<stdio.h>
+	<conio.h>
+	<windows.h>
+	"CYPHER.H"
+
+1553138842 d:\school\com_sci\zencypher\cypher.h
+
+1553456360 source:d:\school\com_sci\zencypher\encoderdecoder.c
+	<string.h>
+	<ctype.h>
+	<conio.h>
+	<stdlib.h>
+	<stdio.h>
+	<time.h>
+	"CYPHER.H"
+
+1551292856 source:d:\school\com_sci\zencypher\gui_functions.c
+	<stdio.h>
+	<stdlib.h>
+	<conio.h>
+	<windows.h>
+
+1553486118 source:d:\school\com_sci\zencypher\icon.rc
+
+1553533226 source:d:\school\com_sci\zencypher\main.c
+	<stdio.h>
+	<stdlib.h>
+	<windows.h>
+	<time.h>
+	<string.h>
+	<conio.h>
+	"CYPHER.H"
+
+1552790526 source:d:\school\com_sci\zencypher\stringmanipulator.c
+	<string.h>
+	<stdlib.h>
+	<stdio.h>
+
+1552790736 source:d:\school\com_sci\zencypher\tutorial.c
+	<stdio.h>
+	<conio.h>
+

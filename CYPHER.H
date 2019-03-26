@@ -55,6 +55,8 @@ void Clear();
 void ShowLoading();
 void CreateTextBox(char [], void *, int);
 void CreateLargeTextBox(char [], void *);
+void SplashScreen();
+void GoodBye();
 //tutorial
 void StartTutorial();
 void ShowTitle();

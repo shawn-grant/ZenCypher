@@ -9,9 +9,7 @@
 #include <stdlib.h>
 #include <conio.h>
 #include <windows.h>
-
-void CreateTextBox(char [], void *, int);
-void CreateLargeTextBox(char [], void *);
+#include "CYPHER.H"
 
 ///custom function to create a textbox for input; includes password hiding (inspired by scanf)
 void CreateTextBox(char specifier[], void *var, int isProtected)
@@ -135,5 +133,60 @@ void ShowLoading()
         Sleep(50);
     }
 
-    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 15);
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), WHITE);
 }
+
+void SplashScreen()
+{
+    int i;
+    COORD coord;//where to put the cursor
+    CONSOLE_SCREEN_BUFFER_INFO cursor;//the cursor
+
+
+    printf("\t#####################\n");
+    printf("\t#                   #\n");
+    printf("\t#   ###### ######   #\n");
+    printf("\t#       ## ##       #\n");
+    printf("\t#      ##  ##       #\n");
+    printf("\t#     ##   ##       #\n");
+    printf("\t#    ##    ##       #      ZENCYPHER\n");
+    printf("\t#   ###### ######   #         1.0\n");
+    printf("\t#                   #\n");
+    printf("\t#####################\n");
+
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), YELLOW);
+
+    coord.X = 29;
+    coord.Y = 1;
+
+    for(i = 0; i < 9; i++)
+    {
+        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+        printf("###\n");
+        coord.Y += 1;
+    }
+
+    printf("\t #######################\n");
+    printf("\t #######################\n");
+
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), WHITE);
+
+    Sleep(2000);
+}
+
+void GoodBye()
+{
+    system("cls");
+    printf("\t     @@@@@@@@@@     \n");
+    printf("\t     @@@    @@@     \n");
+    printf("\t     @@@    @@@     \n");
+    printf("\t     @@@    @@@     \n");
+    printf("\t  @@@@@@@@@@@@@@@@  \n");
+    printf("\t  @@@@@@@@@@@@@@@@  \n");
+    printf("\t  @@@@@@  O  @@@@@  \n");
+    printf("\t  @@@@@@@@ @@@@@@@  \n");
+    printf("\t  @@@@@@@@ @@@@@@@  \n");
+    printf("\t  @@@@@@@@ @@@@@@@  \n");
+    printf("\t  @@@@@@@@@@@@@@@@  \n");
+}
+

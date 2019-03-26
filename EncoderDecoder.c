@@ -13,7 +13,7 @@
 #include <time.h>
 #include "CYPHER.H"
 
-#define SPACE_SPECIFIER "//"
+#define SPACE_SPECIFIER "500"
 #define NUMBER_SPECIFIER "[N]"
 #define SYMBOL_SPECIFIER "[@]"
 
