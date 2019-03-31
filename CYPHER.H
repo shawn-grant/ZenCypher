@@ -57,6 +57,7 @@ void CreateTextBox(char [], void *, int);
 void CreateLargeTextBox(char [], void *);
 void SplashScreen();
 void GoodBye();
+void SetColorAndBackground(int, int);
 //tutorial
 void StartTutorial();
 void ShowTitle();

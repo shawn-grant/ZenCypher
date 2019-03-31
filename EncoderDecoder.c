@@ -13,7 +13,7 @@
 #include <time.h>
 #include "CYPHER.H"
 
-#define SPACE_SPECIFIER "500"
+#define SPACE_SPECIFIER "AAA"
 #define NUMBER_SPECIFIER "[N]"
 #define SYMBOL_SPECIFIER "[@]"
 
@@ -112,12 +112,12 @@ void Decode(TextCypher cypher)
     int publicKey, privateKey; //equivalent to public and private key in cryptography
 
     system("cls");
-    fflush(stdin);
 
     /// // GET USER DATA /////
 
     printf("ENTER CODE : \n");
     CreateLargeTextBox("%s", inputStr);
+    fflush(stdin);
 
     strcpy(cypher.encoded, inputStr);
 
@@ -133,34 +133,40 @@ void Decode(TextCypher cypher)
             i += strlen(NUMBER_SPECIFIER);
             printf("\nNUMBER: %s\n", newTxt);
         }
-        else if (strPresentAtIndex (inputStr, SPACE_SPECIFIER, i) == 1)
-        {
-            strAppend(newTxt, ' ');
-            i += strlen(SPACE_SPECIFIER);
-            printf("\nSpace: %s\n", newTxt);
-        }
-        else if (strPresentAtIndex (inputStr, SYMBOL_SPECIFIER, i) == 1)
-        {
-            strAppend(newTxt, inputStr[i + strlen(SYMBOL_SPECIFIER)]);
-            i += strlen(SYMBOL_SPECIFIER);
-            printf("\nSymbol: %s\n", newTxt);
-        }
         else
         {
-            if(isdigit (inputStr[i]) == 1)
+            if (strPresentAtIndex (inputStr, SPACE_SPECIFIER, i) == 1)
             {
-                /// get 3 digit ascii code
-                strAppend(asciiValTxt, inputStr[i]);
-                strAppend(asciiValTxt, inputStr[i + 1]);
-                strAppend(asciiValTxt, inputStr[i + 2]);
+                strAppend(newTxt, '  ');
+                i += strlen(SPACE_SPECIFIER);
+                printf("\nSpace: %s\n", newTxt);
+            }
+            else
+            {
+                if (strPresentAtIndex (inputStr, SYMBOL_SPECIFIER, i) == 1)
+                {
+                    strAppend(newTxt, inputStr[i + strlen(SYMBOL_SPECIFIER)]);
+                    i += strlen(SYMBOL_SPECIFIER);
+                    printf("\nSymbol: %s\n", newTxt);
+                }
+                else
+                {
+                    //if(isdigit (inputStr[i]) == 1)
+                   //{
+                        /// get 3 digit ascii code
+                        strAppend (asciiValTxt, inputStr[i]);
+                        strAppend (asciiValTxt, inputStr[i + 1]);
+                        strAppend (asciiValTxt, inputStr[i + 2]);
 
-                asciiVal = atoi(asciiValTxt);
-                asciiVal -= privateKey;
+                        asciiVal = atoi(asciiValTxt);
+                        asciiVal -= privateKey;
 
-                strAppend(newTxt, asciiVal);
-                memset(asciiValTxt, 0, sizeof(asciiValTxt)); //clear the text for next entry
+                        strAppend(newTxt, asciiVal);
+                        memset(asciiValTxt, 0, sizeof(asciiValTxt)); //clear the text for next entry
 
-                i += 2;/// skip to next ascii set
+                        i += 2;/// skip to next ascii set
+                    //}
+                }
             }
         }
     }

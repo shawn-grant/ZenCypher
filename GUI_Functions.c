@@ -11,6 +11,72 @@
 #include <windows.h>
 #include "CYPHER.H"
 
+char Menu()
+{
+    int i, opt;
+    char ch;
+    COORD pos;
+
+    system("cls");
+
+    SetConsoleTitleA("Main Menu | ZEN CYPHER");
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), WHITE);
+
+    pos.X = 21;
+    pos.Y = 7;
+
+    printf(" ___   __  __       \n");
+    printf("| | | |   |  | |  | \n");
+    printf("|   | |-- |  | |  | \n");
+    printf("|   | |__ |  | |__| \n\n");
+    printf("________________________\n");
+
+    printf ("A) ENCODE A MESSAGE\n");
+    printf ("B) DECODE A MESSAGE\n");
+    printf ("C) NEW FROM FILE\n");
+    printf ("D) SHOW HISTORY\n");
+    printf ("E) UPDATE LOGIN INFO\n");
+    printf ("F) EXIT\n\n");
+
+    while((ch = getch()) != '\r')
+    {
+        system("cls");
+        printf(" ___   __  __       \n");
+        printf("| | | |   |  | |  | \n");
+        printf("|   | |-- |  | |  | \n");
+        printf("|   | |__ |  | |__| \n\n");
+        printf("________________________\n");
+
+        printf ("A) ENCODE A MESSAGE\n");
+        printf ("B) DECODE A MESSAGE\n");
+        printf ("C) NEW FROM FILE\n");
+        printf ("D) SHOW HISTORY\n");
+        printf ("E) UPDATE LOGIN INFO\n");
+        printf ("F) EXIT\n\n");
+
+        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
+
+       if(ch == 72)/// up
+       {
+           if(pos.Y >= 7)pos.Y--;
+           SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
+           SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), YELLOW);
+           printf("<-------");
+       }
+       else if(ch == 80)/// down
+       {
+           if(pos.Y < 11)pos.Y++;
+           SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
+           SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), YELLOW);
+           printf("<-------");
+       }
+
+       SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), WHITE);
+    }
+
+    return 'ty';
+}
+
 ///custom function to create a textbox for input; includes password hiding (inspired by scanf)
 void CreateTextBox(char specifier[], void *var, int isProtected)
 {
@@ -143,7 +209,7 @@ void SplashScreen()
     CONSOLE_SCREEN_BUFFER_INFO cursor;//the cursor
 
 
-    printf("\t#####################\n");
+    printf("\n\t#####################\n");
     printf("\t#                   #\n");
     printf("\t#   ###### ######   #\n");
     printf("\t#       ## ##       #\n");
@@ -157,7 +223,7 @@ void SplashScreen()
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), YELLOW);
 
     coord.X = 29;
-    coord.Y = 1;
+    coord.Y = 2;
 
     for(i = 0; i < 9; i++)
     {
@@ -188,5 +254,12 @@ void GoodBye()
     printf("\t  @@@@@@@@ @@@@@@@  \n");
     printf("\t  @@@@@@@@ @@@@@@@  \n");
     printf("\t  @@@@@@@@@@@@@@@@  \n");
+}
+
+void SetColorAndBackground(int ForgC, int BackC)
+{
+     WORD wColor = ((BackC & 0x0F) << 4) + (ForgC & 0x0F);;
+     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), wColor);
+     return;
 }
 

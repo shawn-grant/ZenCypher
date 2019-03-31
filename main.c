@@ -23,10 +23,8 @@ int main()
     User user;
     char choice;
 
-    SMALL_RECT windowSize = {0 , 0 , 77 , 47}; //change the values
-    SetConsoleWindowInfo(GetStdHandle(STD_OUTPUT_HANDLE), TRUE, &windowSize);
-
     srand(time(0));
+    //Menu();
 
     SplashScreen();
 
