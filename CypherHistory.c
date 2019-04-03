@@ -34,6 +34,7 @@ void ShowHistory()
     int i = 0;
 
     system("cls");
+    SetConsoleTitleA("HISTORY | Zen Cypher");
 
     printf("_________HISTORY_______\n\n");
 

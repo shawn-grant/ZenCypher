@@ -40,7 +40,7 @@
 	<time.h>
 	"CYPHER.H"
 
-1553271726 source:e:\school\com_sci\zencypher\cypherhistory.c
+1554224632 source:e:\school\com_sci\zencypher\cypherhistory.c
 	<stdio.h>
 	<conio.h>
 	<windows.h>
@@ -48,14 +48,14 @@
 
 1553657142 e:\school\com_sci\zencypher\cypher.h
 
-1553711616 source:e:\school\com_sci\zencypher\gui_functions.c
+1554226102 source:e:\school\com_sci\zencypher\gui_functions.c
 	<stdio.h>
 	<stdlib.h>
 	<conio.h>
 	<windows.h>
 	"CYPHER.H"
 
-1553708178 source:e:\school\com_sci\zencypher\main.c
+1554225212 source:e:\school\com_sci\zencypher\main.c
 	<stdio.h>
 	<stdlib.h>
 	<windows.h>
@@ -64,7 +64,7 @@
 	<conio.h>
 	"CYPHER.H"
 
-1552790526 source:e:\school\com_sci\zencypher\stringmanipulator.c
+1554224968 source:e:\school\com_sci\zencypher\stringmanipulator.c
 	<string.h>
 	<stdlib.h>
 	<stdio.h>
@@ -73,16 +73,17 @@
 	<stdio.h>
 	<conio.h>
 
-1553456360 source:e:\school\com_sci\zencypher\encoderdecoder.c
+1554224604 source:e:\school\com_sci\zencypher\encoderdecoder.c
 	<string.h>
 	<ctype.h>
 	<conio.h>
 	<stdlib.h>
 	<stdio.h>
+	<windows.h>
 	<time.h>
 	"CYPHER.H"
 
-1553271726 source:g:\school\com_sci\zencypher\cypherhistory.c
+1554224632 source:g:\school\com_sci\zencypher\cypherhistory.c
 	<stdio.h>
 	<conio.h>
 	<windows.h>
@@ -90,14 +91,14 @@
 
 1553657142 g:\school\com_sci\zencypher\cypher.h
 
-1553656810 source:g:\school\com_sci\zencypher\gui_functions.c
+1554226102 source:g:\school\com_sci\zencypher\gui_functions.c
 	<stdio.h>
 	<stdlib.h>
 	<conio.h>
 	<windows.h>
 	"CYPHER.H"
 
-1553657900 source:g:\school\com_sci\zencypher\main.c
+1554226392 source:g:\school\com_sci\zencypher\main.c
 	<stdio.h>
 	<stdlib.h>
 	<windows.h>
@@ -106,7 +107,7 @@
 	<conio.h>
 	"CYPHER.H"
 
-1552790526 source:g:\school\com_sci\zencypher\stringmanipulator.c
+1554262772 source:g:\school\com_sci\zencypher\stringmanipulator.c
 	<string.h>
 	<stdlib.h>
 	<stdio.h>
@@ -115,12 +116,13 @@
 	<stdio.h>
 	<conio.h>
 
-1553456360 source:g:\school\com_sci\zencypher\encoderdecoder.c
+1554263000 source:g:\school\com_sci\zencypher\encoderdecoder.c
 	<string.h>
 	<ctype.h>
 	<conio.h>
 	<stdlib.h>
 	<stdio.h>
+	<windows.h>
 	<time.h>
 	"CYPHER.H"
 

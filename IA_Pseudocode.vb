@@ -136,9 +136,9 @@ EndMainMenu
 
 -------------------[EncoderDecoder.c]-----------------------
 
-SPACE_SPECIFIER = "|": Constant String
-NUMBER_SPECIFIER = "[N]": Constant String
-SYMBOL_SPECIFIER = "[@]": Constant String
+SPACE_SPECIFIER = "S10": Constant String
+NUMBER_SPECIFIER = "N20": Constant String
+SYMBOL_SPECIFIER = "S30": Constant String
 
 INCREMENT = 5: Constant Integer
 UPPER =  9: Constant Integer
@@ -158,9 +158,6 @@ Encode(cypher: TextCypher)
     newTxt[0] = publicKey 
 
     ' '''' GET USER DATA '''''
-
-    Print "ENTER RECIPIENT USERNAME:"
-    Read cypher.reciever
 
     Print "ENTER TEXT (ENGLISH): "
     Read inputStr
@@ -211,6 +208,7 @@ Encode(cypher: TextCypher)
     'add recipient name to the coded string here
 
     Print "ENCODED TEXT: ", cypher.encoded
+    SaveToFile (cypher)
 
     AddToHistory(cypher)
 
@@ -232,36 +230,37 @@ Decode(cypher: TextCypher)
     publicKey = inputStr[0]
     privateKey = privateKey = (publicKey * 5) - publicKey ' key used to decrypt
 
-    For (i = 1 To Length of(inputStr))
+    For (i = 1 To Length of(inputStr)) DO
 
-        If (strPresentAtIndex(inputStr, NUMBER_SPECIFIER, i) == 1)
+        ' get 3 digit ascii code
+        asciiValTxt = asciiValTxt + inputStr[i]
+        asciiValTxt = asciiValTxt + inputStr[i + 1]
+        asciiValTxt = asciiValTxt + inputStr[i + 2]
+
+        If (asciiValTxt = NUMBER_SPECIFIER)
             newTxt = newTxt + inputStr[i + Length of(NUMBER_SPECIFIER)]
             i = i + Length of(NUMBER_SPECIFIER)
-        
-        Else If (strPresentAtIndex (inputStr, SPACE_SPECIFIER, i) == 1)
-            newTxt = newTxt + " "
-            i = i + Length of(SPACE_SPECIFIER)
-        
-        Else If (strPresentAtIndex(inputStr, SYMBOL_SPECIFIER, i) == 1)
-            newTxt = newTxt + inputStr[i + Length of(SYMBOL_SPECIFIER)]
-            i = i + Length of(SYMBOL_SPECIFIER)
-
         Else
-            If(inputStr[i] is Digit) 'ensure its a number
-                ' get 3 digit ascii code
-                asciiValTxt = asciiValTxt + inputStr[i]
-                asciiValTxt = asciiValTxt + inputStr[i + 1]
-                asciiValTxt = asciiValTxt + inputStr[i + 2]
+        
+            If (sasciiValTxt = SPACE_SPECIFIER)
+                newTxt = newTxt + " "
+                i = i + Length of(SPACE_SPECIFIER)
+            Else
+                If (asciiValTxt = SYMBOL_SPECIFIER)
+                    newTxt = newTxt + inputStr[i + Length of(SYMBOL_SPECIFIER)]
+                    i = i + Length of(SYMBOL_SPECIFIER)
+                Else
+                    asciiVal = asciiValTxt As Integer 'change the ascii string to an int
+                    asciiVal = asciiVal - privateKey
 
-                asciiVal = asciiValTxt As Integer 'change the ascii string to an int
-                asciiVal = asciiVal - privateKey
+                    newTxt = newTxt + (asciiVal As Character)
 
-                newTxt = newTxt + (asciiVal As Character)
-                asciiValTxt = "" 'clear the text for next entry
-
-                i = i + 2 ' skip to next ascii set
+                    i = i + 2 ' skip to next ascii set
+                EndIf
             EndIf
         EndIf
+
+        asciiValTxt = "" 'clear it for next entry
     EndFor
 
     cypher.original = newTxt 'save encoded text to the structure
@@ -279,28 +278,36 @@ Decode(cypher: TextCypher)
     'add recipient name to the coded string here
 
     Print "DECODED TEXT: ", cypher.original
+    SaveToFile (cypher)
 
     AddToHistory(cypher)
 EndDecode
 
 SaveToFile(cypher: TextCypher)
     fName: String
+    opt: Character
     fp: File
 
-    Print "ENTER A FILENAME: "
-    Read fName
+    Print " SAVE TO FILE? [Y/N]: "
+    Read opt
 
-    While(fName = "")
-        Print "**ENTER A VALID FILENAME: "
+    If(opt = 'Y' OR opt = 'y') Then
+
+        Print "ENTER A FILENAME: "
         Read fName
-    EndWhile
 
-    fName = fName + ".cyph" 'add extension
+        While (fName = "")
+            Print "**ENTER A VALID FILENAME: "
+            Read fName
+        EndWhile
 
-    If((fp = Open File, fName, for writing) <> NULL)
-        Write cypher, To File, fp
-    Else
-        Print "=( File cannot be saved..."
+        fName = fName + ".cyph" 'add extension
+
+        If((fp = Open File, fName, for writing) <> NULL)
+            Write cypher, To File, fp
+        Else
+            Print "=( File cannot be saved..."
+        EndIf
     EndIf
 EndSaveToFile
 
@@ -309,7 +316,7 @@ EndSaveToFile
 AddToHistory (newCypher: TextCypher)
     fp: File
 
-    If((fp = Open File "HISTORY.CYPH" for appending) <> NULL) Then
+    If ((fp = Open File "HISTORY.CYPH" for appending) <> NULL) Then
         Write newCypher, To File, fp
         Close File fp
     Else
@@ -338,7 +345,7 @@ ShowHistory ()
         Print "THERE ARE ", length, " ITEM(s)"
 
         If (length > 0) Then
-            For (i = 0 To length) Do
+            For (i = 0 To length) DO
                 Print "DATE          : ", list[i].dateTime
                 Print "ORIGINAL TEXT : ", list[i].original
                 Print "ENCODED TEXT  : ", list[i].encoded
@@ -367,23 +374,15 @@ ShowHistory ()
     EndIf
 EndShowHistory
 
-RemoveItem(item: Integer)
+RemoveItem (item: Integer)
     'remove item from file??
 EndRemoveItem
 
-Clear()
+Clear ()
     Delete File "HISTORY.CYPH"
 EndClear
 
 -------------------[StringManipulator.c]-----------------------
-
-' Appends a character to a string
-strAppend(str: String, c: Character)
-
-    str[Length of(str)] = c
-    'mark string end (needed in C )
-    str[Length of(str) + 1] = '\0' 
-EndstrAppend
 
 'Function to determine if a string ends with the specified ending
 'Returns 1 if the ending matches, else 0

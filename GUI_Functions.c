@@ -38,8 +38,9 @@ char Menu()
     printf ("E) UPDATE LOGIN INFO\n");
     printf ("F) EXIT\n\n");
 
-    while((ch = getch()) != '\r')
+    while((ch = getch()) != '\r' && )
     {
+
         system("cls");
         printf(" ___   __  __       \n");
         printf("| | | |   |  | |  | \n");
@@ -56,19 +57,22 @@ char Menu()
 
         SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
 
-       if(ch == 72)/// up
-       {
+        if(ch == 72)/// up
+        {
            if(pos.Y >= 7)pos.Y--;
            SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), YELLOW);
            printf("<-------");
        }
-       else if(ch == 80)/// down
+       else
        {
-           if(pos.Y < 11)pos.Y++;
-           SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
-           SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), YELLOW);
-           printf("<-------");
+           if(ch == 80)/// down
+           {
+               if(pos.Y < 11) pos.Y++;
+               SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
+               SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), YELLOW);
+               printf("<-------");
+           }
        }
 
        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), WHITE);
@@ -168,7 +172,8 @@ void CreateLargeTextBox(char specifier[], void *var)
     if(strcmp(specifier, "%s") != 0)
     {
         scanf(specifier, var);
-    }else
+    }
+    else
     {
         gets(var);
     }
@@ -256,10 +261,4 @@ void GoodBye()
     printf("\t  @@@@@@@@@@@@@@@@  \n");
 }
 
-void SetColorAndBackground(int ForgC, int BackC)
-{
-     WORD wColor = ((BackC & 0x0F) << 4) + (ForgC & 0x0F);;
-     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), wColor);
-     return;
-}
 

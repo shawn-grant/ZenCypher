@@ -44,9 +44,6 @@
 		<Unit filename="StringManipulator.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="TUTORIAL.C">
-			<Option compilerVar="CC" />
-		</Unit>
 		<Unit filename="icon.rc">
 			<Option compilerVar="WINDRES" />
 		</Unit>

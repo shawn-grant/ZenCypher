@@ -10,12 +10,13 @@
 #include <conio.h>
 #include <stdlib.h>
 #include <stdio.h>
+#include <windows.h>
 #include <time.h>
 #include "CYPHER.H"
 
-#define SPACE_SPECIFIER "AAA"
-#define NUMBER_SPECIFIER "[N]"
-#define SYMBOL_SPECIFIER "[@]"
+#define SPACE_SPECIFIER "S10"
+#define NUMBER_SPECIFIER "N20"
+#define SYMBOL_SPECIFIER "S30"
 
 #define INCREMENT 5
 #define UPPER 9
@@ -34,15 +35,14 @@ void Encode (TextCypher cypher)
     privateKey = (publicKey * 5) - publicKey;// key used to encrypt
 
     system("cls");
+    SetConsoleTitleA("ENCODER | Zen Cypher");
+
     fflush(stdin);
 
     /// Add the public key to the text
     newTxt[0] = publicKey + '0';
 
     /// //////////// GET USER DATA ////////////////
-
-    printf("ENTER RECIPIENT USERNAME:\n");
-    CreateTextBox("%s", cypher.reciever, 0);
 
     printf("ENTER TEXT (ENGLISH):\n");
     CreateLargeTextBox("%s", inputStr);
@@ -95,11 +95,15 @@ void Encode (TextCypher cypher)
 
     ///add recipient name to the coded string here
 
-    printf("\nENCODED TEXT: \n %s", cypher.encoded);
+    printf("\n\tENCODED TEXT:");
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), GREEN);
+    printf("\n\t%s", cypher.encoded);
+
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), YELLOW);
+    printf("\n\n** You may copy the text above **\n\n");
 
     AddToHistory(cypher);
-
-    getch();
+    SaveToFile(cypher);
 }
 
 /// WORKING
@@ -112,12 +116,12 @@ void Decode(TextCypher cypher)
     int publicKey, privateKey; //equivalent to public and private key in cryptography
 
     system("cls");
+    SetConsoleTitleA("DECODER | Zen Cypher");
 
     /// // GET USER DATA /////
-
+    fflush(stdin);
     printf("ENTER CODE : \n");
     CreateLargeTextBox("%s", inputStr);
-    fflush(stdin);
 
     strcpy(cypher.encoded, inputStr);
 
@@ -127,48 +131,42 @@ void Decode(TextCypher cypher)
     for (i = 1; i < strlen(inputStr); i++)
     {
 
-        if (strPresentAtIndex (inputStr, NUMBER_SPECIFIER, i) == 1)
+        /// get 3 digit ascii code
+        strAppend (asciiValTxt, inputStr[i]);
+        strAppend (asciiValTxt, inputStr[i + 1]);
+        strAppend (asciiValTxt, inputStr[i + 2]);
+
+        if (strcmp(asciiValTxt, NUMBER_SPECIFIER) == 0)
         {
-            strAppend(newTxt, inputStr[i + strlen(NUMBER_SPECIFIER)]);
-            i += strlen(NUMBER_SPECIFIER);
-            printf("\nNUMBER: %s\n", newTxt);
+            strAppend (newTxt, inputStr[i + strlen(NUMBER_SPECIFIER)]);
+            i += strlen (NUMBER_SPECIFIER);
         }
         else
         {
-            if (strPresentAtIndex (inputStr, SPACE_SPECIFIER, i) == 1)
+            if (strcmp(asciiValTxt, SPACE_SPECIFIER) == 0)
             {
-                strAppend(newTxt, '  ');
-                i += strlen(SPACE_SPECIFIER);
-                printf("\nSpace: %s\n", newTxt);
+                strAppend(newTxt, ' ');
+                i += strlen(SPACE_SPECIFIER)-1;
             }
             else
             {
-                if (strPresentAtIndex (inputStr, SYMBOL_SPECIFIER, i) == 1)
+                if (strcmp(asciiValTxt, SYMBOL_SPECIFIER) == 0)
                 {
                     strAppend(newTxt, inputStr[i + strlen(SYMBOL_SPECIFIER)]);
                     i += strlen(SYMBOL_SPECIFIER);
-                    printf("\nSymbol: %s\n", newTxt);
                 }
                 else
                 {
-                    //if(isdigit (inputStr[i]) == 1)
-                   //{
-                        /// get 3 digit ascii code
-                        strAppend (asciiValTxt, inputStr[i]);
-                        strAppend (asciiValTxt, inputStr[i + 1]);
-                        strAppend (asciiValTxt, inputStr[i + 2]);
+                    asciiVal = atoi(asciiValTxt);
+                    asciiVal -= privateKey;
 
-                        asciiVal = atoi(asciiValTxt);
-                        asciiVal -= privateKey;
-
-                        strAppend(newTxt, asciiVal);
-                        memset(asciiValTxt, 0, sizeof(asciiValTxt)); //clear the text for next entry
-
-                        i += 2;/// skip to next ascii set
-                    //}
+                    strAppend(newTxt, asciiVal);
+                    i += 2;/// skip to next ascii set
                 }
             }
         }
+
+        memset(asciiValTxt, 0, sizeof(asciiValTxt)); //clear the text for next entry
     }
 
     strcpy (cypher.original, newTxt);//save encoded text to the structure
@@ -181,40 +179,62 @@ void Decode(TextCypher cypher)
     sprintf(cypher.dateTime, "%i/%i/%i @ %i:%i %s",
             tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900, tm.tm_hour, tm.tm_min, amPm);
 
-    printf("\nDECODED TEXT: \n %s", cypher.original);
+    printf("\n\tDECODED TEXT:");
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), GREEN);
+    printf("\n\t%s", cypher.original);
+
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), YELLOW);
+    printf("\n\n** You may copy the text above **\n\n");
 
     AddToHistory(cypher);
-
-    getch();
+    SaveToFile(cypher);
 }
 
 void SaveToFile(TextCypher cypher)
 {
-    char fName[25];
+    char fName[25], opt;
     FILE *fp;
 
-    printf("ENTER A FILENAME: \n");
-    CreateTextBox("%s", fName, 0);
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), WHITE);
 
-    while(strcmp(fName, "") == 0)
+    fflush(stdin);
+    printf(" SAVE TO FILE? [Y/N]: ");
+    scanf("%c", &opt);
+
+    if(opt == 'Y' || opt == 'y')
     {
-        printf("**ENTER A VALID FILENAME: \n");
+        system("cls");
+        SetConsoleTitleA("SAVE TO FILE | Zen Cypher");
+
+        fflush(stdin);
+        printf("ENTER A FILENAME: \n");
         CreateTextBox("%s", fName, 0);
+
+        while(strcmp(fName, "") == 0)
+        {
+            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), YELLOW);
+            printf("**ENTER A VALID FILENAME: \n");
+            CreateTextBox("%s", fName, 0);
+        }
+
+        strcat(fName, ".cyph");///add extension
+
+        if((fp = fopen(fName, "w+")) != NULL)
+        {
+            fwrite(&cypher, sizeof(TextCypher), 1, fp);
+        }
+        else
+        {
+            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), RED);
+            printf("=( File cannot be saved at this moment...");
+            getch();
+        }
     }
 
-    strcat(fName, ".cyph");///add extension
-
-    if((fp = fopen(fName, "w+")) != NULL)
-    {
-        fwrite(&cypher, sizeof(TextCypher), 1, fp);
-    }
-    else
-    {
-        printf("=( File cannot be saved...");
-    }
 }
 
 void OpenFromFile()
 {
 
 }
+

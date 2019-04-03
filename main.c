@@ -24,7 +24,7 @@ int main()
     char choice;
 
     srand(time(0));
-    //Menu();
+    Menu();
 
     SplashScreen();
 
@@ -190,10 +190,10 @@ char MainMenu()
     SetConsoleTitleA("Main Menu | ZEN CYPHER");
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), WHITE);
 
-    printf(" ___   __  __       \n");
-    printf("| | | |   |  | |  | \n");
-    printf("|   | |-- |  | |  | \n");
-    printf("|   | |__ |  | |__| \n\n");
+    printf("   ___   __  __       \n");
+    printf("  | | | |   |  | |  | \n");
+    printf("  |   | |-- |  | |  | \n");
+    printf("  |   | |__ |  | |__| \n\n");
 
     printf("________________________\n");
 
