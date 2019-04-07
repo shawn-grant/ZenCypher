@@ -29,22 +29,29 @@ void Encode (TextCypher cypher)
     int i, asciiVal;
     time_t t = time(NULL);
     struct tm tm = *localtime(&t);
-    int publicKey, privateKey; //equivalent to public and private key in cryptography
+    int publicKey, privateKey; /// equivalent to public and private key in cryptography
 
     publicKey = (rand() % (UPPER - LOWER + 1)) + LOWER; // single digit
     privateKey = (publicKey * 5) - publicKey;// key used to encrypt
-
-    system("cls");
-    SetConsoleTitleA("ENCODER | Zen Cypher");
-
-    fflush(stdin);
-
     /// Add the public key to the text
     newTxt[0] = publicKey + '0';
 
-    /// //////////// GET USER DATA ////////////////
+    system("cls");
+    SetConsoleTitleA("ENCODER | Zen Cypher");
+    fflush(stdin);
 
-    printf("ENTER TEXT (ENGLISH):\n");
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), BLUE);
+
+    PrintAtCenterB("  ____            _\n", 21);
+    PrintAtCenterB(" /    \\__________| |\n", 21);
+    PrintAtCenterB("|  @   ____________| \n", 21);
+    PrintAtCenterB(" \\____/            \n\n", 21);
+
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), WHITE);
+
+    /// //////////// GET USER DATA ///////////////
+
+    PrintAtCenterA("ENTER TEXT (ENGLISH):\n");
     CreateLargeTextBox("%s", inputStr);
 
     strcpy(cypher.original, inputStr);
@@ -95,15 +102,16 @@ void Encode (TextCypher cypher)
 
     ///add recipient name to the coded string here
 
-    printf("\n\tENCODED TEXT:");
+    PrintAtCenterA("--------ENCODED TEXT--------\n");
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), GREEN);
-    printf("\n\t%s", cypher.encoded);
+    PrintAtCenterA(cypher.encoded);
+    printf("\n\n");
 
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), YELLOW);
-    printf("\n\n** You may copy the text above **\n\n");
+    PrintAtCenterA("** You may copy the text above **\n\n");
 
-    AddToHistory(cypher);
     SaveToFile(cypher);
+    AddToHistory(cypher);
 }
 
 /// WORKING
@@ -117,10 +125,19 @@ void Decode(TextCypher cypher)
 
     system("cls");
     SetConsoleTitleA("DECODER | Zen Cypher");
+    fflush(stdin);
+
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), BLUE);
+
+    PrintAtCenterB("  ____            _\n", 21);
+    PrintAtCenterB(" /    \\__________| |\n", 21);
+    PrintAtCenterB("|  @   ____________| \n", 21);
+    PrintAtCenterB(" \\____/            \n\n", 21);
+
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), WHITE);
 
     /// // GET USER DATA /////
-    fflush(stdin);
-    printf("ENTER CODE : \n");
+    PrintAtCenterA("ENTER CODE : \n");
     CreateLargeTextBox("%s", inputStr);
 
     strcpy(cypher.encoded, inputStr);
@@ -179,15 +196,16 @@ void Decode(TextCypher cypher)
     sprintf(cypher.dateTime, "%i/%i/%i @ %i:%i %s",
             tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900, tm.tm_hour, tm.tm_min, amPm);
 
-    printf("\n\tDECODED TEXT:");
+    PrintAtCenterA("--------DECODED TEXT--------\n");
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), GREEN);
-    printf("\n\t%s", cypher.original);
+    PrintAtCenterA(cypher.original);
+    printf("\n\n");
 
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), YELLOW);
-    printf("\n\n** You may copy the text above **\n\n");
+    PrintAtCenterA("** You may copy the text above **\n\n");
 
-    AddToHistory(cypher);
     SaveToFile(cypher);
+    AddToHistory(cypher);
 }
 
 void SaveToFile(TextCypher cypher)
@@ -198,7 +216,7 @@ void SaveToFile(TextCypher cypher)
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), WHITE);
 
     fflush(stdin);
-    printf(" SAVE TO FILE? [Y/N]: ");
+    PrintAtCenterA(" SAVE TO FILE? [Y/N]: ");
     scanf("%c", &opt);
 
     if(opt == 'Y' || opt == 'y')
@@ -207,13 +225,13 @@ void SaveToFile(TextCypher cypher)
         SetConsoleTitleA("SAVE TO FILE | Zen Cypher");
 
         fflush(stdin);
-        printf("ENTER A FILENAME: \n");
+        PrintAtCenterA("ENTER A FILENAME: \n");
         CreateTextBox("%s", fName, 0);
 
         while(strcmp(fName, "") == 0)
         {
             SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), YELLOW);
-            printf("**ENTER A VALID FILENAME: \n");
+            PrintAtCenterA("**ENTER A VALID FILENAME: \n");
             CreateTextBox("%s", fName, 0);
         }
 
@@ -226,7 +244,7 @@ void SaveToFile(TextCypher cypher)
         else
         {
             SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), RED);
-            printf("=( File cannot be saved at this moment...");
+            PrintAtCenterA("=( File cannot be saved at this moment...\n");
             getch();
         }
     }

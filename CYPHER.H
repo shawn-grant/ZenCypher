@@ -38,14 +38,11 @@ void Decode(TextCypher);
 void SaveToFile(TextCypher);
 void OpenFromFile();
 //string
-void strReplace(char [], char [], char []);
 void strAppend(char [], char);
-void strRemove(char text[] ,int, int);
 void strInsert(char [] ,char [], int);
 int strIndexOf(char, char[]);
 int strEndsWith(char[], char[]);
 int isSymbol(char);
-int strPresentAtIndex(char[], char[], int);
 //history
 void AddToHistory(TextCypher);
 void ShowHistory();
@@ -56,11 +53,8 @@ void ShowLoading();
 void CreateTextBox(char [], void *, int);
 void CreateLargeTextBox(char [], void *);
 void SplashScreen();
+void PrintAtCenterA(char[]);
+void PrintAtCenterB(char[], int);
 void GoodBye();
-void SetColorAndBackground(int, int);
-//tutorial
-void StartTutorial();
-void ShowTitle();
-
 
 #endif // CYPHER_H_INCLUDED

@@ -15,7 +15,7 @@ char Menu()
 {
     int i, opt;
     char ch;
-    COORD pos;
+    COORD pos, prev;
 
     system("cls");
 
@@ -23,7 +23,7 @@ char Menu()
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), WHITE);
 
     pos.X = 21;
-    pos.Y = 7;
+    pos.Y = 6;
 
     printf(" ___   __  __       \n");
     printf("| | | |   |  | |  | \n");
@@ -38,28 +38,24 @@ char Menu()
     printf ("E) UPDATE LOGIN INFO\n");
     printf ("F) EXIT\n\n");
 
-    while((ch = getch()) != '\r' && )
+    printf("Use the arrows to navigate to an option");
+
+    while((ch = getch()) != '\r')
     {
-
-        system("cls");
-        printf(" ___   __  __       \n");
-        printf("| | | |   |  | |  | \n");
-        printf("|   | |-- |  | |  | \n");
-        printf("|   | |__ |  | |__| \n\n");
-        printf("________________________\n");
-
-        printf ("A) ENCODE A MESSAGE\n");
-        printf ("B) DECODE A MESSAGE\n");
-        printf ("C) NEW FROM FILE\n");
-        printf ("D) SHOW HISTORY\n");
-        printf ("E) UPDATE LOGIN INFO\n");
-        printf ("F) EXIT\n\n");
-
         SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
 
         if(ch == 72)/// up
         {
-           if(pos.Y >= 7)pos.Y--;
+           if(pos.Y >= 7)
+            {
+                pos.Y--;
+                ///  clear the arrow below
+                prev.X = pos.X;
+                prev.Y = pos.Y + 1;
+                SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), prev);
+                printf("        ");
+           }
+
            SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), YELLOW);
            printf("<-------");
@@ -68,7 +64,16 @@ char Menu()
        {
            if(ch == 80)/// down
            {
-               if(pos.Y < 11) pos.Y++;
+               if(pos.Y < 11)
+               {
+                   pos.Y++;
+                   ///  clear the arrow below
+                   prev.X = pos.X;
+                   prev.Y = pos.Y - 1;
+                   SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), prev);
+                   printf("        ");
+               }
+
                SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
                SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), YELLOW);
                printf("<-------");
@@ -78,7 +83,7 @@ char Menu()
        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), WHITE);
     }
 
-    return 'ty';
+    return 'y';
 }
 
 ///custom function to create a textbox for input; includes password hiding (inspired by scanf)
@@ -89,15 +94,18 @@ void CreateTextBox(char specifier[], void *var, int isProtected)
     char c, password[25];
     int i = 0;
 
+    printf("\n");
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), CYAN);
+
+    PrintAtCenterA ("|                        \n");
+    PrintAtCenterA ("|________________________ ");
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), WHITE);
+
     GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &cursor);
 
-    printf(" ________________________\n");
-    printf("|                        |\n");
-    printf("|________________________|\n");
-
     ///positioning the cursor inside the box
-    coord.X = cursor.dwCursorPosition.X + 1;
-    coord.Y = cursor.dwCursorPosition.Y + 1;
+    coord.X = cursor.dwCursorPosition.X - 25;
+    coord.Y = cursor.dwCursorPosition.Y - 1;
 
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 
@@ -148,6 +156,7 @@ void CreateTextBox(char specifier[], void *var, int isProtected)
     ///re-place the cursor outside the box
     coord.Y += 2;
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+    printf("\n");
 }
 
 ///custom function to create a textbox for input (inspired by scanf)
@@ -156,15 +165,17 @@ void CreateLargeTextBox(char specifier[], void *var)
     COORD coord;//where to put the cursor
     CONSOLE_SCREEN_BUFFER_INFO cursor;//the cursor
 
+    printf("\n");
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), CYAN);
+
+    PrintAtCenterA("|                                                           \n");
+    PrintAtCenterA("|___________________________________________________________ ");
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), WHITE);
+
     GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &cursor);
-
-    printf(" ___________________________________________________________\n");
-    printf("|                                                           |\n");
-    printf("|___________________________________________________________|\n");
-
     ///positioning the cursor inside the box
-    coord.X = cursor.dwCursorPosition.X + 1;
-    coord.Y = cursor.dwCursorPosition.Y + 1;
+    coord.X = cursor.dwCursorPosition.X - 40;
+    coord.Y = cursor.dwCursorPosition.Y - 1;
 
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 
@@ -181,11 +192,13 @@ void CreateLargeTextBox(char specifier[], void *var)
     ///re-place the cursor outside the box
     coord.Y += 2;
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+
+    printf("\n");
 }
 
 void ShowLoading()
 {
-    int i, j = 0;
+    int i;
     char space[10] = "";
 
     for (i = 0; i < 13; i++)
@@ -211,24 +224,25 @@ void SplashScreen()
 {
     int i;
     COORD coord;//where to put the cursor
-    CONSOLE_SCREEN_BUFFER_INFO cursor;//the cursor
+    CONSOLE_SCREEN_BUFFER_INFO csbi;
 
-
-    printf("\n\t#####################\n");
-    printf("\t#                   #\n");
-    printf("\t#   ###### ######   #\n");
-    printf("\t#       ## ##       #\n");
-    printf("\t#      ##  ##       #\n");
-    printf("\t#     ##   ##       #\n");
-    printf("\t#    ##    ##       #      ZENCYPHER\n");
-    printf("\t#   ###### ######   #         1.0\n");
-    printf("\t#                   #\n");
-    printf("\t#####################\n");
+    PrintAtCenterA("#####################\n");
+    PrintAtCenterA("#                   #\n");
+    PrintAtCenterA("#   ###### ######   #\n");
+    PrintAtCenterA("#       ## ##       #\n");
+    PrintAtCenterA("#      ##  ##       #\n");
+    PrintAtCenterA("#     ##   ##       #\n");
+    PrintAtCenterA("#    ##    ##       #\n");
+    PrintAtCenterA("#   ###### ######   #\n");
+    PrintAtCenterA("#                   #\n");
+    PrintAtCenterA("#####################");
 
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), YELLOW);
 
-    coord.X = 29;
-    coord.Y = 2;
+    GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi);
+
+    coord.X = csbi.dwCursorPosition.X;
+    coord.Y = 1;
 
     for(i = 0; i < 9; i++)
     {
@@ -237,8 +251,9 @@ void SplashScreen()
         coord.Y += 1;
     }
 
-    printf("\t #######################\n");
-    printf("\t #######################\n");
+    PrintAtCenterA("    #######################\n");
+    PrintAtCenterA("    #######################\n");
+    PrintAtCenterA("ZENCYPHER 1.0\n");
 
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), WHITE);
 
@@ -248,17 +263,53 @@ void SplashScreen()
 void GoodBye()
 {
     system("cls");
-    printf("\t     @@@@@@@@@@     \n");
-    printf("\t     @@@    @@@     \n");
-    printf("\t     @@@    @@@     \n");
-    printf("\t     @@@    @@@     \n");
-    printf("\t  @@@@@@@@@@@@@@@@  \n");
-    printf("\t  @@@@@@@@@@@@@@@@  \n");
-    printf("\t  @@@@@@  O  @@@@@  \n");
-    printf("\t  @@@@@@@@ @@@@@@@  \n");
-    printf("\t  @@@@@@@@ @@@@@@@  \n");
-    printf("\t  @@@@@@@@ @@@@@@@  \n");
-    printf("\t  @@@@@@@@@@@@@@@@  \n");
+    PrintAtCenterA ("   @@@@@@@@@@     \n");
+    PrintAtCenterA ("   @@@    @@@     \n");
+    PrintAtCenterA ("   @@@    @@@     \n");
+    PrintAtCenterA ("   @@@    @@@     \n");
+    PrintAtCenterA ("@@@@@@@@@@@@@@@@  \n");
+    PrintAtCenterA ("@@@@@@@@@@@@@@@@  \n");
+    PrintAtCenterA ("@@@@@@  O  @@@@@  \n");
+    PrintAtCenterA ("@@@@@@@@ @@@@@@@  \n");
+    PrintAtCenterA ("@@@@@@@@ @@@@@@@  \n");
+    PrintAtCenterA ("@@@@@@@@ @@@@@@@  \n");
+    PrintAtCenterA ("@@@@@@@@@@@@@@@@  \n");
+
+    Sleep(1000);
+    exit(0);
 }
 
+void PrintAtCenterA(char str[])
+{
+    COORD centerPos;
+    int screenWwidth;
+    CONSOLE_SCREEN_BUFFER_INFO csbi;
 
+    GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi);
+    screenWwidth = csbi.srWindow.Right - csbi.srWindow.Left + 1;
+
+    /// cursor to center
+    centerPos.X = (screenWwidth - strlen(str)) / 2;
+    centerPos.Y = csbi.dwCursorPosition.Y;
+    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), centerPos);
+    /// print
+    printf(str);
+}
+
+//print at the center with specified length of the string
+void PrintAtCenterB(char str[], int length)
+{
+    COORD centerPos;
+    int screenWwidth;
+    CONSOLE_SCREEN_BUFFER_INFO csbi;
+
+    GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi);
+    screenWwidth = csbi.srWindow.Right - csbi.srWindow.Left + 1;
+
+    /// cursor to center
+    centerPos.X = (screenWwidth - length) / 2;
+    centerPos.Y = csbi.dwCursorPosition.Y;
+    SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), centerPos);
+    /// print
+    printf(str);
+}

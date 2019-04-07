@@ -24,7 +24,7 @@ int main()
     char choice;
 
     srand(time(0));
-    Menu();
+    //Menu();
 
     SplashScreen();
 
@@ -98,10 +98,10 @@ int LoginSignUp(User *user)
             //login
             do
             {
-                printf("LOGIN \n\n");
-                printf("ENTER YOUR USERNAME: \n");
+                PrintAtCenterA("LOGIN \n\n");
+                PrintAtCenterA("ENTER YOUR USERNAME: \n");
                 CreateTextBox("%s", user->username, 0);
-                printf("ENTER YOUR PASSWORD: \n");
+                PrintAtCenterA("ENTER YOUR PASSWORD: \n");
                 CreateTextBox("%s", user->password, 1);
                 system("cls");
             }
@@ -114,10 +114,10 @@ int LoginSignUp(User *user)
             //sign up
             do
             {
-                printf("SIGN UP \n\n");
-                printf("ENTER A USERNAME: \n");
+                PrintAtCenterA("SIGN UP \n\n");
+                PrintAtCenterA("ENTER A USERNAME: \n");
                 CreateTextBox("%s", user->username, 0);
-                printf("ENTER A PASSWORD: \n");
+                PrintAtCenterA("ENTER A PASSWORD: \n");
                 CreateTextBox("%s", user->password, 1);
                 system("cls");
             }
@@ -135,7 +135,7 @@ int LoginSignUp(User *user)
             else
             {
                 SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), RED);
-                printf("\nCANNOT SAVE USER DATA... RESTART THE PROGRAM");
+                PrintAtCenterA("\nCANNOT SAVE USER DATA... RESTART THE PROGRAM");
                 getch();
                 return 0;//user not logged in
             }
@@ -145,7 +145,7 @@ int LoginSignUp(User *user)
     else
     {
         SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), RED);
-        printf("\nCANNOT LOAD USER DATA... RESTART THE PROGRAM");
+        PrintAtCenterA("\nCANNOT LOAD USER DATA... RESTART THE PROGRAM");
         getch();
         return 0;//user not logged in
     }
@@ -160,11 +160,11 @@ void UpdateLogin()
 
     do
     {
-        printf("CHANGE USERNAME AND PASSWORD\n");
+        PrintAtCenterA("CHANGE USERNAME AND PASSWORD\n");
 
-        printf("ENTER NEW USERNAME: \n");
+        PrintAtCenterA("ENTER NEW USERNAME: \n");
         CreateTextBox("%s", uname, 0);
-        printf("ENTER NEW PASSWORD: \n");
+        PrintAtCenterA("ENTER NEW PASSWORD: \n");
         CreateTextBox("%s", pwd, 1);
         system("cls");
     }
@@ -178,7 +178,7 @@ void UpdateLogin()
     else
     {
         SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), RED);
-        printf("\n CANNOT UPDATE AT THIS TIME...");
+        PrintAtCenterA("\n CANNOT UPDATE AT THIS TIME...");
         getch();
     }
 }
@@ -190,21 +190,21 @@ char MainMenu()
     SetConsoleTitleA("Main Menu | ZEN CYPHER");
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), WHITE);
 
-    printf("   ___   __  __       \n");
-    printf("  | | | |   |  | |  | \n");
-    printf("  |   | |-- |  | |  | \n");
-    printf("  |   | |__ |  | |__| \n\n");
+    PrintAtCenterB("  ___   __  __       \n", 21);
+    PrintAtCenterB(" | | | |   |  | |  | \n", 21);
+    PrintAtCenterB(" |   | |-- |  | |  | \n", 21);
+    PrintAtCenterB(" |   | |__ |  | |__| \n\n", 21);
 
-    printf("________________________\n");
+    PrintAtCenterA("________________________\n");
 
-    printf ("A) ENCODE A MESSAGE\n");
-    printf ("B) DECODE A MESSAGE\n");
-    printf ("C) NEW FROM FILE\n");
-    printf ("D) SHOW HISTORY\n");
-    printf ("E) UPDATE LOGIN INFO\n");
-    printf ("F) EXIT\n\n");
+    PrintAtCenterB ("A) ENCODE A MESSAGE\n", 22);
+    PrintAtCenterB ("B) DECODE A MESSAGE\n", 22);
+    PrintAtCenterB ("C) NEW FROM FILE\n", 22);
+    PrintAtCenterB ("D) SHOW HISTORY\n", 22);
+    PrintAtCenterB ("E) UPDATE USER INFO\n", 22);
+    PrintAtCenterB ("F) EXIT\n\n", 22);
 
-    printf("CHOOSE A LETTER OPTION ABOVE:");
+    PrintAtCenterA("CHOOSE A LETTER OPTION ABOVE:");
 
     return getch();
 }
