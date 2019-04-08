@@ -164,6 +164,7 @@ void UpdateLogin()
 
         PrintAtCenterA("ENTER NEW USERNAME: \n");
         CreateTextBox("%s", uname, 0);
+
         PrintAtCenterA("ENTER NEW PASSWORD: \n");
         CreateTextBox("%s", pwd, 1);
         system("cls");

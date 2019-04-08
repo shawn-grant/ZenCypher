@@ -135,7 +135,7 @@ void CreateTextBox(char specifier[], void *var, int isProtected)
                 {
                     ///check to ensure its a letter or number
                     ///because getch seems to accept EVERYTHING on the keyboard as a char
-                    if(isalpha(c) != 0 || isdigit(c) == 1)
+                    if((isalpha(c) != 0 || isdigit(c) == 1) && c!=72 && c!=80 && c!=75 && c!=77 )
                     {
                         password[i] = c;
                         printf("*");
