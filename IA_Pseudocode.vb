@@ -23,7 +23,7 @@ Driver ()
     If (LoginSignUp (user) = 1) Then
         choice = MainMenu ()
 
-        While (choice <> 'F' AND choice <> 'f') DO
+        While (choice <> 'E' AND choice <> 'e') DO
             CASE of choice
                 Case 'A':
                 Case 'a':
@@ -35,14 +35,10 @@ Driver ()
 
                 Case 'C':
                 Case 'c':
-                    OpenFromFile ()
+                    ShowHistory ()
 
                 Case 'D':
                 Case 'd':
-                    ShowHistory ()
-
-                Case 'E':
-                Case 'e':
                     UpdateLogin ()
 
                 Default
@@ -123,10 +119,9 @@ MainMenu(): Character
 
     Print "A) ENCODE A MESSAGE"
     Print "B) DECODE A MESSAGE"
-    Print "C) NEW FROM FILE"
-    Print "D) SHOW HISTORY"
-    Print "E) UPDATE LOGIN INFO"
-    Print "F) EXIT"
+    Print "C) SHOW HISTORY"
+    Print "D) UPDATE LOGIN INFO"
+    Print "E) EXIT"
 
     Print "CHOOSE AN OPTION ABOVE: "
     Read c
@@ -140,7 +135,6 @@ SPACE_SPECIFIER = "S10": Constant String
 NUMBER_SPECIFIER = "N20": Constant String
 SYMBOL_SPECIFIER = "S30": Constant String
 
-INCREMENT = 5: Constant Integer
 UPPER =  9: Constant Integer
 LOWER = 2: Constant Integer
 
@@ -148,8 +142,7 @@ Encode(cypher: TextCypher)
     inputStr, newTxt = "", amPm, asciiValTxt: String
     i, asciiVal: Integer
     publicKey, privateKey: Integer 'equivalent to public and private key in cryptography
-    ' Get the time and date from the system
-    tm: Time
+    tm: Time 'system time and date
 
     publicKey = Random between UPPER AND LOWER 
     privateKey = (publicKey * 5) - publicKey ' key used to encrypt
@@ -211,76 +204,100 @@ Encode(cypher: TextCypher)
     SaveToFile (cypher)
 
     AddToHistory(cypher)
-
 EndEncode
 
 Decode(cypher: TextCypher)
-    inputStr, newTxt = "", amPm, asciiValTxt = "": String
+    inputStr, newTxt = "", amPm, asciiValTxt = "", fName: String
+    opt: Character
     i, asciiVal: Integer
     publicKey, privateKey: Integer 'equivalent to public and private key in cryptography
     ' Get the time and date from the system
     tm: Time
+    fp: File
 
-    ' '''' GET USER DATA '''''
-    Print "ENTER CODE : "
-    Read inputStr
+    Print "A) Decode a .zen file"
+    Print "B) Decode copied text"
+    
+    Print "Choose an option: "
+    Read opt
 
-    cypher.encoded = inputStr    
+    CASE OF opt
+        Case 'A':
+            ' '''' GET USER DATA '''''
+            Print "ENTER FILE NAME : "
+            Read fName
 
-    publicKey = inputStr[0]
-    privateKey = privateKey = (publicKey * 5) - publicKey ' key used to decrypt
-
-    For (i = 1 To Length of(inputStr)) DO
-
-        ' get 3 digit ascii code
-        asciiValTxt = asciiValTxt + inputStr[i]
-        asciiValTxt = asciiValTxt + inputStr[i + 1]
-        asciiValTxt = asciiValTxt + inputStr[i + 2]
-
-        If (asciiValTxt = NUMBER_SPECIFIER)
-            newTxt = newTxt + inputStr[i + Length of(NUMBER_SPECIFIER)]
-            i = i + Length of(NUMBER_SPECIFIER)
-        Else
-        
-            If (sasciiValTxt = SPACE_SPECIFIER)
-                newTxt = newTxt + " "
-                i = i + Length of(SPACE_SPECIFIER)
+            If((fp = Open File, fName, for reading) <> NULL) Then
+                Read inputStr, from file, fp
+                pass = 1
             Else
-                If (asciiValTxt = SYMBOL_SPECIFIER)
-                    newTxt = newTxt + inputStr[i + Length of(SYMBOL_SPECIFIER)]
-                    i = i + Length of(SYMBOL_SPECIFIER)
+                pass = 0
+            EndIf
+
+        Case 'B':
+            ' '''' GET USER DATA '''''
+            Print "ENTER CODE : "
+            Read inputStr
+            pass = 1
+    EndCASE
+
+    If(pass = 1) Then
+        cypher.encoded = inputStr    
+
+        publicKey = inputStr[0]
+        privateKey = privateKey = (publicKey * 5) - publicKey ' key used to decrypt
+
+        For (i = 1 To Length of(inputStr)) DO
+
+            ' get 3 digit ascii code
+            asciiValTxt = asciiValTxt + inputStr[i]
+            asciiValTxt = asciiValTxt + inputStr[i + 1]
+            asciiValTxt = asciiValTxt + inputStr[i + 2]
+
+            If (asciiValTxt = NUMBER_SPECIFIER)
+                newTxt = newTxt + inputStr[i + Length of(NUMBER_SPECIFIER)]
+                i = i + Length of(NUMBER_SPECIFIER)
+            Else
+            
+                If (sasciiValTxt = SPACE_SPECIFIER)
+                    newTxt = newTxt + " "
+                    i = i + Length of(SPACE_SPECIFIER)
                 Else
-                    asciiVal = asciiValTxt As Integer 'change the ascii string to an int
-                    asciiVal = asciiVal - privateKey
+                    If (asciiValTxt = SYMBOL_SPECIFIER)
+                        newTxt = newTxt + inputStr[i + Length of(SYMBOL_SPECIFIER)]
+                        i = i + Length of(SYMBOL_SPECIFIER)
+                    Else
+                        asciiVal = asciiValTxt As Integer 'change the ascii string to an int
+                        asciiVal = asciiVal - privateKey
 
-                    newTxt = newTxt + (asciiVal As Character)
+                        newTxt = newTxt + (asciiVal As Character)
 
-                    i = i + 2 ' skip to next ascii set
+                        i = i + 2 ' skip to next ascii set
+                    EndIf
                 EndIf
             EndIf
+
+            asciiValTxt = "" 'clear it for next entry
+        EndFor
+
+        cypher.original = newTxt 'save encoded text to the structure
+
+        ' Add time/date to the cypher
+        If (tm.hour >= 12) Then
+            amPm = "PM"
+        Else
+            amPm = "AM"
         EndIf
 
-        asciiValTxt = "" 'clear it for next entry
-    EndFor
+        'Format: dd/ mm/ yyyy @ hrs : min
+        cypher.dateTime = tm.day + "/" + tm.month + "/" + tm.year + " @ " + tm.hour + ":" + tm.minutes
 
-    cypher.original = newTxt 'save encoded text to the structure
+        'add recipient name to the coded string here
 
-    ' Add time/date to the cypher
-    If (tm.hour >= 12) Then
-        amPm = "PM"
-    Else
-        amPm = "AM"
+        Print "DECODED TEXT: ", cypher.original
+
+        AddToHistory(cypher)
     EndIf
-
-    'Format: dd/ mm/ yyyy @ hrs : min
-    cypher.dateTime = tm.day + "/" + tm.month + "/" + tm.year + " @ " + tm.hour + ":" + tm.minutes
-
-    'add recipient name to the coded string here
-
-    Print "DECODED TEXT: ", cypher.original
-    SaveToFile (cypher)
-
-    AddToHistory(cypher)
 EndDecode
 
 SaveToFile(cypher: TextCypher)
@@ -301,7 +318,7 @@ SaveToFile(cypher: TextCypher)
             Read fName
         EndWhile
 
-        fName = fName + ".cyph" 'add extension
+        fName = fName + ".zen" 'add extension
 
         If((fp = Open File, fName, for writing) <> NULL)
             Write cypher, To File, fp
@@ -402,29 +419,3 @@ strEndsWith(str: String, ending: String): Integer
     return result
 EndstrEndsWith
 
-strPresentAtIndex(text: String, subString: String, at: Integer): Integer
-    i: Integer
-    len = Length of(subString): Integer
-    result: Integer
-
-    For(i = 0 To len-1) Do
-        If(text[at + i] = subString[i]  AND result <> 0)
-            result = 1;
-        Else
-            result = 0
-        EndIf
-    EndFor
-
-    return result
-EndstrPresentAtIndex
-
-'Find the index of a character in a string
-strIndexOf(of: Character, in: String): Integer
-    index = 0: Integer
-
-    While (in[index] <> of)
-        index = index + 1
-    EndWhile
-
-    return index
-EndstrIndexOf

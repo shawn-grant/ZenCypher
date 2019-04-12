@@ -133,12 +133,12 @@ void CreateTextBox(char specifier[], void *var, int isProtected)
                 }
                 else
                 {
-                    ///check to ensure its a letter or number
+                    ///check to ensure its a letter or number and not an arrow
                     ///because getch seems to accept EVERYTHING on the keyboard as a char
-                    if((isalpha(c) != 0 || isdigit(c) == 1) && c!=72 && c!=80 && c!=75 && c!=77 )
+                    if((isalpha(c) != 0 || isdigit(c) == 1) && (c != 72 && c != 80 && c != 75 && c != 77))
                     {
                         password[i] = c;
-                        printf("*");
+                        printf("-");
                         i++;
                     }
                 }
@@ -174,7 +174,7 @@ void CreateLargeTextBox(char specifier[], void *var)
 
     GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &cursor);
     ///positioning the cursor inside the box
-    coord.X = cursor.dwCursorPosition.X - 40;
+    coord.X = cursor.dwCursorPosition.X - 56;
     coord.Y = cursor.dwCursorPosition.Y - 1;
 
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);

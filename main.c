@@ -33,7 +33,7 @@ int main()
     {
         choice = MainMenu();
 
-        while(choice != 'F' && choice != 'f')
+        while(choice != 'E' && choice != 'e')
         {
             switch(choice)
             {
@@ -49,23 +49,18 @@ int main()
 
             case 'C':
             case 'c':
-                OpenFromFile();
+                ShowHistory();
                 break;
 
             case 'D':
             case 'd':
-                ShowHistory();
-                break;
-
-            case 'E':
-            case 'e':
                 UpdateLogin();
                 break;
 
             default:
                 SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), RED);
-                printf("\n  INVALID OPTION!\n");
-                printf("     Press any key to continue...");
+                PrintAtCenterA("INVALID OPTION!\n");
+                PrintAtCenterA("  Press any key to continue...  ");
                 getch();
                 break;
             }
@@ -83,6 +78,18 @@ int LoginSignUp(User *user)
     SetConsoleTitleA("LOGIN / SIGN-UP");
 
     system("cls");
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), BLUE);
+
+    PrintAtCenterB("      ___      \n", 15);
+    PrintAtCenterB("     /   \\     \n", 15);
+    PrintAtCenterB("    |     |    \n", 15);
+    PrintAtCenterB("    |     |    \n", 15);
+    PrintAtCenterB("     \\   /     \n", 15);
+    PrintAtCenterB("  ___|   |___  \n", 15);
+    PrintAtCenterB(" /           \\ \n", 15);
+    PrintAtCenterB("|_____________|\n\n", 15);
+
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), WHITE);
 
     char nameOnFile[25], passwordOnFile[25];
     FILE *fpRead, *fpWrite;
@@ -158,6 +165,19 @@ void UpdateLogin()
 
     system("cls");
 
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), BLUE);
+
+    PrintAtCenterB("      ___      \n", 15);
+    PrintAtCenterB("     /   \\     \n", 15);
+    PrintAtCenterB("    |     |    \n", 15);
+    PrintAtCenterB("    |     |    \n", 15);
+    PrintAtCenterB("     \\   /     \n", 15);
+    PrintAtCenterB("  ___|   |___  \n", 15);
+    PrintAtCenterB(" /           \\ \n", 15);
+    PrintAtCenterB("|_____________|\n\n", 15);
+
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), WHITE);
+
     do
     {
         PrintAtCenterA("CHANGE USERNAME AND PASSWORD\n");
@@ -191,6 +211,7 @@ char MainMenu()
     SetConsoleTitleA("Main Menu | ZEN CYPHER");
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), WHITE);
 
+    PrintAtCenterA("________________________\n");
     PrintAtCenterB("  ___   __  __       \n", 21);
     PrintAtCenterB(" | | | |   |  | |  | \n", 21);
     PrintAtCenterB(" |   | |-- |  | |  | \n", 21);
@@ -198,14 +219,13 @@ char MainMenu()
 
     PrintAtCenterA("________________________\n");
 
-    PrintAtCenterB ("A) ENCODE A MESSAGE\n", 22);
-    PrintAtCenterB ("B) DECODE A MESSAGE\n", 22);
-    PrintAtCenterB ("C) NEW FROM FILE\n", 22);
-    PrintAtCenterB ("D) SHOW HISTORY\n", 22);
-    PrintAtCenterB ("E) UPDATE USER INFO\n", 22);
-    PrintAtCenterB ("F) EXIT\n\n", 22);
+    PrintAtCenterB ("-[A] ENCODE A MESSAGE -\n", 26);
+    PrintAtCenterB ("-[B] DECODE A MESSAGE -\n", 26);
+    PrintAtCenterB ("-[C] SHOW HISTORY     -\n", 26);
+    PrintAtCenterB ("-[D] UPDATE USER INFO -\n", 26);
+    PrintAtCenterB ("-[E) EXIT             -\n\n", 26);
 
-    PrintAtCenterA("CHOOSE A LETTER OPTION ABOVE:");
+    PrintAtCenterA("CHOOSE A LETTER OPTION ABOVE:\n");
 
     return getch();
 }

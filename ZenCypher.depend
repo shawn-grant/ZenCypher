@@ -178,3 +178,44 @@
 
 1553568286 source:f:\school\com_sci\zencypher\icon.rc
 
+1554224632 source:c:\users\shawn\documents\flash_drive\school\com_sci\zencypher\cypherhistory.c
+	<stdio.h>
+	<conio.h>
+	<windows.h>
+	"CYPHER.H"
+
+1554666164 c:\users\shawn\documents\flash_drive\school\com_sci\zencypher\cypher.h
+
+1555036651 source:c:\users\shawn\documents\flash_drive\school\com_sci\zencypher\encoderdecoder.c
+	<string.h>
+	<ctype.h>
+	<conio.h>
+	<stdlib.h>
+	<stdio.h>
+	<windows.h>
+	<time.h>
+	"CYPHER.H"
+
+1553568286 source:c:\users\shawn\documents\flash_drive\school\com_sci\zencypher\icon.rc
+
+1555075091 source:c:\users\shawn\documents\flash_drive\school\com_sci\zencypher\main.c
+	<stdio.h>
+	<stdlib.h>
+	<windows.h>
+	<time.h>
+	<string.h>
+	<conio.h>
+	"CYPHER.H"
+
+1554263388 source:c:\users\shawn\documents\flash_drive\school\com_sci\zencypher\stringmanipulator.c
+	<string.h>
+	<stdlib.h>
+	<stdio.h>
+
+1555036342 source:c:\users\shawn\documents\flash_drive\school\com_sci\zencypher\gui_functions.c
+	<stdio.h>
+	<stdlib.h>
+	<conio.h>
+	<windows.h>
+	"CYPHER.H"
+
