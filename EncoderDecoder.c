@@ -107,8 +107,8 @@ void Encode (TextCypher cypher)
     PrintAtCenterA(cypher.encoded);
     printf("\n\n");
 
-    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), YELLOW);
-    PrintAtCenterA("** You may copy the text above **\n\n");
+    //SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), YELLOW);
+    //PrintAtCenterA("** You may copy the text above **\n\n");
 
     SaveToFile(cypher);
     AddToHistory(cypher);

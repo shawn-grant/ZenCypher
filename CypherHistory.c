@@ -22,7 +22,7 @@ void AddToHistory(TextCypher newCypher)
     else
     {
         SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), RED);
-        printf("AN ERROR OCCURED...\nPress any key to continue");
+        PrintAtCenterA("AN ERROR OCCURED...Press any key to continue\n");
         getch();
     }
 }
@@ -32,11 +32,12 @@ void ShowHistory()
     TextCypher list[100];
     FILE *fp;
     int i = 0;
+    char opt;
 
     system("cls");
     SetConsoleTitleA("HISTORY | Zen Cypher");
 
-    printf("_________HISTORY_______\n\n");
+    PrintAtCenterA("_________HISTORY________\n\n");
 
     if((fp = fopen("HISTORY.CYPH", "r")) != NULL)
     {
@@ -54,54 +55,23 @@ void ShowHistory()
         int length = i-1;
         printf("%d ITEM(s)\n", length);
 
-        if(length > 0)
+        for (i = 0; i <= length; i++)
         {
-            for (i = 0; i <= length; i++)
-            {
-                printf(" _______________________________________\n");
-                printf("|\tDATE: %-26s|\n", list[i].dateTime);
-                printf("|\tORIGINAL TEXT : %-16s|\n", list[i].original);
-                printf("|\tENCODED TEXT  : %-16s|\n", list[i].encoded);
-                printf("|\tRECIPIENT     : %-16s|\n", list[i].reciever);
-                printf("|_______________________________________|\n\n");
-            }
-
-            printf("_______OPTIONS_______\n");
-            printf("1) DELETE ITEM\n");
-            printf("2) CLEAR HISTORY\n");
-            getch();
+            printf(" _______________________________________\n");
+            printf("|\tDATE: %-26s|\n", list[i].dateTime);
+            printf("|\tORIGINAL TEXT : %-16s|\n", list[i].original);
+            printf("|\tENCODED TEXT  : %-16s|\n", list[i].encoded);
+            printf("|\tRECIPIENT     : %-16s|\n", list[i].reciever);
+            printf("|_______________________________________|\n\n");
         }
-        else
-        {
-            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), RED);
-            printf("NO ITEMS\n");
-            getch();
-        }
-    }
-    else
-    {
-        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), RED);
-        printf("NO HISTORY DATA...\nPress any key to continue");
-        getch();
-    }
-}
 
-void RemoveItem(int item)
-{
-
-}
-
-void Clear()
-{
-    if (remove("HISTORY.CYPH") == 0)
-    {
-        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), YELLOW);
-        printf("HISTORY CLEARED");
         getch();
     }
     else
     {
         SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), RED);
-        printf("Unable to delete the file\n");
+        PrintAtCenterA("NO HISTORY FOUND... Hiding something?\n");
+        PrintAtCenterA("Press any key to continue\n");
+        getch();
     }
 }
