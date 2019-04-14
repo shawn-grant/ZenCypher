@@ -4,7 +4,6 @@
 Record TextCypher
     original: String
     encoded: String
-    reciever: String
     dateTime: String
 EndTextCypher
 
@@ -131,9 +130,9 @@ EndMainMenu
 
 -------------------[EncoderDecoder.c]-----------------------
 
-SPACE_SPECIFIER = "S10": Constant String
-NUMBER_SPECIFIER = "N20": Constant String
-SYMBOL_SPECIFIER = "S30": Constant String
+SPACE_SPECIFIER = "700": Constant String
+NUMBER_SPECIFIER = "800": Constant String
+SYMBOL_SPECIFIER = "900": Constant String
 
 UPPER =  9: Constant Integer
 LOWER = 2: Constant Integer
@@ -196,9 +195,7 @@ Encode(cypher: TextCypher)
     EndIf
 
     'Format: dd/ mm/ yyyy @ hrs : min
-    cypher.dateTime = tm.day + "/" + tm.month + "/" + tm.year + " @ " + tm.hour + ":" + tm.minutes
-
-    'add recipient name to the coded string here
+    cypher.dateTime = tm.day, "/", tm.month, "/", tm.year, " @ ", tm.hour, ":", tm.minutes
 
     Print "ENCODED TEXT: ", cypher.encoded
     SaveToFile (cypher)
@@ -223,19 +220,28 @@ Decode(cypher: TextCypher)
 
     CASE OF opt
         Case 'A':
-            ' '''' GET USER DATA '''''
+		Case 'a':
+            ' GET USER DATA
             Print "ENTER FILE NAME : "
             Read fName
+			
+			While (strEndsWith(fName, ".zen") <> 1) Do
+                Print "*Must be a .zen file"
+                Print "ENTER VALID FILE NAME : "
+                Read fName
+            EndWhile
 
             If((fp = Open File, fName, for reading) <> NULL) Then
                 Read inputStr, from file, fp
                 pass = 1
             Else
+				Print "CAN'T OPEN FILE, IT MAY NOT EXIST"
                 pass = 0
             EndIf
 
         Case 'B':
-            ' '''' GET USER DATA '''''
+		Case 'b':
+            ' GET USER DATA 
             Print "ENTER CODE : "
             Read inputStr
             pass = 1
@@ -290,7 +296,7 @@ Decode(cypher: TextCypher)
         EndIf
 
         'Format: dd/ mm/ yyyy @ hrs : min
-        cypher.dateTime = tm.day + "/" + tm.month + "/" + tm.year + " @ " + tm.hour + ":" + tm.minutes
+        cypher.dateTime = tm.day, "/", tm.month, "/", tm.year, " @ ", tm.hour, ":", tm.minutes, amPm
 
         'add recipient name to the coded string here
 
@@ -304,28 +310,21 @@ SaveToFile(cypher: TextCypher)
     fName: String
     opt: Character
     fp: File
+	Print "ENTER A FILENAME: "
+	Read fName
 
-    Print " SAVE TO FILE? [Y/N]: "
-    Read opt
+	While (fName = "")
+		Print "**ENTER A VALID FILENAME: "
+		Read fName
+	EndWhile
 
-    If(opt = 'Y' OR opt = 'y') Then
+	fName = fName + ".zen"  'add extension
 
-        Print "ENTER A FILENAME: "
-        Read fName
-
-        While (fName = "")
-            Print "**ENTER A VALID FILENAME: "
-            Read fName
-        EndWhile
-
-        fName = fName + ".zen" 'add extension
-
-        If((fp = Open File, fName, for writing) <> NULL)
-            Write cypher, To File, fp
-        Else
-            Print "=( File cannot be saved..."
-        EndIf
-    EndIf
+	If((fp = Open File, fName, for writing) <> NULL)
+		Write cypher, To File, fp
+	Else
+		Print "=( File cannot be saved..."
+	EndIf
 EndSaveToFile
 
 --------------------[CypherHistory.c]-----------------------
@@ -370,19 +369,14 @@ ShowHistory ()
             EndFor
 
             Print "_______OPTIONS_______"
-            Print "1) DELETE ITEM"
-            Print "2) CLEAR HISTORY"
+            Print "1) CLEAR HISTORY"
             
             Print "Choose an option: "
             Read opt
 
             CASE OF opt
-                Case 1:
-                    Print "Item #: "
-                    Read item
-                    RemoveItem(item)
 
-                Case 2:
+                Case 1:
                     Clear()
             EndCASE
         EndIf
@@ -390,10 +384,6 @@ ShowHistory ()
         Print "NO HISTORY DATA..."
     EndIf
 EndShowHistory
-
-RemoveItem (item: Integer)
-    'remove item from file??
-EndRemoveItem
 
 Clear ()
     Delete File "HISTORY.CYPH"

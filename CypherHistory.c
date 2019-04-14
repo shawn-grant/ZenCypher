@@ -32,7 +32,6 @@ void ShowHistory()
     TextCypher list[100];
     FILE *fp;
     int i = 0;
-    char opt;
 
     system("cls");
     SetConsoleTitleA("HISTORY | Zen Cypher");

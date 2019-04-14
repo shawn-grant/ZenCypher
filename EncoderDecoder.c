@@ -14,11 +14,10 @@
 #include <time.h>
 #include "CYPHER.H"
 
-#define SPACE_SPECIFIER "S10"
-#define NUMBER_SPECIFIER "N20"
-#define SYMBOL_SPECIFIER "S30"
+#define SPACE_SPECIFIER "700"
+#define NUMBER_SPECIFIER "800"
+#define SYMBOL_SPECIFIER "900"
 
-#define INCREMENT 5
 #define UPPER 9
 #define LOWER 2
 
@@ -117,7 +116,7 @@ void Encode (TextCypher cypher)
 /// WORKING
 void Decode(TextCypher cypher)
 {
-    char inputStr[700], newTxt[700] = "", amPm[3], asciiValTxt[4] = "", opt, fName;
+    char inputStr[700], newTxt[700] = "", amPm[3], asciiValTxt[4] = "", opt, fName[25];
     int i, asciiVal, pass;
     time_t t = time(NULL);
     struct tm tm = *localtime(&t);
@@ -130,8 +129,8 @@ void Decode(TextCypher cypher)
 
     PrintAtCenterA("----CHOOSE AN OPTION----\n");
     PrintAtCenterA("----------------------------\n");
-    PrintAtCenterA("-[A] DECODE CYPHER FILE -\n");
-    PrintAtCenterA("-[B] DECODE CYPHER TEXT -");
+    PrintAtCenterA("-[A] DECODE A .ZEN FILE -\n");
+    PrintAtCenterA("-[B] DECODE COPIED TEXT -\n");
 
     opt = getch();
 
@@ -242,7 +241,7 @@ void Decode(TextCypher cypher)
         strcpy (cypher.original, newTxt);//save encoded text to the structure
 
         /// Add time/date to the cypher
-        tm.tm_hour >= 12? strcpy(amPm, "PM"):strcpy(amPm, "AM");
+        tm.tm_hour >= 12? strcpy(amPm, "PM") : strcpy(amPm, "AM");
 
         if(tm.tm_hour > 12) tm.tm_hour -= 12;
 
@@ -261,7 +260,7 @@ void Decode(TextCypher cypher)
 
 void SaveToFile(TextCypher cypher)
 {
-    char fName[25], opt;
+    char fName[25];
     FILE *fp;
 
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), WHITE);
@@ -286,6 +285,7 @@ void SaveToFile(TextCypher cypher)
         fprintf(fp, "%s", cypher.encoded);
         PrintAtCenterA("Saved As \n");
         PrintAtCenterA(fName);
+        fclose(fp);
         getch();
     }
     else

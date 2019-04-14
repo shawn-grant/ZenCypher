@@ -130,24 +130,25 @@
 
 1553568286 source:g:\school\com_sci\zencypher\icon.rc
 
-1553271726 source:d:\school\com_sci\zencypher\cypherhistory.c
+1555103012 source:d:\school\com_sci\zencypher\cypherhistory.c
 	<stdio.h>
 	<conio.h>
 	<windows.h>
 	"CYPHER.H"
 
-1553657142 d:\school\com_sci\zencypher\cypher.h
+1554666164 d:\school\com_sci\zencypher\cypher.h
 
-1553985788 source:d:\school\com_sci\zencypher\encoderdecoder.c
+1555196366 source:d:\school\com_sci\zencypher\encoderdecoder.c
 	<string.h>
 	<ctype.h>
 	<conio.h>
 	<stdlib.h>
 	<stdio.h>
+	<windows.h>
 	<time.h>
 	"CYPHER.H"
 
-1553977128 source:d:\school\com_sci\zencypher\gui_functions.c
+1555036344 source:d:\school\com_sci\zencypher\gui_functions.c
 	<stdio.h>
 	<stdlib.h>
 	<conio.h>
@@ -156,7 +157,7 @@
 
 1553568286 source:d:\school\com_sci\zencypher\icon.rc
 
-1553985346 source:d:\school\com_sci\zencypher\main.c
+1555183208 source:d:\school\com_sci\zencypher\main.c
 	<stdio.h>
 	<stdlib.h>
 	<windows.h>
@@ -165,7 +166,7 @@
 	<conio.h>
 	"CYPHER.H"
 
-1552790526 source:d:\school\com_sci\zencypher\stringmanipulator.c
+1554263388 source:d:\school\com_sci\zencypher\stringmanipulator.c
 	<string.h>
 	<stdlib.h>
 	<stdio.h>
@@ -178,7 +179,7 @@
 
 1553568286 source:f:\school\com_sci\zencypher\icon.rc
 
-1554224632 source:c:\users\shawn\documents\flash_drive\school\com_sci\zencypher\cypherhistory.c
+1555103011 source:c:\users\shawn\documents\flash_drive\school\com_sci\zencypher\cypherhistory.c
 	<stdio.h>
 	<conio.h>
 	<windows.h>
@@ -186,7 +187,7 @@
 
 1554666164 c:\users\shawn\documents\flash_drive\school\com_sci\zencypher\cypher.h
 
-1555081677 source:c:\users\shawn\documents\flash_drive\school\com_sci\zencypher\encoderdecoder.c
+1555182334 source:c:\users\shawn\documents\flash_drive\school\com_sci\zencypher\encoderdecoder.c
 	<string.h>
 	<ctype.h>
 	<conio.h>
@@ -198,7 +199,7 @@
 
 1553568286 source:c:\users\shawn\documents\flash_drive\school\com_sci\zencypher\icon.rc
 
-1555077657 source:c:\users\shawn\documents\flash_drive\school\com_sci\zencypher\main.c
+1555183206 source:c:\users\shawn\documents\flash_drive\school\com_sci\zencypher\main.c
 	<stdio.h>
 	<stdlib.h>
 	<windows.h>
