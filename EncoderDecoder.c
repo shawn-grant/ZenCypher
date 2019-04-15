@@ -99,8 +99,6 @@ void Encode (TextCypher cypher)
     sprintf(cypher.dateTime, "%i/%i/%i @ %i:%i %s",
             tm.tm_mday, tm.tm_mon + 1, tm.tm_year + 1900, tm.tm_hour, tm.tm_min, amPm);
 
-    ///add recipient name to the coded string here
-
     PrintAtCenterA("--------ENCODED TEXT--------\n");
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), GREEN);
     PrintAtCenterA(cypher.encoded);

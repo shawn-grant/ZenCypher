@@ -1,97 +1,23 @@
 /*
   Programmer    : Shawn Grant
   Date		    : 28,1, 2019
-  Purpose	    : To mimic GUI elements with text using windows.h
+  Purpose	    : To mimic GUI elements with text in a console environment
   Filename	    : GUI_Functions.c
 */
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <conio.h>
+#include <ctype.h>
 #include <windows.h>
 #include "CYPHER.H"
-
-char Menu()
-{
-    int i, opt;
-    char ch;
-    COORD pos, prev;
-
-    system("cls");
-
-    SetConsoleTitleA("Main Menu | ZEN CYPHER");
-    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), WHITE);
-
-    pos.X = 21;
-    pos.Y = 6;
-
-    printf(" ___   __  __       \n");
-    printf("| | | |   |  | |  | \n");
-    printf("|   | |-- |  | |  | \n");
-    printf("|   | |__ |  | |__| \n\n");
-    printf("________________________\n");
-
-    printf ("A) ENCODE A MESSAGE\n");
-    printf ("B) DECODE A MESSAGE\n");
-    printf ("C) NEW FROM FILE\n");
-    printf ("D) SHOW HISTORY\n");
-    printf ("E) UPDATE LOGIN INFO\n");
-    printf ("F) EXIT\n\n");
-
-    printf("Use the arrows to navigate to an option");
-
-    while((ch = getch()) != '\r')
-    {
-        SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
-
-        if(ch == 72)/// up
-        {
-           if(pos.Y >= 7)
-            {
-                pos.Y--;
-                ///  clear the arrow below
-                prev.X = pos.X;
-                prev.Y = pos.Y + 1;
-                SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), prev);
-                printf("        ");
-           }
-
-           SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
-           SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), YELLOW);
-           printf("<-------");
-       }
-       else
-       {
-           if(ch == 80)/// down
-           {
-               if(pos.Y < 11)
-               {
-                   pos.Y++;
-                   ///  clear the arrow below
-                   prev.X = pos.X;
-                   prev.Y = pos.Y - 1;
-                   SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), prev);
-                   printf("        ");
-               }
-
-               SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), pos);
-               SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), YELLOW);
-               printf("<-------");
-           }
-       }
-
-       SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), WHITE);
-    }
-
-    return 'y';
-}
 
 ///custom function to create a textbox for input; includes password hiding (inspired by scanf)
 void CreateTextBox(char specifier[], void *var, int isProtected)
 {
     COORD coord;//where to put the cursor
     CONSOLE_SCREEN_BUFFER_INFO cursor;//the cursor
-    char c, password[25];
+    char c, password[25] = "";
     int i = 0;
 
     printf("\n");
@@ -174,7 +100,7 @@ void CreateLargeTextBox(char specifier[], void *var)
 
     GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &cursor);
     ///positioning the cursor inside the box
-    coord.X = cursor.dwCursorPosition.X - 56;
+    coord.X = cursor.dwCursorPosition.X - 60;
     coord.Y = cursor.dwCursorPosition.Y - 1;
 
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
@@ -196,35 +122,13 @@ void CreateLargeTextBox(char specifier[], void *var)
     printf("\n");
 }
 
-void ShowLoading()
-{
-    int i;
-    char space[10] = "";
-
-    for (i = 0; i < 13; i++)
-    {
-        system("cls");
-
-        printf("     ENCODING ....\n");
-
-        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), 2);
-
-        printf("\t _____________\n");
-        printf("\t|%-13s|\n", space);
-        printf("\t|_____________|\n");
-
-        strcat(space, "@");
-        Sleep(50);
-    }
-
-    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), WHITE);
-}
-
 void SplashScreen()
 {
     int i;
     COORD coord;//where to put the cursor
     CONSOLE_SCREEN_BUFFER_INFO csbi;
+
+    printf("\n\n");
 
     PrintAtCenterA("#####################\n");
     PrintAtCenterA("#                   #\n");
@@ -242,7 +146,7 @@ void SplashScreen()
     GetConsoleScreenBufferInfo(GetStdHandle(STD_OUTPUT_HANDLE), &csbi);
 
     coord.X = csbi.dwCursorPosition.X;
-    coord.Y = 1;
+    coord.Y = 3;
 
     for(i = 0; i < 9; i++)
     {
@@ -251,8 +155,8 @@ void SplashScreen()
         coord.Y += 1;
     }
 
-    PrintAtCenterA("    #######################\n");
-    PrintAtCenterA("    #######################\n");
+    PrintAtCenterB("    #######################\n", 27);
+    PrintAtCenterB("    #######################\n\n", 27);
     PrintAtCenterA("ZENCYPHER 1.0\n");
 
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), WHITE);

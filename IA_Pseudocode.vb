@@ -134,7 +134,7 @@ SPACE_SPECIFIER = "700": Constant String
 NUMBER_SPECIFIER = "800": Constant String
 SYMBOL_SPECIFIER = "900": Constant String
 
-UPPER =  9: Constant Integer
+UPPER = 9 : Constant Integer
 LOWER = 2: Constant Integer
 
 Encode(cypher: TextCypher)
@@ -357,7 +357,7 @@ ShowHistory ()
         Close File, fp
 
         'DISPLAY
-        length = i - 1 
+        length = i
         Print "THERE ARE ", length, " ITEM(s)"
 
         If (length > 0) Then
@@ -365,7 +365,6 @@ ShowHistory ()
                 Print "DATE          : ", list[i].dateTime
                 Print "ORIGINAL TEXT : ", list[i].original
                 Print "ENCODED TEXT  : ", list[i].encoded
-                Print "RECIPIENT     : ", list[i].reciever
             EndFor
 
             Print "_______OPTIONS_______"
@@ -408,4 +407,3 @@ strEndsWith(str: String, ending: String): Integer
 
     return result
 EndstrEndsWith
-

@@ -1,7 +1,7 @@
 /*
   Programmer    : Shawn Grant
-  Date		    : 28,1, 2019
-  Purpose	    : Contains structs used in the program and pprototypes
+  Date		      : 28,1, 2019
+  Purpose	      : Contains structs used in the program and function prototypes
   Filename	    : CYPHER.H
 */
 
@@ -21,7 +21,6 @@ typedef struct
 {
     char original[500];
     char encoded[700];
-    char reciever[30];
     char dateTime[25];
 }TextCypher;
 
@@ -32,24 +31,21 @@ typedef struct
     char password[25];
 }User;
 
-//encoding
+/// encoding/decoding
 void Encode(TextCypher);
 void Decode(TextCypher);
 void SaveToFile(TextCypher);
-void OpenFromFile();
-//string
+/// string
 void strAppend(char [], char);
 void strInsert(char [] ,char [], int);
 int strIndexOf(char, char[]);
 int strEndsWith(char[], char[]);
 int isSymbol(char);
-//history
+/// history
 void AddToHistory(TextCypher);
 void ShowHistory();
-void RemoveItem(int);
 void Clear();
-//gui
-void ShowLoading();
+/// GRAPHICS
 void CreateTextBox(char [], void *, int);
 void CreateLargeTextBox(char [], void *);
 void SplashScreen();

@@ -31,10 +31,20 @@ void ShowHistory()
 {
     TextCypher list[100];
     FILE *fp;
-    int i = 0;
+    char opt;
+    int i = 0, length;
 
     system("cls");
     SetConsoleTitleA("HISTORY | Zen Cypher");
+
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), BLUE);
+    PrintAtCenterB("  _____   \n", 10);
+    PrintAtCenterB(" /|    |_ \n", 10);
+    PrintAtCenterB("|.CYPH | |\n", 10);
+    PrintAtCenterB("|     _| |\n", 10);
+    PrintAtCenterB("|____|/  |\n", 10);
+    PrintAtCenterB("   |_____|\n\n", 10);
+    SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), WHITE);
 
     PrintAtCenterA("_________HISTORY________\n\n");
 
@@ -51,20 +61,28 @@ void ShowHistory()
         fclose(fp);
 
         /// //////// DISPLAY /////////
-        int length = i-1;
+        length = i;
         printf("%d ITEM(s)\n", length);
 
-        for (i = 0; i <= length; i++)
+        for (i = 0; i < length; i++)
         {
-            printf(" _______________________________________\n");
-            printf("|\tDATE: %-26s|\n", list[i].dateTime);
-            printf("|\tORIGINAL TEXT : %-16s|\n", list[i].original);
-            printf("|\tENCODED TEXT  : %-16s|\n", list[i].encoded);
-            printf("|\tRECIPIENT     : %-16s|\n", list[i].reciever);
-            printf("|_______________________________________|\n\n");
+            PrintAtCenterA("_______________________________________\n");
+            PrintAtCenterA("|-----------------DATE----------------|\n");
+            PrintAtCenterA(list[i].dateTime);
+            PrintAtCenterA("|-------------ORIGINAL TEXT-----------|\n");
+            PrintAtCenterA(list[i].original);
+            PrintAtCenterA("|-------------ENCODED TEXT------------|\n");
+            PrintAtCenterA(list[i].encoded);
+            PrintAtCenterA("|_____________________________________|\n");
+
+            printf("\n");
         }
 
-        getch();
+        PrintAtCenterA("DO YOU WISH TO CLEAR YOUR HISTORY? [Y/N]: ");
+        scanf("%c", &opt);
+
+        if(opt == 'Y' || opt == 'y')
+            Clear();
     }
     else
     {
@@ -73,4 +91,16 @@ void ShowHistory()
         PrintAtCenterA("Press any key to continue\n");
         getch();
     }
+}
+
+void Clear()
+{
+    system("cls");
+
+    if (remove("HISTORY.CYPH") == 0)
+        PrintAtCenterA("History cleared successfully");
+    else
+        PrintAtCenterA("Unable to clear the history, it may already be clear");
+
+    getch();
 }

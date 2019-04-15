@@ -24,7 +24,6 @@ int main()
     char choice;
 
     srand(time(0));
-    //Menu();
 
     SplashScreen();
 
@@ -59,6 +58,7 @@ int main()
 
             default:
                 SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), RED);
+                printf("\n");
                 PrintAtCenterA("INVALID OPTION!\n");
                 PrintAtCenterA("  Press any key to continue...  ");
                 getch();
@@ -223,9 +223,9 @@ char MainMenu()
     PrintAtCenterB ("-[B] DECODE A MESSAGE -\n", 26);
     PrintAtCenterB ("-[C] SHOW HISTORY     -\n", 26);
     PrintAtCenterB ("-[D] UPDATE USER INFO -\n", 26);
-    PrintAtCenterB ("-[E) EXIT             -\n\n", 26);
+    PrintAtCenterB ("-[E] EXIT             -\n\n", 26);
 
-    PrintAtCenterA("CHOOSE A LETTER OPTION ABOVE:\n");
+    PrintAtCenterA("CHOOSE A LETTER OPTION ABOVE: ");
 
     return getch();
 }
