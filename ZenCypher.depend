@@ -42,22 +42,23 @@
 	<time.h>
 	"CYPHER.H"
 
-1554224632 source:e:\school\com_sci\zencypher\cypherhistory.c
+1555338742 source:e:\school\com_sci\zencypher\cypherhistory.c
 	<stdio.h>
 	<conio.h>
 	<windows.h>
 	"CYPHER.H"
 
-1554666164 e:\school\com_sci\zencypher\cypher.h
+1555302204 e:\school\com_sci\zencypher\cypher.h
 
-1554669124 source:e:\school\com_sci\zencypher\gui_functions.c
+1555309774 source:e:\school\com_sci\zencypher\gui_functions.c
 	<stdio.h>
 	<stdlib.h>
 	<conio.h>
+	<ctype.h>
 	<windows.h>
 	"CYPHER.H"
 
-1554747470 source:e:\school\com_sci\zencypher\main.c
+1555307412 source:e:\school\com_sci\zencypher\main.c
 	<stdio.h>
 	<stdlib.h>
 	<windows.h>
@@ -75,7 +76,7 @@
 	<stdio.h>
 	<conio.h>
 
-1554669600 source:e:\school\com_sci\zencypher\encoderdecoder.c
+1555308544 source:e:\school\com_sci\zencypher\encoderdecoder.c
 	<string.h>
 	<ctype.h>
 	<conio.h>
@@ -85,7 +86,7 @@
 	<time.h>
 	"CYPHER.H"
 
-1555306976 source:g:\school\com_sci\zencypher\cypherhistory.c
+1555338742 source:g:\school\com_sci\zencypher\cypherhistory.c
 	<stdio.h>
 	<conio.h>
 	<windows.h>
@@ -93,7 +94,7 @@
 
 1555302204 g:\school\com_sci\zencypher\cypher.h
 
-1555304252 source:g:\school\com_sci\zencypher\gui_functions.c
+1555309774 source:g:\school\com_sci\zencypher\gui_functions.c
 	<stdio.h>
 	<stdlib.h>
 	<conio.h>

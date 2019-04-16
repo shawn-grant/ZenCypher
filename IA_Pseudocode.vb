@@ -1,9 +1,9 @@
-﻿----------------------[CYPHER.H]----------------------------
+﻿'----------------------[CYPHER Header]----------------------------
 
 'data type to hold the before and after text of an encryption
 Record TextCypher
     original: String
-    encoded: String
+    encoded : String
     dateTime: String
 EndTextCypher
 
@@ -13,7 +13,7 @@ Record User
     password: String
 EndUser
 
-----------------------[main.c]----------------------------
+'----------------------[main]----------------------------
 Driver ()
     userInput: TextCypher
     user: User
@@ -51,7 +51,7 @@ Driver ()
     GoodBye ()
 EndDriver
 
-LoginSignUp (user: User): Integer
+LoginSignUp (user: User): Integer 
     nameOnFile, passwordOnFile: String
     fp: File
 
@@ -107,7 +107,7 @@ UpdateLogin()
 
     If((fp = Open File "userData.dat", for writing) <> NULL) Then
         Write uname, pwd To File, fp
-        Close File, fp
+        Close File fp
     Else
         Print "CANNOT UPDATE AT THIS TIME..."
     EndIf
@@ -128,7 +128,7 @@ MainMenu(): Character
     return c
 EndMainMenu
 
--------------------[EncoderDecoder.c]-----------------------
+'-------------------[Encoder & Decoder]-----------------------
 
 SPACE_SPECIFIER = "700": Constant String
 NUMBER_SPECIFIER = "800": Constant String
@@ -208,8 +208,7 @@ Decode(cypher: TextCypher)
     opt: Character
     i, asciiVal: Integer
     publicKey, privateKey: Integer 'equivalent to public and private key in cryptography
-    ' Get the time and date from the system
-    tm: Time
+    tm: Time  ' Get the time and date from the system
     fp: File
 
     Print "A) Decode a .zen file"
@@ -251,7 +250,7 @@ Decode(cypher: TextCypher)
         cypher.encoded = inputStr    
 
         publicKey = inputStr[0]
-        privateKey = privateKey = (publicKey * 5) - publicKey ' key used to decrypt
+        privateKey = (publicKey * 5) - publicKey ' key used to decrypt
 
         For (i = 1 To Length of(inputStr)) DO
 
@@ -298,8 +297,6 @@ Decode(cypher: TextCypher)
         'Format: dd/ mm/ yyyy @ hrs : min
         cypher.dateTime = tm.day, "/", tm.month, "/", tm.year, " @ ", tm.hour, ":", tm.minutes, amPm
 
-        'add recipient name to the coded string here
-
         Print "DECODED TEXT: ", cypher.original
 
         AddToHistory(cypher)
@@ -327,7 +324,7 @@ SaveToFile(cypher: TextCypher)
 	EndIf
 EndSaveToFile
 
---------------------[CypherHistory.c]-----------------------
+'--------------------[Cypher History]-----------------------
 
 AddToHistory (newCypher: TextCypher)
     fp: File
@@ -354,7 +351,7 @@ ShowHistory ()
             i = i + 1
         EndWhile
 
-        Close File, fp
+        Close File fp
 
         'DISPLAY
         length = i
@@ -368,16 +365,12 @@ ShowHistory ()
             EndFor
 
             Print "_______OPTIONS_______"
-            Print "1) CLEAR HISTORY"
-            
-            Print "Choose an option: "
+            Print "DO YOU WISH TO CLEAR HISTORY? [Y/N] "
             Read opt
 
-            CASE OF opt
-
-                Case 1:
+            If opt = 'Y' OR opt = 'y'
                     Clear()
-            EndCASE
+            EndIf
         EndIf
     Else
         Print "NO HISTORY DATA..."
@@ -386,9 +379,10 @@ EndShowHistory
 
 Clear ()
     Delete File "HISTORY.CYPH"
+    Print "HISTORY DELETED"
 EndClear
 
--------------------[StringManipulator.c]-----------------------
+'-------------------[String Manipulation]-----------------------
 
 'Function to determine if a string ends with the specified ending
 'Returns 1 if the ending matches, else 0
@@ -397,7 +391,7 @@ strEndsWith(str: String, ending: String): Integer
     j = Length of str
 
     For (i = Length of(ending) To 0) Do
-        If(str[j] = ending[i] AND result <> 0) Then
+        If (str[j] = ending[i] AND result <> 0) Then
             result = 1
         Else
             result = 0

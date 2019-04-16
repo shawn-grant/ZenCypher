@@ -16,7 +16,7 @@ void AddToHistory(TextCypher newCypher)
 
     if((fp = fopen("HISTORY.CYPH", "a+")) != NULL)
     {
-        fwrite(&newCypher, sizeof(TextCypher), 1, fp);
+        fprintf(fp, "%s\n%s\n%s\n", newCypher.dateTime, newCypher.original, newCypher.encoded);
         fclose(fp);
     }
     else
@@ -29,10 +29,10 @@ void AddToHistory(TextCypher newCypher)
 
 void ShowHistory()
 {
-    TextCypher list[100];
+    TextCypher tmp;
     FILE *fp;
     char opt;
-    int i = 0, length;
+    int i = 1;
 
     system("cls");
     SetConsoleTitleA("HISTORY | Zen Cypher");
@@ -46,7 +46,7 @@ void ShowHistory()
     PrintAtCenterB("   |_____|\n\n", 10);
     SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), WHITE);
 
-    PrintAtCenterA("_________HISTORY________\n\n");
+    PrintAtCenterA("_____________HISTORY____________\n\n");
 
     if((fp = fopen("HISTORY.CYPH", "r")) != NULL)
     {
@@ -54,30 +54,40 @@ void ShowHistory()
 
         while(!feof(fp))
         {
-            fread(&list[i], sizeof(TextCypher), 1, fp);
+            //fscanf(fp, "%s %s %s", tmp.dateTime, tmp.original, tmp.encoded);
+            fgets(tmp.dateTime, 25, fp);
+            fgets(tmp.original, 500, fp);
+            fgets(tmp.encoded, 700, fp);
+
+            if(feof(fp))
+                break;
+
+            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), YELLOW);
+            printf("\tITEM %i", i);
+
+            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), CYAN);
+            PrintAtCenterA(" _____________________________________ \n");
+            PrintAtCenterA("|________________ DATE _______________|\n");
+            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), WHITE);
+            PrintAtCenterA(tmp.dateTime);
+            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), CYAN);
+            PrintAtCenterA("|____________ ORIGINAL TEXT __________|\n");
+            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), WHITE);
+            PrintAtCenterA(tmp.original);
+            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), CYAN);
+            PrintAtCenterA("|____________ ENCODED TEXT ___________|\n");
+            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), WHITE);
+            PrintAtCenterA(tmp.encoded);
+            SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), CYAN);
+            PrintAtCenterA("|_____________________________________|\n");
+            printf("\n");
+
             i++;
         }
 
         fclose(fp);
 
-        /// //////// DISPLAY /////////
-        length = i;
-        printf("%d ITEM(s)\n", length);
-
-        for (i = 0; i < length; i++)
-        {
-            PrintAtCenterA("_______________________________________\n");
-            PrintAtCenterA("|-----------------DATE----------------|\n");
-            PrintAtCenterA(list[i].dateTime);
-            PrintAtCenterA("|-------------ORIGINAL TEXT-----------|\n");
-            PrintAtCenterA(list[i].original);
-            PrintAtCenterA("|-------------ENCODED TEXT------------|\n");
-            PrintAtCenterA(list[i].encoded);
-            PrintAtCenterA("|_____________________________________|\n");
-
-            printf("\n");
-        }
-
+        SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), WHITE);
         PrintAtCenterA("DO YOU WISH TO CLEAR YOUR HISTORY? [Y/N]: ");
         scanf("%c", &opt);
 
