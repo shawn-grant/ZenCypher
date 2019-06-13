@@ -12,4 +12,5 @@ Project created as the school based assessment for my CXC CAPE exam (20% of the 
 5. Documentation 
 
 ## Installation
-On windows, run the [Installer exe](bin/Debug/ZenCypherInstaller.exe) file
+- Download or clone the repo
+- On windows, run the bin/Debug/[ZenCypherInstaller.exe](bin/Debug/ZenCypherInstaller.exe) file
