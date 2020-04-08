@@ -23,7 +23,7 @@ int main()
     User user;
     char choice;
 
-    srand(time(0));
+    srand(time(0)); //seed for random number
 
     SplashScreen();
 
@@ -122,9 +122,9 @@ int LoginSignUp(User *user)
             do
             {
                 PrintAtCenterA("SIGN UP \n\n");
-                PrintAtCenterA("ENTER A USERNAME: \n");
+                PrintAtCenterA("CREATE A USERNAME: \n");
                 CreateTextBox("%s", user->username, 0);
-                PrintAtCenterA("ENTER A PASSWORD: \n");
+                PrintAtCenterA("CREATE A PASSWORD: \n");
                 CreateTextBox("%s", user->password, 1);
                 system("cls");
             }

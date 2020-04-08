@@ -132,15 +132,15 @@
 
 1553568286 source:g:\school\com_sci\zencypher\icon.rc
 
-1555103012 source:d:\school\com_sci\zencypher\cypherhistory.c
+1572307856 source:d:\school\com_sci\zencypher\cypherhistory.c
 	<stdio.h>
 	<conio.h>
 	<windows.h>
 	"CYPHER.H"
 
-1554666164 d:\school\com_sci\zencypher\cypher.h
+1572307856 d:\school\com_sci\zencypher\cypher.h
 
-1555196366 source:d:\school\com_sci\zencypher\encoderdecoder.c
+1572307856 source:d:\school\com_sci\zencypher\encoderdecoder.c
 	<string.h>
 	<ctype.h>
 	<conio.h>
@@ -150,16 +150,17 @@
 	<time.h>
 	"CYPHER.H"
 
-1555036344 source:d:\school\com_sci\zencypher\gui_functions.c
+1572307856 source:d:\school\com_sci\zencypher\gui_functions.c
 	<stdio.h>
 	<stdlib.h>
 	<conio.h>
+	<ctype.h>
 	<windows.h>
 	"CYPHER.H"
 
-1553568286 source:d:\school\com_sci\zencypher\icon.rc
+1572307856 source:d:\school\com_sci\zencypher\icon.rc
 
-1555183208 source:d:\school\com_sci\zencypher\main.c
+1583263594 source:d:\school\com_sci\zencypher\main.c
 	<stdio.h>
 	<stdlib.h>
 	<windows.h>
@@ -168,7 +169,7 @@
 	<conio.h>
 	"CYPHER.H"
 
-1554263388 source:d:\school\com_sci\zencypher\stringmanipulator.c
+1572307856 source:d:\school\com_sci\zencypher\stringmanipulator.c
 	<string.h>
 	<stdlib.h>
 	<stdio.h>
@@ -221,4 +222,17 @@
 	<conio.h>
 	<windows.h>
 	"CYPHER.H"
+
+1586317540 source:d:\school\com_sci\zencypher\stack.c
+	"Stack.h"
+
+1586315432 d:\school\com_sci\zencypher\stack.h
+	<stdio.h>
+	<stdlib.h>
+	<stdbool.h>
+
+1586315432 source:d:\school\com_sci\zencypher\stack.h
+	<stdio.h>
+	<stdlib.h>
+	<stdbool.h>
 

@@ -8,6 +8,7 @@
 #include <stdio.h>
 #include <conio.h>
 #include <windows.h>
+#include "Stack.h"
 #include "CYPHER.H"
 
 void AddToHistory(TextCypher newCypher)
