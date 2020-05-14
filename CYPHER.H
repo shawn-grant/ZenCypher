@@ -8,6 +8,12 @@
 #ifndef CYPHER_H_INCLUDED
 #define CYPHER_H_INCLUDED
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+#include "CYPHER.H"
+#define MAX 20 //size of the array used to store the list
+
 #define RED 12
 #define GREEN 10
 #define YELLOW 14
@@ -24,6 +30,12 @@ typedef struct
     char dateTime[25];
 }TextCypher;
 
+typedef struct
+{
+    TextCypher storage[MAX]; //tool used to store the stack
+    int top;
+} Stack;
+
 ///data type to hold the user
 typedef struct
 {
@@ -32,7 +44,7 @@ typedef struct
 }User;
 
 /// encoding/decoding
-void Encode(TextCypher);
+TextCypher Encode(TextCypher);
 void Decode(TextCypher);
 void SaveToFile(TextCypher);
 /// string
@@ -52,5 +64,12 @@ void SplashScreen();
 void PrintAtCenterA(char[]);
 void PrintAtCenterB(char[], int);
 void GoodBye();
+
+// Stack
+Stack createStack();
+void push(TextCypher, Stack *);
+TextCypher pop(Stack *);
+bool isFull(Stack);
+bool isEmpty(Stack );
 
 #endif // CYPHER_H_INCLUDED

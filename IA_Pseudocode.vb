@@ -1,11 +1,16 @@
 ﻿'----------------------[CYPHER Header]----------------------------
-
+MAX = 20: Integer
 'data type to hold the before and after text of an encryption
 Record TextCypher
     original: String
     encoded : String
     dateTime: String
 EndTextCypher
+
+Record Stack
+    array storage[MAX]: TextCypher
+    top: Integer
+EndStack
 
 'data type to hold the current user
 Record User
@@ -18,6 +23,7 @@ Driver ()
     userInput: TextCypher
     user: User
     choice: Character
+    cyphers = createStack(): Stack
 
     If (LoginSignUp (user) = 1) Then
         choice = MainMenu ()
@@ -26,7 +32,8 @@ Driver ()
             CASE of choice
                 Case 'A':
                 Case 'a':
-                    Encode (userInput)
+                    push ( Encode(userInput), cyphers)
+                    AddToHistory (pop(cyphers))
 
                 Case 'B':
                 Case 'b':
@@ -137,7 +144,7 @@ SYMBOL_SPECIFIER = "900": Constant String
 UPPER = 9 : Constant Integer
 LOWER = 2: Constant Integer
 
-Encode(cypher: TextCypher)
+Encode(cypher: TextCypher): TextCypher
     inputStr, newTxt = "", amPm, asciiValTxt: String
     i, asciiVal: Integer
     publicKey, privateKey: Integer 'equivalent to public and private key in cryptography
@@ -200,7 +207,7 @@ Encode(cypher: TextCypher)
     Print "ENCODED TEXT: ", cypher.encoded
     SaveToFile (cypher)
 
-    AddToHistory(cypher)
+    return cypher
 EndEncode
 
 Decode(cypher: TextCypher)
@@ -298,8 +305,6 @@ Decode(cypher: TextCypher)
         cypher.dateTime = tm.day, "/", tm.month, "/", tm.year, " @ ", tm.hour, ":", tm.minutes, amPm
 
         Print "DECODED TEXT: ", cypher.original
-
-        AddToHistory(cypher)
     EndIf
 EndDecode
 
@@ -401,3 +406,50 @@ strEndsWith(str: String, ending: String): Integer
 
     return result
 EndstrEndsWith
+
+'--------------------[Stack Functions]------------------------------
+
+createStack(): Stack
+    newStack: Stack
+    newStack.top = 0
+    return newStack
+EndcreateStack
+
+isFull(s:Stack): Boolean
+	If (s.top >= MAX) Then
+        return true
+    Else
+	    return false
+    EndIf
+EndisFull
+
+push(element:TextCypher, s:Stack)
+    If(isFull(s)) Then
+        Print "Element cannot be inserted "
+    Else
+        s.storage[s.top] = element
+        s.top = s.top + 1
+    EndIf
+Endpush
+
+pop(s:Stack): TextCypher
+    e: TextCypher
+
+    If(isEmpty(s)) Then
+        Print "Value cannot be deleted, it does not exist"
+        return e
+    Else
+        e = s.storage[s.top-1]
+        s.top = s.top -1
+        return e
+    EndIf
+Endpop
+
+isEmpty(s: Stack): Boolean
+    If (s.top = 0) Then
+        return true
+    Else
+	    return false
+    EndIf
+EndisEmpty
+

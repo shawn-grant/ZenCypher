@@ -3,8 +3,7 @@
   Date:	1/4/2020
   File:	Stack.c
 */
-
-#include "Stack.h"
+#include "CYPHER.H"
 
 Stack createStack()
 {
@@ -18,7 +17,7 @@ bool isFull(Stack s)
 	return s.top >= MAX;
 }
 
-void push(int element, Stack *s)
+void push(TextCypher element, Stack *s)
 {
     if(isFull(*s)) //check if the stack is empty
     {
@@ -31,41 +30,20 @@ void push(int element, Stack *s)
     }
 }
 
-int pop(Stack *s)
+TextCypher pop(Stack *s)
 {
-    int e;
+    TextCypher e;
 
     if(isEmpty(*s))
     {
         printf("\nValue cannot be deleted, it does not exist");
-        return -1;
+        return e;
     }
     else
     {
         e = s->storage[s->top-1];
         s->top--;
         return e;
-    }
-}
-
-void printStack(Stack s)
-{
-    int i;
-
-    if(isEmpty(s))
-    {
-        printf("\nStack is empty");
-    }
-    else
-    {
-        printf("\n\nSTACK");
-        printf("\n\n------------");
-        printf("\n  [%i] <-top", s.storage[s.top-1]);
-        for(i=s.top-2; i>=0; i--)
-        {
-            printf("\n  [%i]", s.storage[i]);
-        }
-        printf("\n-----------");
     }
 }
 

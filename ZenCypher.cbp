@@ -44,7 +44,6 @@
 		<Unit filename="Stack.c">
 			<Option compilerVar="CC" />
 		</Unit>
-		<Unit filename="Stack.h" />
 		<Unit filename="StringManipulator.c">
 			<Option compilerVar="CC" />
 		</Unit>

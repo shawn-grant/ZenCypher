@@ -22,6 +22,7 @@ int main()
     TextCypher userInput;
     User user;
     char choice;
+    Stack cyphers = createStack();
 
     srand(time(0)); //seed for random number
 
@@ -38,7 +39,8 @@ int main()
             {
             case 'A':
             case 'a':
-                Encode(userInput);
+                push( Encode(userInput), &cyphers);
+                AddToHistory(pop(&cyphers));
                 break;
 
             case 'B':

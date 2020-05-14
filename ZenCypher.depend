@@ -132,15 +132,19 @@
 
 1553568286 source:g:\school\com_sci\zencypher\icon.rc
 
-1572307856 source:d:\school\com_sci\zencypher\cypherhistory.c
+1586368538 source:d:\school\com_sci\zencypher\cypherhistory.c
 	<stdio.h>
 	<conio.h>
 	<windows.h>
 	"CYPHER.H"
 
-1572307856 d:\school\com_sci\zencypher\cypher.h
+1586368488 d:\school\com_sci\zencypher\cypher.h
+	<stdio.h>
+	<stdlib.h>
+	<stdbool.h>
+	"CYPHER.H"
 
-1572307856 source:d:\school\com_sci\zencypher\encoderdecoder.c
+1586361578 source:d:\school\com_sci\zencypher\encoderdecoder.c
 	<string.h>
 	<ctype.h>
 	<conio.h>
@@ -160,7 +164,7 @@
 
 1572307856 source:d:\school\com_sci\zencypher\icon.rc
 
-1583263594 source:d:\school\com_sci\zencypher\main.c
+1586368512 source:d:\school\com_sci\zencypher\main.c
 	<stdio.h>
 	<stdlib.h>
 	<windows.h>
@@ -223,16 +227,23 @@
 	<windows.h>
 	"CYPHER.H"
 
-1586317540 source:d:\school\com_sci\zencypher\stack.c
-	"Stack.h"
+1586368596 source:d:\school\com_sci\zencypher\stack.c
+	"CYPHER.H"
 
-1586315432 d:\school\com_sci\zencypher\stack.h
+1586362314 d:\school\com_sci\zencypher\stack.h
 	<stdio.h>
 	<stdlib.h>
 	<stdbool.h>
+	"CYPHER.H"
 
 1586315432 source:d:\school\com_sci\zencypher\stack.h
 	<stdio.h>
 	<stdlib.h>
 	<stdbool.h>
+
+1586368488 source:d:\school\com_sci\zencypher\cypher.h
+	<stdio.h>
+	<stdlib.h>
+	<stdbool.h>
+	"CYPHER.H"
 

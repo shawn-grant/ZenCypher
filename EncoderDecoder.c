@@ -22,7 +22,7 @@
 #define LOWER 2
 
 /// WORKING
-void Encode (TextCypher cypher)
+TextCypher Encode (TextCypher cypher)
 {
     char inputStr[700], newTxt[700] = "", amPm[3], asciiValTxt[4];
     int i, asciiVal;
@@ -104,11 +104,8 @@ void Encode (TextCypher cypher)
     PrintAtCenterA(cypher.encoded);
     printf("\n\n");
 
-    //SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), YELLOW);
-    //PrintAtCenterA("** You may copy the text above **\n\n");
-
     SaveToFile(cypher);
-    AddToHistory(cypher);
+    return cypher;
 }
 
 /// WORKING
@@ -250,7 +247,6 @@ void Decode(TextCypher cypher)
         SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), GREEN);
         PrintAtCenterA(cypher.original);
 
-        AddToHistory(cypher);
     }
 
     getch();
